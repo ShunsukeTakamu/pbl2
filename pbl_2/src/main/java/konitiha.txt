@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-頑張りましょうｘ
-=======
-こんにちは
->>>>>>> parent of cfba33a (no message)
+a
