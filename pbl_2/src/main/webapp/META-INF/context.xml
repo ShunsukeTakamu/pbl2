@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context displayName="PBL Java" path="/pbl_2" docBase="PBL"
+         reloadable="true" crossContext="true">
+    <Resource name="jdbc/mariadb"
+              auth="Container"
+              type="javax.sql.DataSource"
+              username="root"
+              password="root"
+              driverClassName="org.mariadb.jdbc.Driver"
+              url="jdbc:mariadb://192.168.5.172:3306/PBL?useUnicode=true&amp;characterEncoding=UTF-8"
+              maxTotal="4"
+              maxIdle="10"
+              maxWaitMillis="5000"
+              validationQuery="SELECT count(*) FROM sales"
+              testOnBorrow="true"/>
+</Context>
