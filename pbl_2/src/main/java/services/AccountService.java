@@ -3,8 +3,12 @@ package services;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.naming.NamingException;
 
 import beans.Account;
 import utils.Db;
@@ -76,5 +80,31 @@ public class AccountService {
 		}
 
 		return list;
+	}
+	
+	public ArrayList<Account> select() {
+		ArrayList<Account> accounts = new ArrayList<>();
+		String sql = "SELECT * FROM accounts";
+
+		try (
+				Connection con = Db.open();
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)) {
+			while (rs.next()) {
+				Account a = new Account(
+						rs.getInt("account_id"),
+						rs.getString("name"),
+						rs.getString("mail"),
+						rs.getString("password"),
+						rs.getBytes("authority"));
+				accounts.add(a);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+
+		return accounts;
 	}
 }
