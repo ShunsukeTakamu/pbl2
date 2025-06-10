@@ -57,11 +57,11 @@ body {
 						<td>
 							<form action="S0042.jsp" method="get" style="display: inline;">
 								<input type="hidden" name="id" value="${user.accountId}">
-								<button type="submit" class="btn btn-sm btn-primary">編集</button>
+								<button type="submit" class="btn btn-sm btn-primary">✔ 編集</button>
 							</form>
 							<form action="S0044.jsp" method="get" style="display: inline;">
 								<input type="hidden" name="id" value="${user.accountId}">
-								<button type="submit" class="btn btn-sm btn-danger">削除</button>
+								<button type="submit" class="btn btn-sm btn-danger">✘ 削除</button>
 							</form>
 						</td>
 						<td>${user.accountId}</td>
