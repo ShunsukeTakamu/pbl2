@@ -17,7 +17,6 @@ body {
 	background-color: #fff;
 	color: #333;
 }
-
 .container {
 	padding: 30px;
 }
@@ -68,13 +67,25 @@ body {
 						<td>${user.accountId}</td>
 						<td>${user.name}</td>
 						<td>${user.mail}</td>
-						<td><c:choose>
-								<c:when test="${user.authority[0] == 0}">権限なし</c:when>
-								<c:when test="${user.authority[0] == 1}">売上登録</c:when>
-								<c:when test="${user.authority[0] == 2}">アカウント検索</c:when>
-								<c:when test="${user.authority[0] == 3}">管理者</c:when>
-								<c:otherwise>不明</c:otherwise>
-							</c:choose></td>
+						<td>
+							<c:choose>
+								<c:when test="${user.authority[0] == 0}">
+									権限なし
+								</c:when>
+								<c:when test="${user.authority[0] == 1}">
+									売上登録
+								</c:when>
+								<c:when test="${user.authority[0] == 2}">
+									アカウント登録
+								</c:when>
+								<c:when test="${user.authority[0] == 3}">
+									売上登録, アカウント登録
+								</c:when>
+								<c:otherwise>
+									不明な権限 (${user.authority[0]})
+								</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -50,7 +50,12 @@ public class C0040Servlet extends HttpServlet {
 	    List<Account> accounts = service.searchAccounts(name, email, authorities);
 
 	    request.setAttribute("accounts", accounts);
-	    request.getRequestDispatcher("").forward(request, response);
+	    
+	    request.setAttribute("name", name);
+	    request.setAttribute("email", email);
+	    request.setAttribute("authorities", authorities);
+	    
+	    request.getRequestDispatcher("/C0041.jsp").forward(request, response);
 	}
 
 }

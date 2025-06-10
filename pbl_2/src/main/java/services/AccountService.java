@@ -1,3 +1,5 @@
+package services;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,11 +28,11 @@ public class AccountService {
         if (authorities != null && authorities.length > 0) {
             int requiredBits = 0;
             for (String auth : authorities) {
-                requiredBits |= Integer.parseInt(auth);  // ビットOR
+                requiredBits |= Integer.parseInt(auth);
             }
             sql.append(" AND (authority & ?) = ?");
-            params.add(requiredBits); // (authority & requiredBits)
-            params.add(requiredBits); // == requiredBits
+            params.add(requiredBits); 
+            params.add(requiredBits); 
         }
 
         try (Connection con = Db.open();
