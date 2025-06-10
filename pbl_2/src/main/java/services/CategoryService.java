@@ -12,7 +12,7 @@ import beans.Category;
 import utils.Db;
 
 public class CategoryService {
-	public ArrayList<Category> select() {
+	public ArrayList<Category> selectAll() {
 		ArrayList<Category> categories = new ArrayList<>();
 		String sql = "SELECT * FROM categories";
 

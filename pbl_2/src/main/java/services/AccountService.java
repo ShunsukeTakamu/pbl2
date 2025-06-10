@@ -82,7 +82,7 @@ public class AccountService {
 		return list;
 	}
 	
-	public ArrayList<Account> select() {
+	public ArrayList<Account> selectAll() {
 		ArrayList<Account> accounts = new ArrayList<>();
 		String sql = "SELECT * FROM accounts";
 
