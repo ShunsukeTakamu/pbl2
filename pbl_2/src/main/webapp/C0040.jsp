@@ -49,54 +49,58 @@ button:last-child {
 </head>
 <body>
 	<header>
-    <nav class="navbar">
-        <div class="logo">物品売上管理システム</div>
-        <ul class="nav-links">
-             <li><a class="active" href="C0020.jsp">ダッシュボード</a></li>
-                <li><a href="S0010.jsp">売上登録</a></li>
-                <li><a href="S0020.jsp">売上検索</a></li>
-                <li><a href="S0030.jsp">アカウント登録</a></li>
-                <li><a href="C0040.jsp">アカウント検索</a></li>
-                <li><a href="logout.jsp" class="logout" class="right">ログアウト</a></li>
-        </ul>
-    </nav>
-</header>
+		<nav class="navbar">
+			<div class="logo">物品売上管理システム</div>
+			<ul class="nav-links">
+				<li><a class="active" href="C0020.jsp">ダッシュボード</a></li>
+				<li><a href="S0010.jsp">売上登録</a></li>
+				<li><a href="S0020.jsp">売上検索</a></li>
+				<li><a href="S0030.jsp">アカウント登録</a></li>
+				<li><a href="C0040.jsp">アカウント検索</a></li>
+				<li><a href="logout.jsp" class="logout" class="right">ログアウト</a></li>
+			</ul>
+		</nav>
+	</header>
 
 	<div class="content">
-		<form action="AccountSearchServlet" method="get">
+		<form action="C0040Servlet" method="post">
 
 			<div class="mb-3">
-				<label class="form-label">氏名</label> <input type="text" name="name" value="${param.name}" 
-					class="form-control" placeholder="氏名">
+				<label class="form-label">氏名</label> <input type="text" name="name"
+					value="${param.name}" class="form-control" placeholder="氏名">
 			</div>
 			<div class="mb-3">
-				<label class="form-label">メールアドレス</label> <input type="email" value="${param.name}"
-					name="email" class="form-control" placeholder="メールアドレス">
+				<label class="form-label">メールアドレス</label> <input type="email"
+					value="${param.email}" name="email" class="form-control"
+					placeholder="メールアドレス">
 			</div>
-			
-			
+
+
 			<div class="mb-3">
-	<label class="form-label d-block mb-1">権限</label>
-	<div class="form-check form-check-inline">
-		<input class="form-check-input" type="radio" name="authority" id="auth0" value="0" checked>
-		<label class="form-check-label" for="auth0">権限なし</label>
-	</div>
-	<div class="form-check form-check-inline">
-		<input class="form-check-input" type="radio" name="authority" id="auth1" value="1">
-		<label class="form-check-label" for="auth1">売上登録</label>
-	</div>
-	<div class="form-check form-check-inline">
-		<input class="form-check-input" type="radio" name="authority" id="auth2" value="2">
-		<label class="form-check-label" for="auth2">アカウント検索</label>
-	</div>
-</div>
+				<label class="form-label d-block mb-1">権限</label>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" name="authority" 
+					value="0" ${fn:contains(paramValues['authority'], '0') ?  'checked' : ''}> 
+						<label class="form-check-label">権限なし</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" name="authority" 
+					value="1" ${fn:contains(paramValues['authority'], '1') ?  'checked' : ''}> 
+						<label class="form-check-label">売上登録</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" name="authority" 
+					value="2" ${fn:contains(paramValues['authority'], '2') ?  'checked' : ''}> 
+						<label class="form-check-label">アカウント検索</label>
+				</div>
+			</div>
 
 
-<div class="btn-group">
-	<button type="submit" class="btn btn-primary">検索</button>
-	<button type="reset" class="btn btn-secondary">クリア</button>
-</div>
-</form>
+			<div class="btn-group">
+				<button type="submit" class="btn btn-primary">検索</button>
+				<button type="reset" class="btn btn-secondary">クリア</button>
+			</div>
+		</form>
 	</div>
 
 </body>
