@@ -57,7 +57,7 @@
 	</header>
 	<main class="container mt-5">
 		<h1>売上登録</h1>
-		<form action="" method="post">
+		<form action="S0011.jsp" method="post">
 
 			<div class="form-group">
 				<label for="inputSale_date">販売日 <span class="badge bg-secondary">必須</span> </label>
