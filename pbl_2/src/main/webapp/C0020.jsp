@@ -18,7 +18,7 @@
                 <li><a href="S0020.jsp">売上検索</a></li>
                 <li><a href="S0030.jsp">アカウント登録</a></li>
                 <li><a href="C0040.jsp">アカウント検索</a></li>
-                <li href="logout.jsp" class="logout" class="right">ログアウト</li>
+                <li href="logout.jsp" class="logout">ログアウト</li>
             </ul>
         </nav>
     </header>
