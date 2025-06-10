@@ -71,7 +71,7 @@ button:last-child {
 			</div>
 			<div class="mb-3">
 				<label class="form-label">メールアドレス</label> <input type="email"
-					value="${param.email}" name="email" class="form-control"
+					value="${param.email}" name="text" class="form-control"
 					placeholder="メールアドレス">
 			</div>
 
