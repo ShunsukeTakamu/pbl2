@@ -87,6 +87,10 @@
 				<label for="inputSale_number">個数</label>
 				<input type="text" class="form-control short-input" id="inputSale_number" name="sale_number" value="3" disabled>
 			</div>
+			<div class="form-group">
+				<label for="inputTotal">小計</label>
+				<input type="text" class="form-control short-input" id="inputTotal" name="total" value="1,620" disabled>
+			</div>
 			<div class="form-group note-group">
 				<label for="inputNote" class="pt-10">備考</label>
 				<textarea type="text" class="form-control wide-input" rows="5" id="inputNote" name="note" placeholder="備考" disabled></textarea>
