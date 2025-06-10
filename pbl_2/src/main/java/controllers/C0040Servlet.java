@@ -33,7 +33,7 @@ public class C0040Servlet extends HttpServlet {
 
 	    String name = request.getParameter("name");
 	    String email = request.getParameter("email");
-	    String[] authorities = request.getParameterValues("authority");
+	    String[] authorities = request.getParameterValues("authorities");
 
 	    if (name != null && name.getBytes("UTF-8").length >= 21) {
 	        request.setAttribute("error", "氏名が長すぎます");

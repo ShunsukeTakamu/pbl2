@@ -70,8 +70,8 @@ button:last-child {
 					value="${param.name}" class="form-control" placeholder="氏名">
 			</div>
 			<div class="mb-3">
-				<label class="form-label">メールアドレス</label> <input type="email"
-					value="${param.email}" name="text" class="form-control"
+				<label class="form-label">メールアドレス</label> <input type="text"
+					value="${param.email}" name="email" class="form-control"
 					placeholder="メールアドレス">
 			</div>
 
@@ -79,19 +79,22 @@ button:last-child {
 			<div class="mb-3">
 				<label class="form-label d-block mb-1">権限</label>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" name="authority" 
-					value="0" ${fn:contains(paramValues['authority'], '0') ?  'checked' : ''}> 
-						<label class="form-check-label">権限なし</label>
+					<input class="form-check-input" type="checkbox" name="authorities"
+						value="0"
+						${fn:contains(paramValues['authorities'], '0') ?  'checked' : ''}>
+					<label class="form-check-label">権限なし</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" name="authority" 
-					value="1" ${fn:contains(paramValues['authority'], '1') ?  'checked' : ''}> 
-						<label class="form-check-label">売上登録</label>
+					<input class="form-check-input" type="checkbox" name="authorities"
+						value="1"
+						${fn:contains(paramValues['authorities'], '1') ?  'checked' : ''}>
+					<label class="form-check-label">売上登録</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" name="authority" 
-					value="2" ${fn:contains(paramValues['authority'], '2') ?  'checked' : ''}> 
-						<label class="form-check-label">アカウント検索</label>
+					<input class="form-check-input" type="checkbox" name="authorities"
+						value="2"
+						${fn:contains(paramValues['authorities'], '2') ?  'checked' : ''}>
+					<label class="form-check-label">アカウント登録</label>
 				</div>
 			</div>
 
