@@ -1,9 +1,0 @@
-diff a/pbl_2/src/main/java/konitiha.txt b/pbl_2/src/main/java/konitiha.txt	(rejected hunks)
-@@ -1 +0,5 @@
--頑張りましょうｘ
-\ No newline at end of file
-+<<<<<<< HEAD
-+頑張りましょうｘ
-+=======
-+こんにちは
-+>>>>>>> parent of cfba33a (no message)
