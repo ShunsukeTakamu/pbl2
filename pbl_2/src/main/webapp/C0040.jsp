@@ -66,8 +66,10 @@ button:last-child {
 		<form action="C0040Servlet" method="post">
 
 			<div class="mb-3">
-				<label class="form-label" >氏名 <span class="badge bg-secondary">部分一致</span></label> <input type="text" name="name"
-					value="${param.name}" class="form-control" placeholder="氏名">
+				<label class="form-label">氏名 <span
+					class="badge bg-secondary">部分一致</span></label> <input type="text"
+					name="name" value="${param.name}" class="form-control"
+					placeholder="氏名">
 			</div>
 			<div class="mb-3">
 				<label class="form-label">メールアドレス</label> <input type="email"
