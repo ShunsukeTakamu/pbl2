@@ -9,7 +9,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import beans.Account;
 import services.AccountService;
@@ -41,21 +40,21 @@ public class C0042Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		Account loginUser = (Account) session.getAttribute("loginUser");
-
-		if (loginUser == null) {
-			response.sendRedirect("C0010.jsp");
-			return;
-		}
-
-		// 権限チェック
-		byte[] auth = loginUser.getAuthority();
-		if (auth == null || auth.length == 0 || (auth[0] & 0b10) == 0) {
-			request.setAttribute("accessDenied", true);
-			request.getRequestDispatcher("C0042.jsp").forward(request, response);
-			return;
-		}
+//		HttpSession session = request.getSession();
+//		Account loginUser = (Account) session.getAttribute("loginUser");
+//
+//		if (loginUser == null) {
+//			response.sendRedirect("C0010.jsp");
+//			return;
+//		}
+//
+//		// 権限チェック
+//		byte[] auth = loginUser.getAuthority();
+//		if (auth == null || auth.length == 0 || (auth[0] & 0b10) == 0) {
+//			request.setAttribute("accessDenied", true);
+//			request.getRequestDispatcher("C0042.jsp").forward(request, response);
+//			return;
+//		}
 
 		String idStr = request.getParameter("accountId");
 		String name = request.getParameter("name");
@@ -66,15 +65,55 @@ public class C0042Servlet extends HttpServlet {
 		String[] authorities = request.getParameterValues("authorities");
 
 		Map<String, String> errors = new HashMap<>();
-		if (name == null || name.isBlank())
-			errors.put("name", "氏名は必須です。");
-		if (email == null || !email.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$"))
-			errors.put("email", "正しいメールアドレスを入力してください。");
-		if (password == null || password.length() < 4)
-			errors.put("password", "パスワードを4文字以上で入力してください。");
-		if (passwordConfirm == null || !password.equals(passwordConfirm))
-			errors.put("passwordConfirm", "パスワードが一致しません。");
 
+		// 1-1 氏名必須チェック
+		if (name == null || name.isBlank()) {
+			errors.put("name", "氏名を入力して下さい。");
+		} else {
+			// 1-2 氏名バイト長チェック（UTF-8）
+			try {
+				if (name.getBytes("UTF-8").length >= 21) {
+					errors.put("name", "氏名が長すぎます。");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		// 1-3 メールアドレス必須チェック
+		if (email == null || email.isBlank()) {
+			errors.put("email", "メールアドレスを入力して下さい。");
+		} else {
+			// 1-4 メールアドレス長さチェック
+			try {
+				if (email.getBytes("UTF-8").length >= 101) {
+					errors.put("email", "メールアドレスが長すぎます。");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		// 1-6 パスワード必須チェック
+		if (password == null || password.isBlank()) {
+			errors.put("password", "パスワードを入力して下さい。");
+		} else {
+			// 1-7 パスワード長さチェック
+			try {
+				if (password.getBytes("UTF-8").length >= 31) {
+					errors.put("password", "パスワードが長すぎます。");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		// 1-8 パスワード（確認）必須チェック
+		if (passwordConfirm == null || passwordConfirm.isBlank()) {
+			errors.put("passwordConfirm", "パスワード（確認）を入力して下さい。");
+		} else {
+			// 1-9 パスワード一致チェック
+			if (password != null && !password.equals(passwordConfirm)) {
+				errors.put("passwordConfirm", "パスワードとパスワード（確認）が一致していません。");
+			}
+		}
 		if (!errors.isEmpty()) {
 			request.setAttribute("errors", errors);
 			request.setAttribute("param.name", name);
@@ -108,6 +147,6 @@ public class C0042Servlet extends HttpServlet {
 		AccountService service = new AccountService();
 		service.update(updated);
 
-		response.sendRedirect("C0040.jsp"); // アカウント検索へ戻る
+		response.sendRedirect("C0041.jsp"); // アカウント検索へ戻る
 	}
 }

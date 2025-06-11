@@ -99,7 +99,7 @@
 			</div>
 
 			<div class="btn-group">
-				<button type="submit" class="btn btn-primary">更新</button>
+				<button type="submit" class="btn btn-primary">確認へ進む</button>
 				<button type="reset" class="btn btn-secondary">キャンセル</button>
 			</div>
 		</form>
