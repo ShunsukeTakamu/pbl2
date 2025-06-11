@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,43 +58,43 @@
 	</header>
 	<main class="container mt-5">
 		<h1>売上登録確認</h1>
-		<form action="" method="post">
+		<form action="S0011Servlet" method="post">
 
 			<div class="form-group">
 				<label for="inputSale_date">販売日</label>
-				<input type="date" class="form-control short-input" id="inputSale_date" name="sale_date" value="2025-06-10" disabled>
+				<input type="date" class="form-control short-input" id="inputSale_date" name="saleDate" value="${ sale.getSaleDate() }" disabled>
 			</div>
 			<div class="form-group">
 				<label for="inputAccount_id">担当</label>
-				<select class="form-select wide-input" id="inputAccount_id" disabled>
-					<option value="1">佐藤</option>
+				<select class="form-select wide-input" id="inputAccount_id" name="accountId" disabled>
+					<option value="${ sale.getAccountId() }"><c:out value="${ account.getName() }" /></option>
 				</select>
 			</div>
 			<div class="form-group">
 				<label for="inputCategory_id">商品カテゴリー</label>
-				<select class="form-select wide-input" id="inputCategory_id" disabled>
-					<option value="1">食品</option>
+				<select class="form-select wide-input" id="inputCategory_id" name="categoryId" disabled>
+					<option value="${ sale.getCategoryId() }"><c:out value="${ category.getCategoryName() }" /></option>
 				</select>
 			</div>
 			<div class="form-group">
 				<label for="inputTrade_name">商品名</label>
-				<input type="text" class="form-control wide-input" id="inputTrade_name" name="trade_name" value="からあげ弁当" disabled>
+				<input type="text" class="form-control wide-input" id="inputTrade_name" name="tradeName" value="${ sale.getTradeName() }" disabled>
 			</div>
 			<div class="form-group">
 				<label for="inputUnit_price">単価</label>
-				<input type="text" class="form-control short-input" id="inputUnit_price" name="unit_price" value="540" disabled>
+				<input type="text" class="form-control short-input" id="inputUnit_price" name="unitPrice" value="${ sale.getUnitPrice() }" disabled>
 			</div>
 			<div class="form-group">
 				<label for="inputSale_number">個数</label>
-				<input type="text" class="form-control short-input" id="inputSale_number" name="sale_number" value="3" disabled>
+				<input type="text" class="form-control short-input" id="inputSale_number" name="saleNumber" value="${ sale.getSaleNumber() }" disabled>
 			</div>
 			<div class="form-group">
 				<label for="inputTotal">小計</label>
-				<input type="text" class="form-control short-input" id="inputTotal" name="total" value="1,620" disabled>
+				<input type="text" class="form-control short-input" id="inputTotal" name="subTotal" value="${ sale.getUnitPrice() * sale.getSaleNumber() }" disabled>
 			</div>
 			<div class="form-group note-group">
 				<label for="inputNote" class="pt-10">備考</label>
-				<textarea type="text" class="form-control wide-input" rows="5" id="inputNote" name="note" placeholder="備考" disabled></textarea>
+				<textarea type="text" class="form-control wide-input" rows="5" id="inputNote" name="note" placeholder="備考" disabled><c:out value="${ sale.getNote() }" /></textarea>
 			</div>
 			<div class="form-group d-flex" style="margin-left: 210px;">
 				<button type="submit" class="btn btn-primary me-2">✔ OK</button>

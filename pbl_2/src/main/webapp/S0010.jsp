@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,45 +58,41 @@
 	</header>
 	<main class="container mt-5">
 		<h1>売上登録</h1>
-		<form action="S0011.jsp" method="post">
+		<form action="S0010Servlet" method="post">
 
 			<div class="form-group">
 				<label for="inputSale_date">販売日 <span class="badge bg-secondary">必須</span> </label>
-				<input type="date" class="form-control short-input" id="inputSale_date" name="sale_date">
+				<input type="date" class="form-control short-input" id="inputSale_date" name="saleDate" value="${ today }">
 			</div>
 			<div class="form-group">
 				<label for="inputAccount_id">担当 <span class="badge bg-secondary">必須</span> </label>
-				<select class="form-select wide-input" id="inputAccount_id" required>
+				<select class="form-select wide-input" id="inputAccount_id" name="accountId">
 					<option value="" disabled selected hidden>選択してください</option>
-					<option value="1">佐藤</option>
-					<option value="2">加藤</option>
-					<option value="3">小澤</option>
-					<option value="4">山本</option>
-					<option value="5">藤堂</option>
+					<c:forEach var="item" items="${ accounts }">
+						<option value="${ item.getAccountId() }"><c:out value="${ item.getName() }" /></option>
+					</c:forEach>
 				</select>
 			</div>
 			<div class="form-group">
 				<label for="inputCategory_id">商品カテゴリー <span class="badge bg-secondary">必須</span> </label>
-				<select class="form-select wide-input" id="inputCategory_id" required>
+				<select class="form-select wide-input" id="inputCategory_id" name="categoryId">
 					<option value="" disabled selected hidden>選択してください</option>
-					<option value="1">食品</option>
-					<option value="2">消耗品</option>
-					<option value="3">文房具</option>
-					<option value="4">衣類</option>
-					<option value="5">食器</option>
+					<c:forEach var="item" items="${ categories }">
+						<option value="${ item.getCategoryId() }"><c:out value="${ item.getCategoryName() }" /></option>
+					</c:forEach>
 				</select>
 			</div>
 			<div class="form-group">
 				<label for="inputTrade_name">商品名 <span class="badge bg-secondary">必須</span> </label>
-				<input type="text" class="form-control wide-input" id="inputTrade_name" name="trade_name" placeholder="商品名">
+				<input type="text" class="form-control wide-input" id="inputTrade_name" name="tradeName" placeholder="商品名">
 			</div>
 			<div class="form-group">
 				<label for="inputUnit_price">単価 <span class="badge bg-secondary">必須</span> </label>
-				<input type="text" class="form-control short-input" id="inputUnit_price" name="unit_price" placeholder="単価">
+				<input type="text" class="form-control short-input" id="inputUnit_price" name="unitPrice" placeholder="単価">
 			</div>
 			<div class="form-group">
 				<label for="inputSale_number">個数 <span class="badge bg-secondary">必須</span> </label>
-				<input type="text" class="form-control short-input" id="inputSale_number" name="sale_number" placeholder="個数">
+				<input type="text" class="form-control short-input" id="inputSale_number" name="saleNumber" placeholder="個数">
 			</div>
 			<div class="form-group note-group">
 				<label for="inputNote" class="pt-10">備考</label>
