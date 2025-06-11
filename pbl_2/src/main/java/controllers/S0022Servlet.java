@@ -14,11 +14,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import beans.SaleDetail;
 import utils.Db;
 
-@WebServlet("/SaleDetailServlet")
-public class SaleDetailServlet extends HttpServlet {
+@WebServlet("/S0022Servlet")
+public class S0022Servlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public SaleDetailServlet() {
+    public S0022Servlet() {
         super();
     }
 
@@ -41,7 +41,7 @@ public class SaleDetailServlet extends HttpServlet {
         }
 
         SaleDetail detail = null;
-
+        // 売上データ取得処理
         try (Connection conn = Db.open()) {
             String sql = """
                 SELECT s.sale_id, s.sale_date,

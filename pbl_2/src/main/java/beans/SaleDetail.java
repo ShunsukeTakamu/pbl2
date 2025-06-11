@@ -3,7 +3,9 @@ package beans;
 public class SaleDetail {
     private int saleId;
     private String saleDate;
+    private int accountId;        // ← 追加
     private String accountName;
+    private int categoryId;       // ← 追加
     private String categoryName;
     private String tradeName;
     private int unitPrice;
@@ -28,6 +30,15 @@ public class SaleDetail {
         this.saleDate = saleDate;
     }
 
+    // --- accountId ---（追加）
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
     // --- accountName ---
     public String getAccountName() {
         return accountName;
@@ -35,6 +46,15 @@ public class SaleDetail {
 
     public void setAccountName(String accountName) {
         this.accountName = accountName;
+    }
+
+    // --- categoryId ---（追加）
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     // --- categoryName ---
@@ -82,7 +102,7 @@ public class SaleDetail {
         this.note = note;
     }
 
-    // --- 小計（unitPrice * saleNumber）を計算するヘルパー ---
+    // --- subtotal（単価 × 個数）---
     public int getSubtotal() {
         return unitPrice * saleNumber;
     }
