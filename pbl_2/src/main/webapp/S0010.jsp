@@ -67,7 +67,7 @@
 			<div class="form-group">
 				<label for="inputAccount_id">担当 <span class="badge bg-secondary">必須</span> </label>
 				<select class="form-select wide-input" id="inputAccount_id" name="accountId">
-					<option value="" disabled selected hidden>選択してください</option>
+					<option value="0" selected hidden>選択してください</option>
 					<c:forEach var="item" items="${ accounts }">
 						<option value="${ item.getAccountId() }"><c:out value="${ item.getName() }" /></option>
 					</c:forEach>
@@ -76,7 +76,7 @@
 			<div class="form-group">
 				<label for="inputCategory_id">商品カテゴリー <span class="badge bg-secondary">必須</span> </label>
 				<select class="form-select wide-input" id="inputCategory_id" name="categoryId">
-					<option value="" disabled selected hidden>選択してください</option>
+					<option value="0" selected hidden>選択してください</option>
 					<c:forEach var="item" items="${ categories }">
 						<option value="${ item.getCategoryId() }"><c:out value="${ item.getCategoryName() }" /></option>
 					</c:forEach>
@@ -84,7 +84,7 @@
 			</div>
 			<div class="form-group">
 				<label for="inputTrade_name">商品名 <span class="badge bg-secondary">必須</span> </label>
-				<input type="text" class="form-control wide-input" id="inputTrade_name" name="tradeName" placeholder="商品名">
+				<input type="text" class="form-control wide-input" id="inputTrade_name" name="tradeName" placeholder="商品名" value="">
 			</div>
 			<div class="form-group">
 				<label for="inputUnit_price">単価 <span class="badge bg-secondary">必須</span> </label>

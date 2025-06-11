@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,15 +83,18 @@
 			</div>
 			<div class="form-group">
 				<label for="inputUnit_price">単価</label>
-				<input type="text" class="form-control short-input" id="inputUnit_price" name="unitPrice" value="${ sale.getUnitPrice() }" disabled>
+				<fmt:formatNumber value="${ sale.getUnitPrice() }" type="number" groupingUsed="true" var="formattedPrice" />
+				<input type="text" class="form-control short-input" id="inputUnit_price" name="unitPrice" value="${ formattedPrice }" disabled>
 			</div>
 			<div class="form-group">
 				<label for="inputSale_number">個数</label>
-				<input type="text" class="form-control short-input" id="inputSale_number" name="saleNumber" value="${ sale.getSaleNumber() }" disabled>
+				<fmt:formatNumber value="${ sale.getSaleNumber() }" type="number" groupingUsed="true" var="formattedNumber" />
+				<input type="text" class="form-control short-input" id="inputSale_number" name="saleNumber" value="${ formattedNumber }" disabled>
 			</div>
 			<div class="form-group">
 				<label for="inputTotal">小計</label>
-				<input type="text" class="form-control short-input" id="inputTotal" name="subTotal" value="${ sale.getUnitPrice() * sale.getSaleNumber() }" disabled>
+				<fmt:formatNumber value="${ sale.getUnitPrice() * sale.getSaleNumber() }" type="number" groupingUsed="true" var="formattedSubTotal" />
+				<input type="text" class="form-control short-input" id="inputTotal" name="subTotal" value="${ formattedSubTotal }" disabled>
 			</div>
 			<div class="form-group note-group">
 				<label for="inputNote" class="pt-10">備考</label>
