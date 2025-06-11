@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>アカウント登録</title>
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="css/style.css">
 <style>
 	body {
@@ -132,5 +133,6 @@
     	</div>
 	</form>
 	</div>
+	<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
