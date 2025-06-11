@@ -81,7 +81,7 @@ public class AccountService {
 
 		return list;
 	}
-	
+
 	public ArrayList<Account> selectAll() {
 		ArrayList<Account> accounts = new ArrayList<>();
 		String sql = "SELECT * FROM accounts";
@@ -125,12 +125,31 @@ public class AccountService {
 						rs.getString("password"),
 						rs.getBytes("authority"));
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (NamingException e) {
+		} catch (SQLException | NamingException e) {
 			e.printStackTrace();
 		}
 
 		return a;
 	}
+
+	public void update(Account updated) {
+		String sql = "UPDATE accounts SET name = ?, mail = ?, password = ?, authority = ? WHERE account_id = ?";
+
+		try (
+			Connection con = Db.open();
+			PreparedStatement ps = con.prepareStatement(sql)
+		) {
+			ps.setString(1, updated.getName());
+			ps.setString(2, updated.getMail());
+			ps.setString(3, updated.getPassword()); // ハッシュ化しますか？
+			ps.setBytes(4, updated.getAuthority());
+			ps.setInt(5, updated.getAccountId());
+
+			ps.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }
