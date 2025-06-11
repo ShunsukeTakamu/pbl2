@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>アカウント登録</title>
-<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="css/style.css">
 <style>
 	body {
@@ -29,7 +28,7 @@
         align-items: center;
         margin-bottom: 15px;
     }
-    .form-group label {
+    .form-group > label {
     	width: 200px; 
    		font-weight: bold;
    		display: flex;
@@ -50,14 +49,23 @@
         margin-left: 10px;
         white-space: nowrap;
     }
+    header, .navbar {
+    	width: 100%;
+   		box-sizing: border-box;
+	}
+	.nav-links {
+		display: flex;
+	}
+	.nav-links li.logout-item {
+		margin-left: auto;
+	}
     .roles {
         display: flex;
         align-items: center;
-        margin-left: 170px; 
-    	gap: 10px;
+        gap: 10px; 
     }
     .roles label {
-        margin-right: 10px;
+        margin-right: 6px;
     }
     .submit-btn {
         text-align: center;
@@ -87,10 +95,10 @@
 				<li><a href="S0020.jsp">売上検索</a></li>
 				<li><a href="S0030.jsp">アカウント登録</a></li>
 				<li><a href="S0040.jsp">アカウント検索</a></li>
-				<li><a href="logout.jsp" class="logout" class="right">ログアウト</a></li>
+				<li class="logout-item"><a href="logout.jsp">ログアウト</a></li>
 			</ul>
 		</nav>
-	</header>
+</header>
 
 	<h2>アカウント登録</h2>
 	<div class="form-container">
@@ -111,11 +119,13 @@
 			<label>パスワード（確認）<span class="required">必須</span></label>
         	<input type="password" name="confirmPassword" placeholder="パスワード（確認）" required>
 		</div>
-		<div class="roles">
+		<div class="form-group">
 			<label>権限 <span class="required">必須</span></label>
+			<div class="roles">
         	<label><input type="radio" name="role" value="none" required> 権限なし</label>
 	        <label><input type="radio" name="role" value="view"> 参照</label>
 	        <label><input type="radio" name="role" value="update"> 更新</label>
+		</div>
 		</div>
 		<div class="submit-btn">
         	<button type="submit">✔ 登録</button>
