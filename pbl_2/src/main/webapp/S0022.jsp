@@ -40,7 +40,7 @@
             </table>
 
             <div class="text-center mt-4">
-                <!-- 編集ボタン（✓で統一） -->
+
                 <form action="S0023Servlet" method="get" style="display: inline-block;">
                     <input type="hidden" name="sale_id" value="${detail.saleId}">
                     <button class="btn btn-primary">✔ 更新</button>
@@ -53,7 +53,7 @@
                 </form>
 
                 <!-- キャンセルボタン -->
-                <form action="S0021.jsp" method="get" style="display: inline-block;">
+                <form action="S0021Servlet" method="get" style="display: inline-block;">
                     <button class="btn btn-outline-secondary">キャンセル</button>
                 </form>
             </div>
