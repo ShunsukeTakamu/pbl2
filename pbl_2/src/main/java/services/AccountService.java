@@ -107,4 +107,8 @@ public class AccountService {
 
 		return accounts;
 	}
+
+	public Account findById(int id) {
+		return null;
+	}
 }
