@@ -1,14 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-<script src="js/bootstrap.bundle.min.js"></script>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <title>物品売上管理システム</title>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/bootstrap.bundle.min.js"></script>
 <style>
 .text-danger {
 	color: red;
@@ -30,13 +30,29 @@
 </style>
 </head>
 <body>
+
+	<header>
+		<nav class="navbar">
+			<div class="logo">物品売上管理システム</div>
+			<ul class="nav-links">
+				<li><a class="active" href="C0020.jsp">ダッシュボード</a></li>
+				<li><a href="S0010.jsp">売上登録</a></li>
+				<li><a href="S0020.jsp">売上検索</a></li>
+				<li><a href="S0030.jsp">アカウント登録</a></li>
+				<li><a href="C0040.jsp">アカウント検索</a></li>
+				<li><a href="logout.jsp" class="logout right">ログアウト</a></li>
+			</ul>
+		</nav>
+	</header>
+
+
 	<div class="content">
 		<form action="C0042Servlet" method="post">
 			<input type="hidden" name="accountId" value="${account.accountId}" />
 
 			<div class="mb-3">
-				<label class="form-label">氏名 <span
-					class="badge bg-secondary">必須</span></label> <input type="text" name="name"
+				<label class="form-label">氏名 
+				<span class="badge bg-secondary">必須</span></label> <input type="text" name="name"
 					class="form-control"
 					value="${not empty param.name ? param.name : account.name}">
 				<c:if test="${not empty errors.name}">
@@ -73,18 +89,21 @@
 			</div>
 
 			<div class="mb-3">
-				<label class="form-label">権限</label>
-				<div class="form-check">
-					<input class="form-check-input" type="radio" name="authority"
+				<label class="form-label">権限   </label>
+
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" name="authorities"
 						value="0" id="authNone"
-						${param.authority == '0' || account.authority[0] == 0 ? 'checked' : ''}>
+						${fn:contains(paramValues['authorities'], '0') || account.authority[0] == 0 ? 'checked' : ''}>
 					<label class="form-check-label" for="authNone">権限なし</label>
 				</div>
+
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" type="checkbox" name="authorities"
 						value="1" id="authSales"
 						<c:if test="${fn:contains(paramValues['authorities'], '1')}">checked</c:if>
 						<c:if test="${empty paramValues['authorities'] and (account.authority[0] == 1 or account.authority[0] == 3)}">checked</c:if>>
+
 					<label class="form-check-label" for="authSales">売上登録</label>
 				</div>
 
@@ -93,35 +112,54 @@
 						value="2" id="authAccount"
 						<c:if test="${fn:contains(paramValues['authorities'], '2')}">checked</c:if>
 						<c:if test="${empty paramValues['authorities'] and (account.authority[0] == 2 or account.authority[0] == 3)}">checked</c:if>>
+
 					<label class="form-check-label" for="authAccount">アカウント登録</label>
 				</div>
-
 			</div>
 
-			<div class="btn-group">
-				<button type="submit" class="btn btn-primary">確認へ進む</button>
+
+			
+				<button type="submit" class="btn btn-primary">更新</button>
 				<button type="reset" class="btn btn-secondary">キャンセル</button>
-			</div>
+
 		</form>
 	</div>
 
 	<script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const radioNone = document.getElementById("authNone");
-      const checks = [document.getElementById("authSales"), document.getElementById("authAccount")];
+document.addEventListener("DOMContentLoaded", () => {
+  const checkNone = document.getElementById("authNone");
+  const checkSales = document.getElementById("authSales");
+  const checkAccount = document.getElementById("authAccount");
 
-      function toggle() {
-        const disabled = radioNone.checked;
-        checks.forEach(cb => {
-          cb.disabled = disabled;
-          if (disabled) cb.checked = false;
-        });
+  function updateUI() {
+    if (checkNone.checked) {
+      checkSales.checked = false;
+      checkAccount.checked = false;
+      checkSales.disabled = true;
+      checkAccount.disabled = true;
+    } else {
+      checkSales.disabled = false;
+      checkAccount.disabled = false;
+    }
+  }
+
+  checkNone.addEventListener("change", updateUI);
+
+  [checkSales, checkAccount].forEach(cb => {
+    cb.addEventListener("change", () => {
+      // いずれかが選択されたら「権限なし」を外す
+      if (checkSales.checked || checkAccount.checked) {
+        checkNone.checked = false;
       }
-
-      radioNone.addEventListener("change", toggle);
-<!--      初期反映-->
-      toggle();
+      updateUI(); // 状態を更新
     });
-  </script>
+  });
+
+  // 初期表示時に実行
+  updateUI();
+});
+</script>
+
+
 </body>
 </html>
