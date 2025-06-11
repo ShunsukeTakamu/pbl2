@@ -6,13 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>ログイン</title>
+<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="css/style.css">
 <style>
 	body {
 		background-color: #eeeeee;
-		font-family: "Segoe UI", sans-serif;
 		padding: 0;
 		height: 100%;
-		margin: 0;
 	}
 	.container-wrapper {
 		display: flex;
@@ -25,7 +25,6 @@
 	h2 {
 		margin-bottom: 30px;
         font-size: 22px;
-        color: #333;
 	}
 	.input-group {
 	margin-bottom: 20px;
