@@ -84,7 +84,7 @@ public class C0042Servlet extends HttpServlet {
 			request.setAttribute("errors", errors);
 			request.setAttribute("param.name", name);
 			request.setAttribute("param.email", email);
-			request.setAttribute("paramValues.authorities", authorities);
+			request.setAttribute("paramAuthorities", authorities);
 			request.getRequestDispatcher("C0042.jsp").forward(request, response);
 			return;
 		}

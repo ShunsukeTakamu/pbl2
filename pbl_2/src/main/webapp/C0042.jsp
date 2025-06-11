@@ -47,12 +47,13 @@
 
 
 	<div class="content">
+		<h2>アカウント詳細編集</h2>
 		<form action="C0042Servlet" method="post">
 			<input type="hidden" name="accountId" value="${account.accountId}" />
 
 			<div class="mb-3">
-				<label class="form-label">氏名 
-				<span class="badge bg-secondary">必須</span></label> <input type="text" name="name"
+				<label class="form-label">氏名 <span
+					class="badge bg-secondary">必須</span></label> <input type="text" name="name"
 					class="form-control"
 					value="${not empty param.name ? param.name : account.name}">
 				<c:if test="${not empty errors.name}">
@@ -88,39 +89,42 @@
 				</c:if>
 			</div>
 
+			<c:set var="authVal" value="${account.authority[0]}" />
+			<c:set var="hasParam" value="${not empty paramAuthorities}" />
+
 			<div class="mb-3">
-				<label class="form-label">権限   </label>
+				<label class="form-label">権限 </label>
 
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" type="checkbox" name="authorities"
 						value="0" id="authNone"
-						${fn:contains(paramValues['authorities'], '0') || account.authority[0] == 0 ? 'checked' : ''}>
+						<c:if test="${hasParam and fn:contains(paramAuthorities, '0')}">checked</c:if>
+						<c:if test="${not hasParam and authVal == 0}">checked</c:if>>
 					<label class="form-check-label" for="authNone">権限なし</label>
 				</div>
 
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" type="checkbox" name="authorities"
 						value="1" id="authSales"
-						<c:if test="${fn:contains(paramValues['authorities'], '1')}">checked</c:if>
-						<c:if test="${empty paramValues['authorities'] and (account.authority[0] == 1 or account.authority[0] == 3)}">checked</c:if>>
-
+						<c:if test="${hasParam and fn:contains(paramAuthorities, '1')}">checked</c:if>
+						<c:if test="${not hasParam and (authVal == 1 or authVal == 3)}">checked</c:if>>
 					<label class="form-check-label" for="authSales">売上登録</label>
 				</div>
 
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" type="checkbox" name="authorities"
 						value="2" id="authAccount"
-						<c:if test="${fn:contains(paramValues['authorities'], '2')}">checked</c:if>
-						<c:if test="${empty paramValues['authorities'] and (account.authority[0] == 2 or account.authority[0] == 3)}">checked</c:if>>
-
+						<c:if test="${hasParam and fn:contains(paramAuthorities, '2')}">checked</c:if>
+						<c:if test="${not hasParam and (authVal == 2 or authVal == 3)}">checked</c:if>>
 					<label class="form-check-label" for="authAccount">アカウント登録</label>
 				</div>
 			</div>
 
 
-			
-				<button type="submit" class="btn btn-primary">更新</button>
-				<button type="reset" class="btn btn-secondary">キャンセル</button>
+
+
+			<button type="submit" class="btn btn-primary">更新</button>
+			<button type="reset" class="btn btn-secondary">キャンセル</button>
 
 		</form>
 	</div>

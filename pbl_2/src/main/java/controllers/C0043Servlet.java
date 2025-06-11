@@ -72,7 +72,7 @@ public class C0043Servlet extends HttpServlet {
 			service.update(updated);
 
 			// 検索結果画面へリダイレクト
-			response.sendRedirect("C0041Servlet");
+			response.sendRedirect("C0041.jsp");
 
 		} catch (Exception e) {
 			e.printStackTrace();

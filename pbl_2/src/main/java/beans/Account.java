@@ -19,8 +19,6 @@ public class Account {
 	private byte[] authority;
 
 	public String getAuthorityLabel() {
-	    if (authority == null || authority.length == 0)
-	        return "不明";
 	    int val = authority[0];
 	    if (val == 0)
 	        return "権限なし";
