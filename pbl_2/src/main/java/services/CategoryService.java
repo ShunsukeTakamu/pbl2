@@ -1,6 +1,7 @@
 package services;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,5 +35,29 @@ public class CategoryService {
 		}
 
 		return categories;
+	}
+	
+	public Category selectById(int id) {
+		Category c = null;
+		String sql = "SELECT * FROM categories WHERE category_id = ?";
+
+		try (
+				Connection con = Db.open();
+				PreparedStatement ps = con.prepareStatement(sql)) {
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				c = new Category(
+						rs.getInt("category_id"),
+						rs.getString("category_name"),
+						rs.getInt("active_flg"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+
+		return c;
 	}
 }

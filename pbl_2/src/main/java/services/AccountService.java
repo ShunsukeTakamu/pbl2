@@ -108,7 +108,29 @@ public class AccountService {
 		return accounts;
 	}
 
-	public Account findById(int id) {
-		return null;
+	public Account selectById(int id) {
+		Account a = null;
+		String sql = "SELECT * FROM accounts WHERE account_id = ?";
+
+		try (
+				Connection con = Db.open();
+				PreparedStatement ps = con.prepareStatement(sql)) {
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				a = new Account(
+						rs.getInt("account_id"),
+						rs.getString("name"),
+						rs.getString("mail"),
+						rs.getString("password"),
+						rs.getBytes("authority"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+
+		return a;
 	}
 }
