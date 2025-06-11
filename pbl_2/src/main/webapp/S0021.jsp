@@ -63,25 +63,25 @@
 
                 <!-- データ行 -->
                 <tbody>
-                    <c:forEach var="sale" items="${saleList}">
+                    <c:forEach var="sale" items="${ saleList }">
                         <tr>
                             <!-- 詳細ボタン -->
                             <td class="text-center">
-                                <form action="SaleDetailServlet" method="get">
-                                    <input type="hidden" name="sale_id" value="${sale.saleId}">
+                                <form action="S0022Servlet" method="get">
+                                    <input type="hidden" name="sale_id" value="${ sale.getSaleId() }">
                                     <button class="btn btn-primary btn-sm">✔ 詳細</button>
                                 </form>
                             </td>
 
                             <!-- 各項目のデータ表示 -->
-                            <td>${sale.saleId}</td>
-                            <td>${sale.saleDate}</td>
-                            <td>${sale.accountName}</td>
-                            <td>${sale.categoryName}</td>
-                            <td>${sale.tradeName}</td>
-                            <td class="text-end">${sale.unitPrice}</td>
-                            <td class="text-end">${sale.saleNumber}</td>
-                            <td class="text-end">${sale.unitPrice * sale.saleNumber}</td>
+                            <td>${ sale.getSaleId() }</td>
+                            <td>${ sale.getSaleDate() }</td>
+                            <td>${ accountMap.get(sale.getAccountId()) }</td>
+                            <td>${ categoryMap.get(sale.getCategoryId()) }</td>
+                            <td>${sale.getTradeName()}</td>
+                            <td class="text-end">${sale.getUnitPrice()}</td>
+                            <td class="text-end">${sale.getSaleNumber()}</td>
+                            <td class="text-end">${sale.getUnitPrice() * sale.getSaleNumber()}</td>
                         </tr>
                     </c:forEach>
                 </tbody>

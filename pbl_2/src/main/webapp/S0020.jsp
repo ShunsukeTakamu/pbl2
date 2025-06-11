@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,38 +57,34 @@
 		<h1>売上検索条件入力</h1>
 		<form action="" method="post">
 			<div class="form-group">
-				<label for="inputSale_date_from">販売日</label>
+				<label for="inputSale_date_start">販売日</label>
 				<div class="date-range-wrapper">
-					<input type="date" class="form-control" id="inputSale_date_from" name="sale_date_from">
+					<input type="date" class="form-control" id="inputSale_date_start" name="dateStart">
 					<span class="mx-4">～</span>
-					<input type="date" class="form-control" id="inputSale_date_to" name="sale_date_to">
+					<input type="date" class="form-control" id="inputSale_date_end" name="dateEnd">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="inputAccount_id">担当</label>
-				<select class="form-select wide-input" id="inputAccount_id">
-					<option value="" disabled selected hidden>選択してください</option>
-					<option value="1">佐藤</option>
-					<option value="2">加藤</option>
-					<option value="3">小澤</option>
-					<option value="4">山本</option>
-					<option value="5">藤堂</option>
+				<select class="form-select wide-input" id="inputAccount_id" name="accountId">
+					<option disabled selected hidden>選択してください</option>
+					<c:forEach var="item" items="${ accounts }">
+						<option value="${ item.getAccountId() }"><c:out value="${ item.getName() }" /></option>
+					</c:forEach>
 				</select>
 			</div>
 			<div class="form-group">
 				<label for="inputCategory_id">商品カテゴリー</label>
-				<select class="form-select wide-input" id="inputCategory_id">
-					<option value="" disabled selected hidden>選択してください</option>
-					<option value="1">食品</option>
-					<option value="2">消耗品</option>
-					<option value="3">文房具</option>
-					<option value="4">衣類</option>
-					<option value="5">食器</option>
+				<select class="form-select wide-input" id="inputCategory_id" name="categoryId">
+					<option diabled selected hidden>選択してください</option>
+					<c:forEach var="item" items="${ categories }">
+						<option value="${ item.getCategoryId() }"><c:out value="${ item.getCategoryName() }" /></option>
+					</c:forEach>
 				</select>
 			</div>
 			<div class="form-group">
 				<label for="inputTrade_name">商品名 <span class="badge bg-secondary">部分一致</span> </label>
-				<input type="text" class="form-control wide-input" id="inputTrade_name" name="trade_name" placeholder="商品名">
+				<input type="text" class="form-control wide-input" id="inputTrade_name" name="tradeName" placeholder="商品名" value="">
 			</div>
 			<div class="form-group note-group">
 				<label for="inputNote" class="pt-10">備考 <span class="badge bg-secondary">部分一致</span> </label>

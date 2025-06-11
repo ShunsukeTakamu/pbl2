@@ -5,6 +5,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.NamingException;
 
@@ -12,6 +15,71 @@ import beans.Sale;
 import utils.Db;
 
 public class SaleService {
+	
+	// 売上条件検索
+	public List<Sale> searchSales(String dateStart, String dateEnd, String accountId, String categoryId, String tradeName, String note) {
+		List<Sale> list = new ArrayList<>();
+		StringBuilder sql = new StringBuilder("SELECT * FROM sales WHERE 1=1");
+		List<Object> params = new ArrayList<>();
+
+		if (dateStart != null && !dateStart.isEmpty()) {
+			sql.append(" AND sale_date >= ?");
+			params.add(dateStart);
+		}
+		
+		if (dateEnd != null && !dateEnd.isEmpty()) {
+			sql.append(" AND sale_date <= ?");
+			params.add(dateEnd);
+		}
+
+		if (accountId != null && !accountId.isEmpty()) {
+			sql.append(" AND account_id = ?");
+			params.add(accountId);
+		}
+
+		if (categoryId != null && !categoryId.isEmpty()) {
+			sql.append(" AND category_id = ?");
+			params.add(categoryId);
+		}
+		
+		if (tradeName != null && !tradeName.isEmpty()) {
+			sql.append(" AND trade_name LIKE ?");
+			params.add("%" + tradeName + "%");
+		}
+		
+		if (note != null && !note.isEmpty()) {
+			sql.append(" AND note LIKE ?");
+			params.add("%" + note + "%");
+		}
+		
+		try (
+				Connection con = Db.open();
+				PreparedStatement stmt = con.prepareStatement(sql.toString())) {
+			for (int i = 0; i < params.size(); i++) {
+				stmt.setObject(i + 1, params.get(i));
+			}
+
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Sale s = new Sale(
+						rs.getInt("sale_id"),
+						LocalDate.parse(rs.getString("sale_date")),
+						rs.getInt("account_id"),
+						rs.getInt("category_id"),
+						rs.getString("trade_name"),
+						rs.getInt("unit_price"),
+						rs.getInt("sale_number"),
+						rs.getString("note"));
+				list.add(s);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+	
+	
 	public int insert(Sale s) {
 		
 		String sql = "INSERT INTO sales (sale_date, account_id, category_id, trade_name, unit_price, sale_number, note) VALUES (?, ?, ?, ?, ?, ?, ?)";
