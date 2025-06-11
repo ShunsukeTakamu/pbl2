@@ -78,7 +78,7 @@
 	</div>
 	<div class="input-group">
 	<input type="password" name="password" placeholder="パスワード">
-	<div class="input-note">※必須 / 半角英数字6文字以上</div>
+	<div class="input-note">※必須 / 半角英数字で入力</div>
 	</div>
 	<button type="submit">ログイン</button>
 	</form>
