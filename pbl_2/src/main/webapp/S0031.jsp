@@ -33,7 +33,7 @@
     	width: 200px; 
    		font-weight: bold;
    		display: flex;
-    	justify-content: space-between;
+    	justify-content: flex-end;
     	margin-right: 10px;
     	text-align: right;
 	}
