@@ -76,7 +76,7 @@
 			<div class="form-group">
 				<label for="inputCategory_id">商品カテゴリー</label>
 				<select class="form-select wide-input" id="inputCategory_id" name="categoryId">
-					<option diabled selected hidden>選択してください</option>
+					<option disabled selected hidden>選択してください</option>
 					<c:forEach var="item" items="${ categories }">
 						<option value="${ item.getCategoryId() }"><c:out value="${ item.getCategoryName() }" /></option>
 					</c:forEach>
