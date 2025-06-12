@@ -26,6 +26,11 @@
 		flex: 1;
 	}
 	
+	form {
+		max-width: 700px;
+		margin: 0 auto;
+	}
+	
 	.note-group {
 		align-items: flex-start;
 	}
@@ -100,7 +105,7 @@
 				<label for="inputNote" class="pt-10">備考</label>
 				<textarea type="text" class="form-control wide-input" rows="5" id="inputNote" name="note" placeholder="備考" disabled><c:out value="${ sale.getNote() }" /></textarea>
 			</div>
-			<div class="form-group d-flex" style="margin-left: 210px;">
+			<div class="text-center">
 				<button type="submit" class="btn btn-primary me-2">✔ OK</button>
 				<button type="button" class="btn btn-outline-secondary" onclick="history.back()">キャンセル</button>
 			</div>

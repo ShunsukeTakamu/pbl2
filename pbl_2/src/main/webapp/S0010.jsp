@@ -25,6 +25,11 @@
 		flex: 1;
 	}
 	
+	form {
+		max-width: 700px;
+		margin: 0 auto;
+	}
+	
 	.note-group {
 		align-items: flex-start;
 	}
@@ -98,8 +103,8 @@
 				<label for="inputNote" class="pt-10">備考</label>
 				<textarea type="text" class="form-control wide-input" rows="5" id="inputNote" name="note" placeholder="備考"></textarea>
 			</div>
-			<div class="form-group d-flex" style="margin-left: 210px;">
-				<input type="submit" class="btn btn-primary" value="✔登 録" />
+			<div class="text-center mt-4">
+				<input type="submit" class="btn btn-primary" value="✔ 登録" />
 			</div>
 		</form>
 	</main>

@@ -51,6 +51,7 @@ public class S0010Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		// 権限チェック 未ログイン、b'00'、b'10'の場合 ログイン画面へ
 		Login loginAccount = (Login) session.getAttribute("account");
 		if (loginAccount == null || loginAccount.getAuthority().equals("b''") || loginAccount.getAuthority().equals("b'10'")) {
 			response.sendRedirect("C0010");
