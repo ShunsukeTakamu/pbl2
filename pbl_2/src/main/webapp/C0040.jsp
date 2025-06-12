@@ -19,7 +19,7 @@ body {
 }
 
 .content {
-	max-width: 600px;
+	max-width: 500px;
 	margin: 50px auto;
 	padding: 30px;
 

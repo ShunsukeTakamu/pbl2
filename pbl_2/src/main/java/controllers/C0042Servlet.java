@@ -40,6 +40,7 @@ public class C0042Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
+		String action = request.getParameter("action"); // ← ここでボタン判定
 		String idStr = request.getParameter("accountId");
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
@@ -49,20 +50,17 @@ public class C0042Servlet extends HttpServlet {
 
 		Map<String, String> errors = new HashMap<>();
 
+		// ▼ 各種バリデーション（共通）
 		if (name == null || name.isBlank()) {
 			errors.put("name", "氏名を入力してください。");
-		} else {
-			if (name.getBytes("UTF-8").length >= 21) {
-				errors.put("name", "氏名が長すぎます（20バイト以内）。");
-			}
+		} else if (name.getBytes("UTF-8").length >= 21) {
+			errors.put("name", "氏名が長すぎます（20バイト以内）。");
 		}
 
 		if (email == null || email.isBlank()) {
 			errors.put("email", "メールアドレスを入力してください。");
-		} else {
-			if (email.getBytes("UTF-8").length >= 101) {
-				errors.put("email", "メールアドレスが長すぎます（100バイト以内）。");
-			}
+		} else if (email.getBytes("UTF-8").length >= 101) {
+			errors.put("email", "メールアドレスが長すぎます（100バイト以内）。");
 		}
 
 		if (password == null || password.isBlank()) {
@@ -77,9 +75,10 @@ public class C0042Servlet extends HttpServlet {
 			errors.put("passwordConfirm", "パスワードが一致していません。");
 		}
 
-		if(authorities == null || authorities.length == 0) {
+		if (authorities == null || authorities.length == 0) {
 			errors.put("authorities", "権限を選択してください。");
 		}
+
 		if (!errors.isEmpty()) {
 			request.setAttribute("errors", errors);
 			request.setAttribute("param.name", name);
@@ -89,11 +88,38 @@ public class C0042Servlet extends HttpServlet {
 			return;
 		}
 
+		// ▼ 権限の表示用フラグも用意
+		boolean has0 = false, has1 = false, has2 = false;
+		for (String auth : authorities) {
+			switch (auth) {
+			case "0":
+				has0 = true;
+				break;
+			case "1":
+				has1 = true;
+				break;
+			case "2":
+				has2 = true;
+				break;
+			}
+		}
+
 		request.setAttribute("accountId", idStr);
 		request.setAttribute("name", name);
 		request.setAttribute("email", email);
 		request.setAttribute("password", password);
 		request.setAttribute("authorities", authorities);
-		request.getRequestDispatcher("C0043.jsp").forward(request, response);
+		request.setAttribute("has0", has0);
+		request.setAttribute("has1", has1);
+		request.setAttribute("has2", has2);
+
+		// ▼ 分岐処理
+		if ("delete".equals(action)) {
+			// 削除確認画面へ
+			request.getRequestDispatcher("C0044.jsp").forward(request, response);
+		} else {
+			// 通常の編集確認画面へ
+			request.getRequestDispatcher("C0043.jsp").forward(request, response);
+		}
 	}
 }

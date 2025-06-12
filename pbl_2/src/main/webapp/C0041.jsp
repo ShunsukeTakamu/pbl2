@@ -71,7 +71,7 @@ body {
 								<button type="submit" class="btn btn-sm btn-primary">✔
 									編集</button>
 							</form>
-							<form action="C0044.jsp" method="get" style="display: inline;">
+							<form action="C0044Servlet" method="get" style="display: inline;">
 								<input type="hidden" name="id" value="${user.accountId}">
 								<button type="submit" class="btn btn-sm btn-danger">✘
 									削除</button>

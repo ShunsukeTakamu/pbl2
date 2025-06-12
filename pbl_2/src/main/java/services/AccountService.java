@@ -151,10 +151,10 @@ public class AccountService {
 		}
 	}
 
-	public void delete(int acocountId) {
+	public void delete(int accountId) {
 		try(Connection con = Db.open();
-			PreparedStatement ps = con.prepareStatement("DELETE FROM accounts WHERE id = ?")){
-			ps.setInt(1, acocountId);
+			PreparedStatement ps = con.prepareStatement("DELETE FROM accounts WHERE account_id = ?")){
+			ps.setInt(1, accountId);
 			ps.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
