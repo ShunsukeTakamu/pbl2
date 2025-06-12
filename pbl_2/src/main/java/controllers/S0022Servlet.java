@@ -28,9 +28,9 @@ public class S0022Servlet extends HttpServlet {
             throws ServletException, IOException {
 
         // saleId パラメータのチェック
-        String saleIdStr = request.getParameter("saleId");
+        String saleIdStr = request.getParameter("sale_id");
         if (saleIdStr == null || saleIdStr.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId が指定されていません");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "sale_id が指定されていません");
             return;
         }
 
@@ -38,7 +38,7 @@ public class S0022Servlet extends HttpServlet {
         try {
             saleId = Integer.parseInt(saleIdStr);
         } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId は整数である必要があります");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "sale_id は整数である必要があります");
             return;
         }
 
@@ -72,9 +72,9 @@ public class S0022Servlet extends HttpServlet {
                         detail.setNote(rs.getString("note"));
 
                         // 確認用ログ
-                        System.out.println("取得成功: saleId=" + detail.getSaleId());
+                        System.out.println("取得成功: sale_id=" + detail.getSaleId());
                     } else {
-                        System.out.println("該当する売上データが見つかりませんでした: saleId=" + saleId);
+                        System.out.println("該当する売上データが見つかりませんでした: sale_id=" + saleId);
                     }
                 }
             }

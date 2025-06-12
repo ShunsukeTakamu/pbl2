@@ -11,4 +11,11 @@ public class Category {
 	private int categoryId;
 	private String categoryName;
 	private int activeFlg;
+
+	// S0023ConfirmServlet用
+	public Category(int categoryId, String categoryName) {
+	    this.categoryId = categoryId;
+	    this.categoryName = categoryName;
+	// S0023ConfirmServlet用
+	}
 }

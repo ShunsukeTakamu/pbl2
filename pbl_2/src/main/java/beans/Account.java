@@ -31,5 +31,11 @@ public class Account {
 
 	    return String.join("・", labels);
 	}
-
+	//S0023ConfirmServlet用　accountIdとnameだけを指定できるコンストラクタ
+	public Account(int accountId, String name) {
+	    this.accountId = accountId;
+	    this.name = name;
+	//S0023ConfirmServlet用　accountIdとnameだけを指定できるコンストラクタ
+	}
 }
+
