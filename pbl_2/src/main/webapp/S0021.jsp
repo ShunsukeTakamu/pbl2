@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -68,7 +69,7 @@
 
 				<!-- データ行 -->
 				<tbody>
-					<c:forEach var="sale" items="${ saleList }">
+					<c:forEach var="sale" items="${ saleList }" varStatus="stt">
 						<tr>
 							<!-- 詳細ボタン -->
 							<td class="text-left">
@@ -79,15 +80,19 @@
 								</form>
 							</td>
 
+							<!-- データのフォーマットを整える -->
+							<fmt:formatNumber value="${ sale.getUnitPrice() }" type="number" groupingUsed="true" var="formattedPrice" />
+							<fmt:formatNumber value="${ sale.getSaleNumber() }" type="number" groupingUsed="true" var="formattedNumber" />
+							<fmt:formatNumber value="${ sale.getUnitPrice() * sale.getSaleNumber() }" type="number" groupingUsed="true" var="formattedSubTotal" />
 							<!-- 各項目のデータ表示 -->
 							<td>${ sale.getSaleId() }</td>
-							<td>${ sale.getSaleDate() }</td>
+							<td>${ formattedDates.get(stt.index) }</td>
 							<td>${ accountMap.get(sale.getAccountId()) }</td>
 							<td>${ categoryMap.get(sale.getCategoryId()) }</td>
-							<td>${sale.getTradeName()}</td>
-							<td>${sale.getUnitPrice()}</td>
-							<td>${sale.getSaleNumber()}</td>
-							<td>${sale.getUnitPrice() * sale.getSaleNumber()}</td>
+							<td>${ sale.getTradeName() }</td>
+							<td>${ formattedPrice }</td>
+							<td>${ formattedNumber }</td>
+							<td>${ formattedSubTotal }</td>
 						</tr>
 					</c:forEach>
 				</tbody>

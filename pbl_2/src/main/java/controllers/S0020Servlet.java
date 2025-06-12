@@ -1,8 +1,10 @@
 package controllers;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -59,8 +61,14 @@ public class S0020Servlet extends HttpServlet {
 	    String note = request.getParameter("note");
 	    
 	    List<Sale> sales = (new SaleService()).searchSales(dateStart, dateEnd, accountId, categoryId, tradeName, note);
-	    
 	    session.setAttribute("saleList", sales);
+	    
+	    // 販売日 2015-01-15 を 2015/01/15 に変更
+	    List<String> formattedDates = sales.stream()
+	    		.map(sale -> sale.getSaleDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd")))
+	    		.collect(Collectors.toList());
+	    session.setAttribute("formattedDates", formattedDates);
+	    
 	    response.sendRedirect("S0021Servlet");
 	}
 

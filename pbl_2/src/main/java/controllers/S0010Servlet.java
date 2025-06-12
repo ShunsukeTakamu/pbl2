@@ -50,9 +50,10 @@ public class S0010Servlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		request.setCharacterEncoding("UTF-8");
 		String note = request.getParameter("note");
 		// 空文字ならnoteをnullにする
-		if (note.isBlank()) {
+		if (note.isEmpty()) {
 			note = null;
 		}
 		Sale sale = new Sale(
