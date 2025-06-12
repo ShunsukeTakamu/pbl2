@@ -161,5 +161,19 @@ public class AccountService {
 			throw new RuntimeException("アカウント削除に失敗しました。");
 		}
 	}
-	
+	// S0010ConfirmServlet.java用
+	public boolean existsById(int id) {
+		try (Connection conn = Db.open()) {
+			String sql = "SELECT 1 FROM accounts WHERE account_id = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			return rs.next();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	// S0010ConfirmServlet.java用
+	}
+
 }

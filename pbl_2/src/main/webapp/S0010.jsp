@@ -45,6 +45,16 @@
 	.wide-input {
 		width: 300px;
 	}
+	
+		/* ▼ エラー赤枠調整 */
+	.alert ul {
+		margin-bottom: 0;
+		padding-left: 1.2rem;
+	}
+	.alert li {
+		margin-bottom: 0;
+	}
+	/* エラー赤枠調整 */
 	</style>
 </head>
 <body>
@@ -63,7 +73,16 @@
 	</header>
 	<main class="container mt-5">
 		<h1>売上登録</h1>
-		<form action="S0010Servlet" method="post">
+		<c:if test="${not empty errors}">
+	<div class="alert alert-danger">
+		<ul>
+			<c:forEach var="err" items="${errors}">
+				<li>${err}</li>
+			</c:forEach>
+		</ul>
+	</div>
+</c:if>
+		<form action="S0010ConfirmServlet" method="post">
 
 			<div class="form-group">
 				<label for="inputSale_date">販売日 <span class="badge bg-secondary">必須</span> </label>
