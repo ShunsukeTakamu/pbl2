@@ -57,7 +57,7 @@
 	.nav-links {
 		display: flex;
 	}
-	.nav-links li.logout-item {
+	.nav-links li.logout {
 		margin-left: auto;
 	}
     .roles {
@@ -96,7 +96,7 @@
 				<li><a href="S0020.jsp">売上検索</a></li>
 				<li><a href="S0030.jsp">アカウント登録</a></li>
 				<li><a href="S0040.jsp">アカウント検索</a></li>
-				<li class="logout-item"><a href="logout.jsp">ログアウト</a></li>
+				<li class="logout"><a href="logout.jsp">ログアウト</a></li>
 			</ul>
 		</nav>
 </header>

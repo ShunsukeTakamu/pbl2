@@ -7,6 +7,11 @@
     <meta charset="UTF-8">
     <title>物品売上管理システム</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+    .nav-links .logout {
+   	 	margin-left: auto;
+	}
+    </style>
 </head>
 <body>
     <header>
@@ -18,7 +23,7 @@
                 <li><a href="S0020.jsp">売上検索</a></li>
                 <li><a href="S0030.jsp">アカウント登録</a></li>
                 <li><a href="C0040.jsp">アカウント検索</a></li>
-                <li href="logout.jsp" class="logout">ログアウト</li>
+                <li class="logout"><a href="logout.jsp">ログアウト</a></li>
             </ul>
         </nav>
     </header>
