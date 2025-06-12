@@ -10,6 +10,7 @@
 
 
 <style>
+
 body {
 	margin: 0;
 	font-family: 'Segoe UI', sans-serif;
@@ -21,8 +22,8 @@ body {
 	max-width: 600px;
 	margin: 50px auto;
 	padding: 30px;
-	background-color: #fdfdfd;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+
 	border-radius: 8px;
 }
 
@@ -48,33 +49,44 @@ button:last-child {
 
 </head>
 <body>
+	<%
+	String uri = request.getRequestURI(); // 例: /yourapp/C0020.jsp
+	%>
 	<header>
 		<nav class="navbar">
 			<div class="logo">物品売上管理システム</div>
 			<ul class="nav-links">
-				<li><a class="active" href="C0020.jsp">ダッシュボード</a></li>
-				<li><a href="S0010.jsp">売上登録</a></li>
-				<li><a href="S0020.jsp">売上検索</a></li>
-				<li><a href="S0030.jsp">アカウント登録</a></li>
-				<li><a href="C0040.jsp">アカウント検索</a></li>
-				<li><a href="logout.jsp" class="logout" class="right">ログアウト</a></li>
+				<li><a class="<%=uri.endsWith("C0020.jsp") ? "active" : ""%>"
+					href="C0020.jsp">ダッシュボード</a></li>
+				<li><a class="<%=uri.endsWith("S0010.jsp") ? "active" : ""%>"
+					href="S0010.jsp">売上登録</a></li>
+				<li><a class="<%=uri.endsWith("S0020.jsp") ? "active" : ""%>"
+					href="S0020.jsp">売上検索</a></li>
+				<li><a class="<%=uri.endsWith("S0030.jsp") ? "active" : ""%>"
+					href="S0030.jsp">アカウント登録</a></li>
+				<li><a class="<%=uri.endsWith("C0040.jsp") ? "active" : ""%>"
+					href="C0040.jsp">アカウント検索</a></li>
+				<li><a class="logout right" href="logout.jsp">ログアウト</a></li>
 			</ul>
 		</nav>
 	</header>
+	
 
+<main class="container mt-5">
 	<div class="content">
+<h3 class="mb-4 page-title">アカウント条件検索表示</h3>
 		<form action="C0040Servlet" method="post">
 
 			<div class="mb-3">
 				<label class="form-label">氏名 <span
 					class="badge bg-secondary">部分一致</span></label> <input type="text"
-					name="name" value="${param.name}" class="form-control"
+					name="name" value="${sessionScope.searchName}" class="form-control"
 					placeholder="氏名">
 			</div>
 			<div class="mb-3">
 				<label class="form-label">メールアドレス</label> <input type="text"
-					value="${param.email}" name="email" class="form-control"
-					placeholder="メールアドレス">
+					name="email" value="${sessionScope.searchEmail}"
+					class="form-control" placeholder="メールアドレス">
 			</div>
 
 
@@ -83,27 +95,27 @@ button:last-child {
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" type="checkbox" name="authorities"
 						value="0"
-						${fn:contains(paramValues['authorities'], '0') ?  'checked' : ''}>
+						${fn:contains(sessionScope.searchAuthorities, '0') ? 'checked' : ''}>
 					<label class="form-check-label">権限なし</label>
 				</div>
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" type="checkbox" name="authorities"
 						value="1"
-						${fn:contains(paramValues['authorities'], '1') ?  'checked' : ''}>
+						${fn:contains(sessionScope.searchAuthorities, '1') ? 'checked' : ''}>
 					<label class="form-check-label">売上登録</label>
 				</div>
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" type="checkbox" name="authorities"
 						value="2"
-						${fn:contains(paramValues['authorities'], '2') ?  'checked' : ''}>
+						${fn:contains(sessionScope.searchAuthorities, '2') ? 'checked' : ''}>
 					<label class="form-check-label">アカウント登録</label>
 				</div>
 			</div>
 
 
-			<div class="btn-group">
-				<button type="submit" class="btn btn-primary">検索</button>
-				<button type="reset" class="btn btn-secondary">クリア</button>
+			<div class="form-group d-flex" style="margin-left: 210px;">
+				<button type="submit" class="btn btn-primary me-2">検索</button>
+				<button type="reset" class="btn btn-outline-secondary">クリア</button>
 			</div>
 		</form>
 	</div>

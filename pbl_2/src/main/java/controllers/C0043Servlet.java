@@ -71,8 +71,8 @@ public class C0043Servlet extends HttpServlet {
 			AccountService service = new AccountService();
 			service.update(updated);
 
-			// 検索結果画面へリダイレクト
-			response.sendRedirect("C0041.jsp");
+			
+			response.sendRedirect("C0041Servlet");
 
 		} catch (Exception e) {
 			e.printStackTrace();

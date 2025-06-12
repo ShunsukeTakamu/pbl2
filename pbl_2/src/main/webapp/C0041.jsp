@@ -33,19 +33,22 @@ body {
 </head>
 <body>
 
-	<header>
-		<nav class="navbar">
-			<div class="logo">物品売上管理システム</div>
-			<ul class="nav-links">
-				<li><a class="active" href="C0020.jsp">ダッシュボード</a></li>
-				<li><a href="S0010.jsp">売上登録</a></li>
-				<li><a href="S0020.jsp">売上検索</a></li>
-				<li><a href="S0030.jsp">アカウント登録</a></li>
-				<li><a href="C0040.jsp">アカウント検索</a></li>
-				<li><a href="logout.jsp" class="logout right">ログアウト</a></li>
-			</ul>
-		</nav>
-	</header>
+	<%
+  String uri = request.getRequestURI(); // 例: /yourapp/C0020.jsp
+%>
+<header>
+  <nav class="navbar">
+    <div class="logo">物品売上管理システム</div>
+    <ul class="nav-links">
+      <li><a class="<%= uri.endsWith("C0020.jsp") ? "active" : "" %>" href="C0020.jsp">ダッシュボード</a></li>
+      <li><a class="<%= uri.endsWith("S0010.jsp") ? "active" : "" %>" href="S0010.jsp">売上登録</a></li>
+      <li><a class="<%= uri.endsWith("S0020.jsp") ? "active" : "" %>" href="S0020.jsp">売上検索</a></li>
+      <li><a class="<%= uri.endsWith("S0030.jsp") ? "active" : "" %>" href="S0030.jsp">アカウント登録</a></li>
+      <li><a class="<%= uri.endsWith("C0040.jsp") ? "active" : "" %>" href="C0040.jsp">アカウント検索</a></li>
+      <li><a class="logout right" href="logout.jsp">ログアウト</a></li>
+    </ul>
+  </nav>
+</header>
 
 	<div class="container mt-4">
 		<h3>アカウント検索結果表示</h3>

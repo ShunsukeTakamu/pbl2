@@ -44,10 +44,10 @@
 			</ul>
 		</nav>
 	</header>
-
+<h2 class="mb-4">アカウント詳細編集</h2>
 
 	<div class="content">
-		<h2>アカウント詳細編集</h2>
+		
 		<form action="C0042Servlet" method="post">
 			<input type="hidden" name="accountId" value="${account.accountId}" />
 
@@ -123,8 +123,10 @@
 
 
 
-			<button type="submit" class="btn btn-primary">更新</button>
-			<button type="reset" class="btn btn-secondary">キャンセル</button>
+			<div class="form-group d-flex" style="margin-left: 210px;">
+				<button type="submit" class="btn btn-primary me-2">更新</button>
+				<button type="reset" class="btn btn-outline-secondary">クリア</button>
+			</div>
 
 		</form>
 	</div>

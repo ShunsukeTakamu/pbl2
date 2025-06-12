@@ -136,9 +136,8 @@ public class AccountService {
 		String sql = "UPDATE accounts SET name = ?, mail = ?, password = ?, authority = ? WHERE account_id = ?";
 
 		try (
-			Connection con = Db.open();
-			PreparedStatement ps = con.prepareStatement(sql)
-		) {
+				Connection con = Db.open();
+				PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setString(1, updated.getName());
 			ps.setString(2, updated.getMail());
 			ps.setString(3, updated.getPassword()); // ハッシュ化しますか？
@@ -152,4 +151,15 @@ public class AccountService {
 		}
 	}
 
+	public void delete(int acocountId) {
+		try(Connection con = Db.open();
+			PreparedStatement ps = con.prepareStatement("DELETE FROM accounts WHERE id = ?")){
+			ps.setInt(1, acocountId);
+			ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("アカウント削除に失敗しました。");
+		}
+	}
+	
 }
