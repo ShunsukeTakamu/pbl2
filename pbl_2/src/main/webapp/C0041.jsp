@@ -11,6 +11,13 @@
 <script src="js/bootstrap.bundle.min.js"></script>
 
 <style>
+.custom-table thead {
+            border-top: 2px solid #dee2e6;
+            border-bottom: 2px solid #dee2e6;
+        }
+        .custom-table tbody tr {
+            border-bottom: 1px solid #dee2e6;
+        }
 body {
 	margin: 0;
 	font-family: 'Segoe UI', sans-serif;
@@ -42,7 +49,7 @@ body {
 
 	<div class="container mt-4">
 		<h3>アカウント検索結果表示</h3>
-		<table class="table table-bordered table-hover mt-3">
+		<table class="table custom-table align-middle w-100">
 			<thead class="table-light">
 				<tr>
 					<th>操作</th>
