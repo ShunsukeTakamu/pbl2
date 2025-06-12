@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,6 +18,7 @@ import beans.Sale;
 import services.AccountService;
 import services.CategoryService;
 import services.SaleService;
+import utils.DateUtil;
 
 /**
  * Servlet implementation class S0020Servlet
@@ -65,7 +65,7 @@ public class S0020Servlet extends HttpServlet {
 	    
 	    // 販売日 2015-01-15 を 2015/01/15 に変更
 	    List<String> formattedDates = sales.stream()
-	    		.map(sale -> sale.getSaleDate().format(DateTimeFormatter.ofPattern("yyyy/MM/dd")))
+	    		.map(sale -> DateUtil.formatLocDateToStr(sale.getSaleDate()))
 	    		.collect(Collectors.toList());
 	    session.setAttribute("formattedDates", formattedDates);
 	    

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import beans.SaleDetail;
+import utils.DateUtil;
 import utils.Db;
 
 @WebServlet("/S0022Servlet")
@@ -25,10 +27,10 @@ public class S0022Servlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // sale_id パラメータのチェック
-        String saleIdStr = request.getParameter("sale_id");
+        // saleId パラメータのチェック
+        String saleIdStr = request.getParameter("saleId");
         if (saleIdStr == null || saleIdStr.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "sale_id が指定されていません");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId が指定されていません");
             return;
         }
 
@@ -36,7 +38,7 @@ public class S0022Servlet extends HttpServlet {
         try {
             saleId = Integer.parseInt(saleIdStr);
         } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "sale_id は整数である必要があります");
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId は整数である必要があります");
             return;
         }
 
@@ -70,9 +72,9 @@ public class S0022Servlet extends HttpServlet {
                         detail.setNote(rs.getString("note"));
 
                         // 確認用ログ
-                        System.out.println("取得成功: sale_id=" + detail.getSaleId());
+                        System.out.println("取得成功: saleId=" + detail.getSaleId());
                     } else {
-                        System.out.println("該当する売上データが見つかりませんでした: sale_id=" + saleId);
+                        System.out.println("該当する売上データが見つかりませんでした: saleId=" + saleId);
                     }
                 }
             }
@@ -83,6 +85,10 @@ public class S0022Servlet extends HttpServlet {
         }
 
         request.setAttribute("detail", detail);
+        
+        // 日付のフォーマットを整える
+        String formattedDate = DateUtil.formatLocDateToStr(LocalDate.parse(detail.getSaleDate()));
+        request.setAttribute("formattedDate", formattedDate);
         request.getRequestDispatcher("S0022.jsp").forward(request, response);
     }
 }
