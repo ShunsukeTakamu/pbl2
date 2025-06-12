@@ -47,7 +47,7 @@
         <div class="table-responsive">
             <table class="table custom-table align-middle w-100">
                 <!-- テーブルのヘッダー行 -->
-                <thead class="text-center">
+                <thead class="table-light">
                     <tr>
                         <th>操作</th>
                         <th>No</th>
@@ -66,7 +66,7 @@
                     <c:forEach var="sale" items="${ saleList }">
                         <tr>
                             <!-- 詳細ボタン -->
-                            <td class="text-center">
+                            <td class="text-left">
                                 <form action="S0022Servlet" method="get">
                                     <input type="hidden" name="sale_id" value="${ sale.getSaleId() }">
                                     <button class="btn btn-primary btn-sm">✔ 詳細</button>
@@ -79,9 +79,9 @@
                             <td>${ accountMap.get(sale.getAccountId()) }</td>
                             <td>${ categoryMap.get(sale.getCategoryId()) }</td>
                             <td>${sale.getTradeName()}</td>
-                            <td class="text-end">${sale.getUnitPrice()}</td>
-                            <td class="text-end">${sale.getSaleNumber()}</td>
-                            <td class="text-end">${sale.getUnitPrice() * sale.getSaleNumber()}</td>
+                            <td>${sale.getUnitPrice()}</td>
+                            <td>${sale.getSaleNumber()}</td>
+                            <td>${sale.getUnitPrice() * sale.getSaleNumber()}</td>
                         </tr>
                     </c:forEach>
                 </tbody>
