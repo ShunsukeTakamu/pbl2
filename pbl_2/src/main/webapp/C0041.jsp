@@ -34,7 +34,7 @@ body {
 <body>
 
 	<%
-  String uri = request.getRequestURI(); // 例: /yourapp/C0020.jsp
+  String uri = request.getRequestURI();
 %>
 <header>
   <nav class="navbar">

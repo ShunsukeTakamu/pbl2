@@ -40,7 +40,7 @@ public class C0042Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		String action = request.getParameter("action"); // ← ここでボタン判定
+		String action = request.getParameter("action");
 		String idStr = request.getParameter("accountId");
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
@@ -50,7 +50,7 @@ public class C0042Servlet extends HttpServlet {
 
 		Map<String, String> errors = new HashMap<>();
 
-		// ▼ 各種バリデーション（共通）
+
 		if (name == null || name.isBlank()) {
 			errors.put("name", "氏名を入力してください。");
 		} else if (name.getBytes("UTF-8").length >= 21) {
@@ -88,7 +88,7 @@ public class C0042Servlet extends HttpServlet {
 			return;
 		}
 
-		// ▼ 権限の表示用フラグも用意
+
 		boolean has0 = false, has1 = false, has2 = false;
 		for (String auth : authorities) {
 			switch (auth) {
@@ -113,12 +113,10 @@ public class C0042Servlet extends HttpServlet {
 		request.setAttribute("has1", has1);
 		request.setAttribute("has2", has2);
 
-		// ▼ 分岐処理
 		if ("delete".equals(action)) {
-			// 削除確認画面へ
 			request.getRequestDispatcher("C0044.jsp").forward(request, response);
 		} else {
-			// 通常の編集確認画面へ
+			
 			request.getRequestDispatcher("C0043.jsp").forward(request, response);
 		}
 	}

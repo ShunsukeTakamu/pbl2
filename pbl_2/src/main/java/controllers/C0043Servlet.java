@@ -59,7 +59,7 @@ public class C0043Servlet extends HttpServlet {
 				}
 			}
 
-			// アカウントオブジェクト作成
+
 			Account updated = new Account();
 			updated.setAccountId(accountId);
 			updated.setName(name);
@@ -67,7 +67,6 @@ public class C0043Servlet extends HttpServlet {
 			updated.setPassword(password); // 必要に応じてハッシュ化
 			updated.setAuthority(new byte[] { authorityByte });
 
-			// DB更新処理
 			AccountService service = new AccountService();
 			service.update(updated);
 

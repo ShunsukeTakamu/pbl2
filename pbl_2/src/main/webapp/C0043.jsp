@@ -52,7 +52,7 @@
     </c:forEach>
 
     <form action="C0043Servlet" method="post">
-        <!-- 隠しデータとして送信 -->
+        
         <input type="hidden" name="accountId" value="${accountId}" />
         <input type="hidden" name="name" value="${fn:escapeXml(name)}" />
         <input type="hidden" name="email" value="${fn:escapeXml(email)}" />
@@ -61,7 +61,7 @@
             <input type="hidden" name="authorities" value="${auth}" />
         </c:forEach>
 
-        <!-- 表示用項目 -->
+        <!-- 表示項目 -->
         <div class="mb-3">
             <label class="form-label">氏名</label>
             <input type="text" class="form-control" value="${fn:escapeXml(name)}" readonly disabled />
