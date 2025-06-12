@@ -10,13 +10,11 @@
 <link rel="stylesheet" href="css/style.css">
 <script src="js/bootstrap.bundle.min.js"></script>
 <style>
-        .container {
-            max-width: 500px;
-            margin: 50px auto;
-            padding: 30px;
-            
-        }
-
+.container {
+	max-width: 500px;
+	margin: 50px auto;
+	padding: 30px;
+}
 </style>
 </head>
 <body>
@@ -125,6 +123,6 @@
 					onclick="history.back()">キャンセル</button>
 			</div>
 		</form>
-		</main>
+	</main>
 </body>
 </html>
