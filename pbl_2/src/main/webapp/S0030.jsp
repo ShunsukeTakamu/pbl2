@@ -9,57 +9,47 @@
 <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="css/style.css">
 <style>
-	body {
-		display: flex;
-    	flex-direction: column;
-		align-items: center;
-	}
 	 h2 {
         margin: 40px 0 30px;
         text-align: center;
     }
     .form-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
+       max-width: 600px;
+        margin: 50px auto;
+        padding: 0 20px;
     }
 	.form-group {
         display: flex;
         align-items: center;
-        margin-bottom: 15px;
+        margin-bottom: 1.5rem;
     }
     .form-group > label {
-    	width: 200px; 
-   		font-weight: bold;
-   		display: flex;
-    	justify-content: flex-end;
-    	margin-right: 10px;
+    	width: 200px;
     	text-align: right;
+    	display: flex;
+    	align-items: center;
+    	justify-content: flex-end;
+    	margin-right: 15px;
+    	gap: 6px;
 	}
-	.form-group .input-field {
+	.input-field {
     	flex: 1;
+    	padding: 8px;
+        font-size: 14px;
+        background-color: #e9ecef;
+        border-radius: 4px;
+        border: 1px solid #ced4da;
+        min-width: 200px;
 	}
     .required {
-        display: inline-block;
-        background-color: #666;
+         background-color: #666;
         color: #fff;
         font-size: 12px;
         padding: 2px 6px;
         border-radius: 12px;
         margin-left: 10px;
-        white-space: nowrap;
     }
-    header, .navbar {
-    	width: 100%;
-   		box-sizing: border-box;
-	}
-	.nav-links {
-		display: flex;
-	}
-	.nav-links li.logout {
-		margin-left: auto;
-	}
+    
     .roles {
         display: flex;
         align-items: center;
@@ -83,6 +73,33 @@
     }
     .submit-btn button:hover {
        background-color: #286090;
+    }
+    @media screen and (max-width: 768px) {
+        h2 {
+            padding-left: 0;
+            text-align: center;
+        }
+
+        .form-group {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .form-group > label {
+            width: 100%;
+            text-align: left;
+            justify-content: flex-start;
+            margin-bottom: 5px;
+        }
+
+        .input-field {
+            width: 100%;
+        }
+
+        .roles {
+            flex-direction: column;
+            align-items: flex-start;
+        }
     }
 </style>
 </head>
@@ -110,7 +127,7 @@
 		</div>
 		<div class="form-group">
 			<label>メールアドレス <span class="required">必須</span></label>
-        	<input type="email" name="email" placeholder="メールアドレス" required>
+        	<input type="mail" name="mail" placeholder="メールアドレス" required>
 		</div>
 		<div class="form-group">
 			 <label>パスワード <span class="required">必須</span></label>

@@ -9,57 +9,39 @@
 <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="css/style.css">
 <style>
-	body {
-		display: flex;
-    	flex-direction: column;
-		align-items: center;
-	}
 	 h2 {
         margin: 40px 0 30px;
         text-align: center;
+    	
     }
     .form-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 0 20px;
     }
 	.form-group {
-        display: flex;
+		display: flex;
         align-items: center;
-        margin-bottom: 15px;
+        margin-bottom: 1.5rem;
     }
     .form-group > label {
-    	width: 200px; 
-   		font-weight: bold;
-   		display: flex;
-    	justify-content: flex-end;
-    	margin-right: 10px;
+    	width: 200px;
     	text-align: right;
+    	display: flex;
+    	align-items: center;
+    	justify-content: flex-end;
+    	margin-right: 15px;
+    	gap: 6px;
 	}
-	.form-group .input-field {
-    	flex: 1;
-	}
-    .required {
-        display: inline-block;
-        background-color: #666;
-        color: #fff;
-        font-size: 12px;
-        padding: 2px 6px;
-        border-radius: 12px;
-        margin-left: 10px;
-        white-space: nowrap;
+	.input-field {
+        flex: 1;
+        padding: 8px;
+        font-size: 14px;
+        background-color: #e9ecef;
+        border-radius: 4px;
+        border: 1px solid #ced4da;
+        min-width: 200px;
     }
-    header, .navbar {
-    	width: 100%;
-   		box-sizing: border-box;
-	}
-	.nav-links {
-		display: flex;
-	}
-	.nav-links li.logout-item {
-		margin-left: auto;
-	}
     .roles {
         display: flex;
         align-items: center;
@@ -72,14 +54,6 @@
         text-align: center;
         margin-top: 20px;
     }
-    .submit-btn button {
-       padding: 8px 20px;
-    	font-size: 14px;
-   	 	border: none;
-    	border-radius: 4px;
-    	cursor: pointer;
-    	font-weight: bold;
-    }
     .submit-btn button.ok-btn {
         padding: 8px 20px;
         font-size: 14px;
@@ -88,20 +62,66 @@
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        font-weight: bold;
+        margin-right: 10px;
     }
     .submit-btn button.ok-btn:hover {
        background-color: #286090;
     }
     .cancel-btn {
     	background-color: #f5f5f5;   
-    	color: #000;             
+    	color: #000;
+    	border: none;
+        padding: 8px 20px;
+        border-radius: 4px;
+        cursor: pointer;             
 	}
 	.cancel-btn:hover {
     	background-color: #bbb;   
 	}
+	.required {
+        background-color: #666;
+        color: #fff;
+        font-size: 12px;
+        padding: 2px 6px;
+        border-radius: 12px;
+        margin-left: 10px;
+    } @media screen and (max-width: 768px) {
+        h2 {
+            padding-left: 0;
+            text-align: center;
+        }
+
+        .form-group {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .form-group > label {
+            width: 100%;
+            text-align: left;
+            justify-content: flex-start;
+            margin-bottom: 5px;
+        }
+
+        .input-field {
+            width: 100%;
+        }
+
+        .roles {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
 </style>
 </head>
 <body>
+<%
+	String name = (String) session.getAttribute("name");
+	String mail = (String) session.getAttribute("mail");
+	String password = (String) session.getAttribute("password");
+	String role = (String) session.getAttribute("role");
+%>
 <header>
 		<nav class="navbar">
 			<div class="logo">物品売上管理システム</div>
@@ -111,39 +131,47 @@
 				<li><a href="S0020.jsp">売上検索</a></li>
 				<li><a href="S0030.jsp">アカウント登録</a></li>
 				<li><a href="S0040.jsp">アカウント検索</a></li>
-				<li class="logout-item"><a href="logout.jsp">ログアウト</a></li>
+				<li class="logout"><a href="logout.jsp">ログアウト</a></li>
 			</ul>
 		</nav>
 	</header>
-	 <h2 style="text-align:center;">アカウントを登録してよろしいですか？</h2>
+	 <h2>アカウントを登録してよろしいですか？</h2>
+	 <% String error = (String) request.getAttribute("error"); %>
+	<% if (error != null) { %>
+    <div style="color: red; text-align: center; font-weight: bold; margin-bottom: 20px;">
+        <%= error %>
+    </div>
+	<% } %>
     <div class="form-container">
-        <c:if test="${not empty errorMessage}">
-            <div class="error-message">${errorMessage}</div>
-        </c:if>
-        <form action="S0031" method="post">
+        <form action="S0031Servlet" method="post">
 		<div class="form-group">
 			<label>氏名 <span class="required">必須</span></label>
-			<input type="text" name="name" placeholder="氏名" required>
+			<div class="input-field"><%= name %></div>
+			<input type="hidden" name="name" value="<%= name %>">
 		</div>
 		<div class="form-group">
 			<label>メールアドレス <span class="required">必須</span></label>
-        	<input type="email" name="email" placeholder="メールアドレス" required>
+        	<div class="input-field"><%= mail %></div>
+            <input type="hidden" name="mail" value="<%= mail %>">
 		</div>
 		<div class="form-group">
 			 <label>パスワード <span class="required">必須</span></label>
-        	<input type="password" name="password" placeholder="パスワード" required>
+        	<div class="input-field">********</div>
+            <input type="hidden" name="password" value="<%= password %>">
 		</div>
 		<div class="form-group">
 			<label>パスワード（確認）<span class="required">必須</span></label>
-        	<input type="password" name="confirmPassword" placeholder="パスワード（確認）" required>
+        	<div class="input-field">********</div>
+            <input type="hidden" name="password" value="<%= password %>">
 		</div>
 		<div class="form-group">
 			<label>権限 <span class="required">必須</span></label>
 			<div class="roles">
-        	<label><input type="radio" name="role" value="none" required> 権限なし</label>
-	        <label><input type="radio" name="role" value="view"> 参照</label>
-	        <label><input type="radio" name="role" value="update"> 更新</label>
+        	<label><input type="radio" name="role" value="none" <%= "none".equals(role) ? "checked" : "" %> disabled> 権限なし</label>
+	        <label><input type="radio" name="role" value="view" <%= "view".equals(role) ? "checked" : "" %> disabled> 参照</label>
+	        <label><input type="radio" name="role" value="update" <%= "update".equals(role) ? "checked" : "" %> disabled> 更新</label>
 		</div>
+			<input type="hidden" name="role" value="<%= role %>">	
 		</div>
 		<div class="submit-btn">
         	<button type="submit" class="ok-btn">O K</button>
@@ -151,6 +179,6 @@
     	</div>
 	</form>
 	</div>
-	<script src="js/bootstrap.bundle.min.js"></script>
+	
 </body>
 </html>
