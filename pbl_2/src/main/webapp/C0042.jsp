@@ -143,7 +143,10 @@ document.addEventListener("DOMContentLoaded", () => {
       checkAccount.checked = false;
       checkSales.disabled = true;
       checkAccount.disabled = true;
-    } else {
+    }else if(!checkSales.checked && !checkAccount.checked){
+        checkSales.disabled = false;
+        cheackAccount.disabled = false;
+        } else {
       checkSales.disabled = false;
       checkAccount.disabled = false;
     }
