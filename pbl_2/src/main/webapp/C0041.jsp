@@ -57,8 +57,8 @@ body {
 		</nav>
 	</header>
 
-	<div class="container mt-4">
-		<h3>アカウント検索結果表示</h3>
+	<main class="container mt-5">
+		<h1>アカウント検索結果表示</h1>
 		<table class="table custom-table align-middle w-100">
 			<thead class="table-light">
 				<c:if test="${not empty success }">

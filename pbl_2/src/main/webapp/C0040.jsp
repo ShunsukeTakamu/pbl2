@@ -10,43 +10,43 @@
 
 
 <style>
-	.form-group {
-		display: flex;
-		align-items: center;
-		margin-bottom: 1rem;
-	}
-	
-	.form-group label {
-		width: 200px;
-		margin-right: 10px;
-		text-align: right;
-	}
-	
-	.form-group {
-		flex: 1;
-	}
-	
-	form {
-		max-width: 700px;
-		margin: 0 auto;
-	}
-	
-	.note-group {
-		align-items: flex-start;
-	}
-	
-	.note-group label {
-		margin-top: 6px;
-	}
-	
-	.short-input {
-		width: 150px;
-	}
-	
-	.wide-input {
-		width: 300px;
-	}
-	</style>
+.form-group {
+	display: flex;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.form-group label {
+	width: 200px;
+	margin-right: 10px;
+	text-align: right;
+}
+
+.form-group {
+	flex: 1;
+}
+
+form {
+	max-width: 500px;
+	margin: 0 auto;
+}
+
+.note-group {
+	align-items: flex-start;
+}
+
+.note-group label {
+	margin-top: 6px;
+}
+
+.short-input {
+	width: 150px;
+}
+
+.wide-input {
+	width: 300px;
+}
+</style>
 
 <meta charset="UTF-8">
 <title>物品売上管理システム</title>
@@ -74,12 +74,12 @@
 			</ul>
 		</nav>
 	</header>
-	
+
 
 
 
 	<main class="container mt-5">
-<h1>アカウント条件検索表示</h1>
+		<h1>アカウント条件検索表示</h1>
 		<form action="C0040Servlet" method="post">
 
 			<div class="mb-3">
@@ -123,7 +123,5 @@
 				<button type="reset" class="btn btn-outline-secondary">クリア</button>
 			</div>
 		</form>
-
-
 </body>
 </html>

@@ -10,22 +10,41 @@
 <link rel="stylesheet" href="css/style.css">
 <script src="js/bootstrap.bundle.min.js"></script>
 <style>
-.text-danger {
-	color: red;
-	font-size: 0.9em;
+.form-group {
+	display: flex;
+	align-items: center;
+	margin-bottom: 1rem;
 }
 
-.content {
-	max-width: 600px;
-	margin: 50px auto;
-	padding: 30px;
-	background: #fdfdfd;
-	border-radius: 8px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+.form-group label {
+	width: 200px;
+	margin-right: 10px;
+	text-align: right;
 }
 
-.btn-group {
-	text-align: center;
+.form-group {
+	flex: 1;
+}
+
+form {
+	max-width: 500px;
+	margin: 0 auto;
+}
+
+.note-group {
+	align-items: flex-start;
+}
+
+.note-group label {
+	margin-top: 6px;
+}
+
+.short-input {
+	width: 150px;
+}
+
+.wide-input {
+	width: 300px;
 }
 </style>
 </head>
@@ -52,11 +71,14 @@
 			</ul>
 		</nav>
 	</header>
-	<h2 class="mb-4">アカウント詳細編集</h2>
+	<main class="container mt-5">
+		<h1>アカウント詳細編集</h1>
 
-	<div class="content">
 
 
+		<c:if test="${not empty successMessage }">
+			<div class="alert alert-success" role="alert">${successMessage }</div>
+		</c:if>
 		<form action="C0042Servlet" method="post">
 			<input type="hidden" name="accountId" value="${account.accountId}" />
 
@@ -142,7 +164,7 @@
 			</div>
 
 		</form>
-	</div>
+	</main>
 
 	<script>
 document.addEventListener("DOMContentLoaded", () => {
