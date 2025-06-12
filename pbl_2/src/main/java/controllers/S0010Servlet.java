@@ -38,11 +38,17 @@ public class S0010Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LocalDate today = LocalDate.now();
-		request.setAttribute("today", today);
 		ArrayList<Category> categories = (new CategoryService()).selectAll();
 		request.setAttribute("categories", categories);
 		ArrayList<Account> accounts = (new AccountService()).selectAll();
 		request.setAttribute("accounts", accounts);
+		Sale sale = new Sale();
+		sale.setSaleDate(today);
+		sale.setAccountId(0);
+		sale.setCategoryId(0);
+		sale.setUnitPrice(-1);
+		sale.setSaleNumber(-1);
+		request.setAttribute("sale", sale);
 		request.getRequestDispatcher("/S0010.jsp").forward(request, response);
 	}
 
