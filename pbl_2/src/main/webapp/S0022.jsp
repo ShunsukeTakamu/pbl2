@@ -2,13 +2,16 @@
     pageEncoding="UTF-8"%>
 <%@ page import="beans.SaleDetail" %>
 <jsp:useBean id="detail" class="beans.SaleDetail" scope="request" />
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <title>売上詳細表示 | 物品売上管理システム</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    
 </head>
 <body>
     <header>
