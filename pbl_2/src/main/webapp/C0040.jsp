@@ -10,39 +10,43 @@
 
 
 <style>
-
-body {
-	margin: 0;
-	font-family: 'Segoe UI', sans-serif;
-	background-color: #fff;
-	color: #333;
-}
-
-.content {
-	max-width: 500px;
-	margin: 50px auto;
-	padding: 30px;
-
-
-	border-radius: 8px;
-}
-
-form .mb-3 {
-	margin-bottom: 1.5rem;
-}
-
-button {
-	margin-right: 10px;
-}
-
-button:last-child {
-	margin-right: 0;
-}
-
-.btn-group {
-	text-align: center;
-}
-</style>
+	.form-group {
+		display: flex;
+		align-items: center;
+		margin-bottom: 1rem;
+	}
+	
+	.form-group label {
+		width: 200px;
+		margin-right: 10px;
+		text-align: right;
+	}
+	
+	.form-group {
+		flex: 1;
+	}
+	
+	form {
+		max-width: 700px;
+		margin: 0 auto;
+	}
+	
+	.note-group {
+		align-items: flex-start;
+	}
+	
+	.note-group label {
+		margin-top: 6px;
+	}
+	
+	.short-input {
+		width: 150px;
+	}
+	
+	.wide-input {
+		width: 300px;
+	}
+	</style>
 
 <meta charset="UTF-8">
 <title>物品売上管理システム</title>
@@ -57,24 +61,25 @@ button:last-child {
 			<div class="logo">物品売上管理システム</div>
 			<ul class="nav-links">
 				<li><a class="<%=uri.endsWith("C0020.jsp") ? "active" : ""%>"
-					href="C0020.jsp">ダッシュボード</a></li>
+					href="C0020Servlet">ダッシュボード</a></li>
 				<li><a class="<%=uri.endsWith("S0010.jsp") ? "active" : ""%>"
-					href="S0010.jsp">売上登録</a></li>
+					href="S0010Servlet">売上登録</a></li>
 				<li><a class="<%=uri.endsWith("S0020.jsp") ? "active" : ""%>"
-					href="S0020.jsp">売上検索</a></li>
+					href="S0020Servlet">売上検索</a></li>
 				<li><a class="<%=uri.endsWith("S0030.jsp") ? "active" : ""%>"
-					href="S0030.jsp">アカウント登録</a></li>
+					href="S0030Servlet">アカウント登録</a></li>
 				<li><a class="<%=uri.endsWith("C0040.jsp") ? "active" : ""%>"
-					href="C0040.jsp">アカウント検索</a></li>
+					href="C0040Servlet">アカウント検索</a></li>
 				<li><a class="logout right" href="logout.jsp">ログアウト</a></li>
 			</ul>
 		</nav>
 	</header>
 	
 
-<main class="container mt-5">
-	<div class="content">
-<h3 class="mb-4 page-title">アカウント条件検索表示</h3>
+
+
+	<main class="container mt-5">
+<h1>アカウント条件検索表示</h1>
 		<form action="C0040Servlet" method="post">
 
 			<div class="mb-3">
@@ -118,7 +123,7 @@ button:last-child {
 				<button type="reset" class="btn btn-outline-secondary">クリア</button>
 			</div>
 		</form>
-	</div>
+
 
 </body>
 </html>

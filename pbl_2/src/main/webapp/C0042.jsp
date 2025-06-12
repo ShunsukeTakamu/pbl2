@@ -31,23 +31,32 @@
 </head>
 <body>
 
+	<%
+	String uri = request.getRequestURI();
+	%>
 	<header>
 		<nav class="navbar">
 			<div class="logo">物品売上管理システム</div>
 			<ul class="nav-links">
-				<li><a class="active" href="C0020.jsp">ダッシュボード</a></li>
-				<li><a href="S0010.jsp">売上登録</a></li>
-				<li><a href="S0020.jsp">売上検索</a></li>
-				<li><a href="S0030.jsp">アカウント登録</a></li>
-				<li><a href="C0040.jsp">アカウント検索</a></li>
-				<li><a href="logout.jsp" class="logout right">ログアウト</a></li>
+				<li><a class="<%=uri.endsWith("C0020.jsp") ? "active" : ""%>"
+					href="C0020Servlet">ダッシュボード</a></li>
+				<li><a class="<%=uri.endsWith("S0010.jsp") ? "active" : ""%>"
+					href="S0010Servlet">売上登録</a></li>
+				<li><a class="<%=uri.endsWith("S0020.jsp") ? "active" : ""%>"
+					href="S0020Servlet">売上検索</a></li>
+				<li><a class="<%=uri.endsWith("S0030.jsp") ? "active" : ""%>"
+					href="S0030Servlet">アカウント登録</a></li>
+				<li><a class="<%=uri.endsWith("C0040.jsp") ? "active" : ""%>"
+					href="C0040Servlet">アカウント検索</a></li>
+				<li><a class="logout right" href="logout.jsp">ログアウト</a></li>
 			</ul>
 		</nav>
 	</header>
-<h2 class="mb-4">アカウント詳細編集</h2>
+	<h2 class="mb-4">アカウント詳細編集</h2>
 
 	<div class="content">
-		
+
+
 		<form action="C0042Servlet" method="post">
 			<input type="hidden" name="accountId" value="${account.accountId}" />
 
@@ -117,7 +126,11 @@
 						<c:if test="${hasParam and fn:contains(paramAuthorities, '2')}">checked</c:if>
 						<c:if test="${not hasParam and (authVal == 2 or authVal == 3)}">checked</c:if>>
 					<label class="form-check-label" for="authAccount">アカウント登録</label>
+
 				</div>
+				<c:if test="${not empty errors.authorities}">
+					<div class="text-danger">${errors.authorities}</div>
+				</c:if>
 			</div>
 
 
@@ -145,7 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
       checkAccount.disabled = true;
     }else if(!checkSales.checked && !checkAccount.checked){
         checkSales.disabled = false;
-        cheackAccount.disabled = false;
+        checkAccount.disabled = false;
         } else {
       checkSales.disabled = false;
       checkAccount.disabled = false;

@@ -12,12 +12,14 @@
 
 <style>
 .custom-table thead {
-            border-top: 2px solid #dee2e6;
-            border-bottom: 2px solid #dee2e6;
-        }
-        .custom-table tbody tr {
-            border-bottom: 1px solid #dee2e6;
-        }
+	border-top: 2px solid #dee2e6;
+	border-bottom: 2px solid #dee2e6;
+}
+
+.custom-table tbody tr {
+	border-bottom: 1px solid #dee2e6;
+}
+
 body {
 	margin: 0;
 	font-family: 'Segoe UI', sans-serif;
@@ -34,26 +36,34 @@ body {
 <body>
 
 	<%
-  String uri = request.getRequestURI();
-%>
-<header>
-  <nav class="navbar">
-    <div class="logo">物品売上管理システム</div>
-    <ul class="nav-links">
-      <li><a class="<%= uri.endsWith("C0020.jsp") ? "active" : "" %>" href="C0020.jsp">ダッシュボード</a></li>
-      <li><a class="<%= uri.endsWith("S0010.jsp") ? "active" : "" %>" href="S0010.jsp">売上登録</a></li>
-      <li><a class="<%= uri.endsWith("S0020.jsp") ? "active" : "" %>" href="S0020.jsp">売上検索</a></li>
-      <li><a class="<%= uri.endsWith("S0030.jsp") ? "active" : "" %>" href="S0030.jsp">アカウント登録</a></li>
-      <li><a class="<%= uri.endsWith("C0040.jsp") ? "active" : "" %>" href="C0040.jsp">アカウント検索</a></li>
-      <li><a class="logout right" href="logout.jsp">ログアウト</a></li>
-    </ul>
-  </nav>
-</header>
+	String uri = request.getRequestURI();
+	%>
+	<header>
+		<nav class="navbar">
+			<div class="logo">物品売上管理システム</div>
+			<ul class="nav-links">
+				<li><a class="<%=uri.endsWith("C0020.jsp") ? "active" : ""%>"
+					href="C0020Servlet">ダッシュボード</a></li>
+				<li><a class="<%=uri.endsWith("S0010.jsp") ? "active" : ""%>"
+					href="S0010Servlet">売上登録</a></li>
+				<li><a class="<%=uri.endsWith("S0020.jsp") ? "active" : ""%>"
+					href="S0020Servlet">売上検索</a></li>
+				<li><a class="<%=uri.endsWith("S0030.jsp") ? "active" : ""%>"
+					href="S0030Servlet">アカウント登録</a></li>
+				<li><a class="<%=uri.endsWith("C0040.jsp") ? "active" : ""%>"
+					href="C0040Servlet">アカウント検索</a></li>
+				<li><a class="logout right" href="logout.jsp">ログアウト</a></li>
+			</ul>
+		</nav>
+	</header>
 
 	<div class="container mt-4">
 		<h3>アカウント検索結果表示</h3>
 		<table class="table custom-table align-middle w-100">
 			<thead class="table-light">
+				<c:if test="${not empty success }">
+					<div class="alert alert-success" role="alert">${success}</div>
+				</c:if>
 				<tr>
 					<th>操作</th>
 					<th>No</th>

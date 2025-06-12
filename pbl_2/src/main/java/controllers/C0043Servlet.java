@@ -17,21 +17,22 @@ import services.AccountService;
 @WebServlet("/C0043Servlet")
 public class C0043Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public C0043Servlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public C0043Servlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/**
@@ -59,7 +60,6 @@ public class C0043Servlet extends HttpServlet {
 				}
 			}
 
-
 			Account updated = new Account();
 			updated.setAccountId(accountId);
 			updated.setName(name);
@@ -69,8 +69,9 @@ public class C0043Servlet extends HttpServlet {
 
 			AccountService service = new AccountService();
 			service.update(updated);
-
 			
+			request.getSession().setAttribute("success", "アカウントが更新されました。");
+
 			response.sendRedirect("C0041Servlet");
 
 		} catch (Exception e) {

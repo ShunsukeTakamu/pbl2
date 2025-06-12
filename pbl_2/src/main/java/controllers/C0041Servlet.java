@@ -39,9 +39,9 @@ public class C0041Servlet extends HttpServlet {
 		String email = (String) request.getSession().getAttribute("searchEmail");
 		String[] authorities = (String[]) request.getSession().getAttribute("searchAuthorities");
 
-		System.out.println("セッションから取得: name=" + name);
-		System.out.println("セッションから取得: email=" + email);
-		System.out.println("セッションから取得: authorities=" + java.util.Arrays.toString(authorities));
+//		System.out.println("セッションから取得: name=" + name);
+//		System.out.println("セッションから取得: email=" + email);
+//		System.out.println("セッションから取得: authorities=" + java.util.Arrays.toString(authorities));
 
 		
 	    AccountService service = new AccountService();
