@@ -49,7 +49,7 @@
 					href="S0030.html">アカウント登録</a></li>
 				<li><a class="<%=uri.endsWith("C0040.jsp") ? "active" : ""%>"
 					href="C0040.html">アカウント検索</a></li>
-				<li><a class="logout right" href="logout.jsp">ログアウト</a></li>
+				<li class="logout"><a href="logout.jsp">ログアウト</a></li>
 			</ul>
 		</nav>
 	</header>
