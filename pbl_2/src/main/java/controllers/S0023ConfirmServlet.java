@@ -40,7 +40,7 @@ public class S0023ConfirmServlet extends HttpServlet {
         List<String> errors = new ArrayList<>();
 
         int saleId = 0, accountId = 0, categoryId = 0;
-        int unitPrice = 0, saleNumber = 0;
+        int unitPrice = -1, saleNumber = -1;
 
         try {
             saleId = Integer.parseInt(saleIdStr);

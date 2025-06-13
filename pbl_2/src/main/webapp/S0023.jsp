@@ -100,13 +100,13 @@
 			<!-- 単価 -->
 			<div class="form-group">
 				<label for="inputUnit_price">単価</label>
-				<input type="number" class="form-control short-input" id="inputUnit_price" name="unit_price" value="${detail.unitPrice}">
+				<input type="number" class="form-control short-input" id="inputUnit_price" name="unit_price" <c:if test="${ detail.unitPrice >= 0 }">value="${detail.unitPrice}"</c:if>>
 			</div>
 
 			<!-- 個数 -->
 			<div class="form-group">
 				<label for="inputSale_number">個数</label>
-				<input type="number" class="form-control short-input" id="inputSale_number" name="sale_number" value="${detail.saleNumber}">
+				<input type="number" class="form-control short-input" id="inputSale_number" name="sale_number" <c:if test="${ detail.saleNumber >= 0 }">value="${detail.saleNumber}"</c:if>>
 			</div>
 
 			<!-- 備考 -->

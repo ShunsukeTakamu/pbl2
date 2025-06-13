@@ -87,6 +87,7 @@ public class S0010ConfirmServlet extends HttpServlet {
         // 単価チェック
         try {
             unitPrice = Integer.parseInt(unitPriceStr);
+            System.out.println(unitPrice);
             if (unitPrice <= 0) errors.add("単価を入力してください。");
         } catch (NumberFormatException e) {
             errors.add("単価を正しく入力してください。");
