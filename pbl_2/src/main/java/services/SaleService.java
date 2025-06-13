@@ -32,12 +32,12 @@ public class SaleService {
 			params.add(dateEnd);
 		}
 
-		if (accountId != null && !accountId.isEmpty()) {
+		if (accountId != null && !accountId.isEmpty() && !accountId.equals("0")) {
 			sql.append(" AND account_id = ?");
 			params.add(accountId);
 		}
 
-		if (categoryId != null && !categoryId.isEmpty()) {
+		if (categoryId != null && !categoryId.isEmpty() && !categoryId.equals("0")) {
 			sql.append(" AND category_id = ?");
 			params.add(categoryId);
 		}
