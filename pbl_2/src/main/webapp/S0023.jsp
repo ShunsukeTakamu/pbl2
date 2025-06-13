@@ -94,25 +94,25 @@
 			<!-- 商品名 -->
 			<div class="form-group">
 				<label for="inputTrade_name">商品名</label>
-				<input type="text" class="form-control wide-input" id="inputTrade_name" name="trade_name" value="${detail.tradeName}">
+				<input type="text" class="form-control wide-input" id="inputTrade_name" name="trade_name" placeholder="商品名" value="${detail.tradeName}">
 			</div>
 
 			<!-- 単価 -->
 			<div class="form-group">
 				<label for="inputUnit_price">単価</label>
-				<input type="number" class="form-control short-input" id="inputUnit_price" name="unit_price" <c:if test="${ detail.unitPrice >= 0 }">value="${detail.unitPrice}"</c:if>>
+				<input type="number" class="form-control short-input" id="inputUnit_price" name="unit_price" placeholder="単価" <c:if test="${ detail.unitPrice >= 0 }">value="${detail.unitPrice}"</c:if>>
 			</div>
 
 			<!-- 個数 -->
 			<div class="form-group">
 				<label for="inputSale_number">個数</label>
-				<input type="number" class="form-control short-input" id="inputSale_number" name="sale_number" <c:if test="${ detail.saleNumber >= 0 }">value="${detail.saleNumber}"</c:if>>
+				<input type="number" class="form-control short-input" id="inputSale_number" name="sale_number" placeholder="個数" <c:if test="${ detail.saleNumber >= 0 }">value="${detail.saleNumber}"</c:if>>
 			</div>
 
 			<!-- 備考 -->
 			<div class="form-group note-group">
 				<label for="inputNote">備考</label>
-				<textarea class="form-control wide-input" rows="5" id="inputNote" name="note">${detail.note}</textarea>
+				<textarea class="form-control wide-input" rows="5" id="inputNote" name="note" placeholder="備考">${detail.note}</textarea>
 			</div>
 
 			<div class="form-group d-flex" style="margin-left: 210px;">
