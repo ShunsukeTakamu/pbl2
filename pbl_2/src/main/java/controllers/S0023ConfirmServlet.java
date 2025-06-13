@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -116,7 +117,7 @@ public class S0023ConfirmServlet extends HttpServlet {
         }
         }
 
-        if (note != null && note.length() > 255) {
+        if (note != null && note.getBytes(StandardCharsets.UTF_8).length >= 401) {
             errors.add("備考が長すぎます。");
         }
 
