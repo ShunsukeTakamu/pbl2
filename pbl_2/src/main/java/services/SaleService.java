@@ -161,4 +161,34 @@ public class SaleService {
 		}
 		return total;
 	}
+	
+	// 商品カテゴリー別売上
+		public Map<String, Integer> getSalesByCategory() {
+		    Map<String, Integer> result = new LinkedHashMap<>();
+
+		    String sql = """
+		        SELECT c.category_name AS category_name,
+		               SUM(s.unit_price * s.sale_number) AS total_sales
+		        FROM sales s
+		        JOIN categories c ON s.category_id = c.category_id
+		        GROUP BY c.category_name
+		        ORDER BY total_sales DESC
+		        """;
+
+		    try (Connection con = Db.open();
+		         PreparedStatement ps = con.prepareStatement(sql);
+		         ResultSet rs = ps.executeQuery()) {
+
+		        while (rs.next()) {
+		            String name = rs.getString("category_name");
+		            int total = rs.getInt("total_sales");
+		            result.put(name, total);
+		        }
+
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+
+		    return result;
+		}
 }
