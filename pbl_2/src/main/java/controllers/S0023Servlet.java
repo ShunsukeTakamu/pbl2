@@ -19,7 +19,7 @@ import services.AccountService;
 import services.CategoryService;
 import utils.Db;
 
-@WebServlet("/S0023Servlet")
+@WebServlet("/S0023.html")
 public class S0023Servlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

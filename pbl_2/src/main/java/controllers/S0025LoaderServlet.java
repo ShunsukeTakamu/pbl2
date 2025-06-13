@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import beans.SaleDetail;
 import utils.Db;
 
-@WebServlet("/S0025LoaderServlet")
+@WebServlet("/S0025Loader.html")
 public class S0025LoaderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

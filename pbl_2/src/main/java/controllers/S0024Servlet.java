@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import utils.Db;
 
-@WebServlet("/S0024Servlet")
+@WebServlet("/S0024.html")
 public class S0024Servlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -59,7 +59,7 @@ public class S0024Servlet extends HttpServlet {
             }
 
             // 更新後は詳細表示画面へリダイレクト
-            response.sendRedirect("S0022Servlet?sale_id=" + saleId);
+            response.sendRedirect("S0022.html?sale_id=" + saleId);
 
         } catch (Exception e) {
             e.printStackTrace();

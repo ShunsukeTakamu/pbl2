@@ -16,7 +16,7 @@ import beans.SaleDetail;
 import utils.DateUtil;
 import utils.Db;
 
-@WebServlet("/S0022Servlet")
+@WebServlet("/S0022.html")
 public class S0022Servlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

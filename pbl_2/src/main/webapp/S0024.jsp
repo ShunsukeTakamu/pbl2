@@ -50,7 +50,7 @@
 	<main class="container mt-5">
 		<h1>売上詳細編集確認</h1>
 
-		<form action="S0024Servlet" method="post">
+		<form action="S0024.html" method="post">
 			<!-- Hidden: 値の保持 -->
 			<input type="hidden" name="sale_id" value="${param.sale_id}">
 			<input type="hidden" name="sale_date" value="${param.sale_date}">

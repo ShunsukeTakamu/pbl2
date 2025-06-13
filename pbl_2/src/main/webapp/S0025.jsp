@@ -42,7 +42,7 @@
 	<main class="container mt-5">
 		<h1>売上詳細削除確認</h1>
 
-		<form action="S0025Servlet" method="post">
+		<form action="S0025.html" method="post">
 			<input type="hidden" name="sale_id" value="${detail.saleId}">
 
 			<div class="form-group">

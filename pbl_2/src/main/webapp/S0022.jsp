@@ -48,19 +48,19 @@
 
             <div class="text-center mt-4">
 
-                <form action="S0023Servlet" method="get" style="display: inline-block;">
+                <form action="S0023.html" method="get" style="display: inline-block;">
                     <input type="hidden" name="sale_id" value="${detail.saleId}">
                     <button class="btn btn-primary">✔ 更新</button>
                 </form>
 
                 <!-- 削除ボタン -->
-                <form action="S0025LoaderServlet" method="get" style="display: inline-block;">
+                <form action="S0025Loader.html" method="get" style="display: inline-block;">
                     <input type="hidden" name="sale_id" value="${detail.saleId}">
                     <button class="btn btn-danger">✘ 削除</button>
                 </form>
 
                 <!-- キャンセルボタン -->
-                <form action="S0021Servlet" method="get" style="display: inline-block;">
+                <form action="S0021.html" method="get" style="display: inline-block;">
                     <button class="btn btn-outline-secondary">キャンセル</button>
                 </form>
             </div>

@@ -18,7 +18,7 @@ import beans.Category;
 import beans.SaleDetail;
 import utils.Db;
 
-@WebServlet("/S0023ConfirmServlet")
+@WebServlet("/S0023Confirm.html")
 public class S0023ConfirmServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

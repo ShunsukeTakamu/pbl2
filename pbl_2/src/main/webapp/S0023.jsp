@@ -59,7 +59,7 @@
 			</div>
 		</c:if>
 
-		<form action="S0023ConfirmServlet" method="post">
+		<form action="S0023Confirm.html" method="post">
 			<input type="hidden" name="sale_id" value="${detail.saleId}">
 
 			<!-- 販売日 -->
