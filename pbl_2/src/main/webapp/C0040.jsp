@@ -75,12 +75,13 @@ form {
 		</nav>
 	</header>
 
-
-
-
 	<main class="container mt-5">
 		<h1>アカウント条件検索表示</h1>
-		<form action="C0040Servlet" method="post">
+
+		<c:if test="${not empty noResult}">
+			<div class="alert alert-warning">${noResult}</div>
+		</c:if>
+		<form action="C0040.html" method="post">
 
 			<div class="mb-3">
 				<label class="form-label">氏名 <span

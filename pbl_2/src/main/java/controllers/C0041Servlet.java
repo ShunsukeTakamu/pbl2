@@ -15,7 +15,7 @@ import services.AccountService;
 /**
  * Servlet implementation class C0041Servlet
  */
-@WebServlet("/C0041Servlet")
+@WebServlet("/C0041.html")
 public class C0041Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,8 +47,13 @@ public class C0041Servlet extends HttpServlet {
 	    AccountService service = new AccountService();
 	    List<Account> accounts = service.searchAccounts(name, email, authorities);
 
-	    request.setAttribute("accounts", accounts);
+	    if (accounts == null || accounts.isEmpty()) {
+	        request.setAttribute("noResult", "該当するアカウントがありませんでした。");
+	        request.getRequestDispatcher("C0040.jsp").forward(request, response);  // 検索画面に戻る
+	        return;
+	    }
 	    
+	    request.setAttribute("accounts", accounts);
 	    request.setAttribute("name", name);
 	    request.setAttribute("email", email);
 	    request.setAttribute("authorities", authorities);

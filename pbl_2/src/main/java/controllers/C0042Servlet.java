@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import beans.Account;
 import services.AccountService;
 
-@WebServlet("/C0042Servlet")
+@WebServlet("/C0042.html")
 public class C0042Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

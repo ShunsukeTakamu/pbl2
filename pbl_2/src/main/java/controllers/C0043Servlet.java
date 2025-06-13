@@ -14,7 +14,7 @@ import services.AccountService;
 /**
  * Servlet implementation class C0043Servlet
  */
-@WebServlet("/C0043Servlet")
+@WebServlet("/C0043.html")
 public class C0043Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -76,12 +76,12 @@ public class C0043Servlet extends HttpServlet {
 
 			request.getSession().setAttribute("update", "アカウントが更新されました。");
 
-			response.sendRedirect("C0041Servlet");
+			response.sendRedirect("C0041.html");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "アカウントの更新に失敗しました。");
-			request.getRequestDispatcher("C0042Servlet").forward(request, response);
+			request.getRequestDispatcher("C0042.html").forward(request, response);
 		}
 	}
 

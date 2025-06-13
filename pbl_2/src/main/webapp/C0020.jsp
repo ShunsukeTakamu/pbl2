@@ -30,12 +30,12 @@
         <div class="nav-wrapper">
             <a href="#" class="brand-logo">物品売上管理システム</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="C0020.jsp">ダッシュボード</a></li>
-                <li><a href="S0010.jsp">売上登録</a></li>
-                <li><a href="S0020.jsp">売上検索</a></li>
-                <li><a href="S0030.jsp">アカウント登録</a></li>
-                <li><a href="C0040.jsp">アカウント検索</a></li>
-                <li><a href="logout.jsp" class="logout-link">ログアウト</a></li>
+                <li><a href="C0020.html">ダッシュボード</a></li>
+                <li><a href="S0010.html">売上登録</a></li>
+                <li><a href="S0020.html">売上検索</a></li>
+                <li><a href="S0030.html">アカウント登録</a></li>
+                <li><a href="C0040.html">アカウント検索</a></li>
+                <li><a href="" class="logout-link">ログアウト</a></li>
             </ul>
         </div>
     </nav>

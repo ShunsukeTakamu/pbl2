@@ -86,28 +86,37 @@ body {
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="user" items="${accounts}">
-					<tr>
-						<td>
-							<form action="C0042Servlet" method="get" style="display: inline;">
-								<input type="hidden" name="id" value="${user.accountId}">
-								<button type="submit" class="btn btn-sm btn-primary">✔
-									編集</button>
-							</form>
-							<form action="C0044Servlet" method="get" style="display: inline;">
-								<input type="hidden" name="id" value="${user.accountId}">
-								<button type="submit" class="btn btn-sm btn-danger">✘
-									削除</button>
-							</form>
-						</td>
-						<td>${user.accountId}</td>
-						<td>${user.name}</td>
-						<td>${user.mail}</td>
+	<c:choose>
+		<c:when test="${empty accounts}">
+			<tr>
+				<td colspan="5" class="text-center text-muted">
+					該当するアカウントがありませんでした。
+				</td>
+			</tr>
+		</c:when>
+		<c:otherwise>
+			<c:forEach var="user" items="${accounts}">
+				<tr>
+					<td>
+						<form action="C0042.html" method="get" style="display: inline;">
+							<input type="hidden" name="id" value="${user.accountId}">
+							<button type="submit" class="btn btn-sm btn-primary">✔ 編集</button>
+						</form>
+						<form action="C0044.html" method="get" style="display: inline;">
+							<input type="hidden" name="id" value="${user.accountId}">
+							<button type="submit" class="btn btn-sm btn-danger">✘ 削除</button>
+						</form>
+					</td>
+					<td>${user.accountId}</td>
+					<td>${user.name}</td>
+					<td>${user.mail}</td>
+					<td>${user.authorityLabel}</td>
+				</tr>
+			</c:forEach>
+		</c:otherwise>
+	</c:choose>
+</tbody>
 
-						<td>${user.authorityLabel }</td>
-					</tr>
-				</c:forEach>
-			</tbody>
 		</table>
 		</div>
 

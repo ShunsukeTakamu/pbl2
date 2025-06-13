@@ -44,7 +44,7 @@
 	<div class="container mt-5">
 		<h2>アカウント詳細削除確認</h2>
 
-		<form action="C0044Servlet" method="post">
+		<form action="C0044.html" method="post">
 
 			<input type="hidden" name="accountId" value="${accountId}" /> <input
 				type="hidden" name="name" value="${fn:escapeXml(name)}" /> <input

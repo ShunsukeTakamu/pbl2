@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/C0040Servlet")
+@WebServlet("/C0040.html")
 public class C0040Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -46,7 +46,7 @@ public class C0040Servlet extends HttpServlet {
 	    request.getSession().setAttribute("searchAuthorities", authorities);
 
 	    
-	    response.sendRedirect("C0041Servlet");
+	    response.sendRedirect("C0041.html");
 	}
 
 }

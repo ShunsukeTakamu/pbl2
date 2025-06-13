@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import services.AccountService;
 
-@WebServlet("/C0044Servlet")
+@WebServlet("/C0044.html")
 public class C0044Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -58,7 +58,7 @@ public class C0044Servlet extends HttpServlet {
 			service.delete(id);
 			
 			request.getSession().setAttribute("delete", "アカウントが削除されました。");
-			response.sendRedirect("C0041Servlet");
+			response.sendRedirect("C0041.html");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
