@@ -75,7 +75,7 @@
 				</ul>
 			</div>
 		</c:if>
-		<form action="S0020ConfirmServlet" method="post">
+		<form action="S0020Confirm.html" method="post">
 			<div class="form-group">
 				<label for="inputSale_date_start">販売日</label>
 				<div class="date-range-wrapper">

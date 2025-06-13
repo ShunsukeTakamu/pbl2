@@ -82,7 +82,7 @@
 				</ul>
 			</div>
 		</c:if>
-		<form action="S0010ConfirmServlet" method="post">
+		<form action="S0010Confirm.html" method="post">
 
 			<div class="form-group">
 				<label for="inputSale_date">販売日 <span class="badge bg-secondary">必須</span> </label>

@@ -21,7 +21,7 @@ import services.CategoryService;
 /**
  * Servlet implementation class S0010Servlet
  */
-@WebServlet("/S0010Servlet")
+@WebServlet("/S0010.html")
 public class S0010Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -80,7 +80,7 @@ public class S0010Servlet extends HttpServlet {
 				Integer.parseInt(request.getParameter("saleNumber")),
 				note);
 		session.setAttribute("sale", sale);
-		response.sendRedirect("S0011Servlet");
+		response.sendRedirect("S0011.html");
 	}
 
 }

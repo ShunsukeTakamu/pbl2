@@ -19,7 +19,7 @@ import services.CategoryService;
 /**
  * Servlet implementation class S0021Servlet
  */
-@WebServlet("/S0021Servlet")
+@WebServlet("/S0021.html")
 public class S0021Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

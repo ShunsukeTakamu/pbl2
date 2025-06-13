@@ -21,7 +21,7 @@ import beans.Category;
 import beans.Sale;
 import utils.Db;
 
-@WebServlet("/S0010ConfirmServlet")
+@WebServlet("/S0010Confirm.html")
 public class S0010ConfirmServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -146,7 +146,7 @@ public class S0010ConfirmServlet extends HttpServlet {
         
         HttpSession session = request.getSession();
         session.setAttribute("sale", sale);
-        response.sendRedirect("S0011Servlet");
+        response.sendRedirect("S0011.html");
     }
 
     // アカウント存在チェック

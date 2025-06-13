@@ -73,7 +73,7 @@
 						<tr>
 							<!-- 詳細ボタン -->
 							<td class="text-left">
-								<form action="S0022Servlet" method="get">
+								<form action="S0022.html" method="get">
 									<input type="hidden" name="sale_id"
 										value="${ sale.getSaleId() }">
 									<button class="btn btn-primary btn-sm">✔ 詳細</button>

@@ -19,7 +19,7 @@ import services.SaleService;
 /**
  * Servlet implementation class S0011Servlet
  */
-@WebServlet("/S0011Servlet")
+@WebServlet("/S0011.html")
 public class S0011Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -51,7 +51,7 @@ public class S0011Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Sale sale = (Sale) session.getAttribute("sale");
 		(new SaleService()).insert(sale);
-		response.sendRedirect("S0010Servlet");
+		response.sendRedirect("S0010.html");
 	}
 
 }

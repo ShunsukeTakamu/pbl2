@@ -26,7 +26,7 @@ import utils.Db;
 /**
  * Servlet implementation class S0020ConfirmServlet
  */
-@WebServlet("/S0020ConfirmServlet")
+@WebServlet("/S0020Confirm.html")
 public class S0020ConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -132,7 +132,7 @@ public class S0020ConfirmServlet extends HttpServlet {
 	    		.collect(Collectors.toList());
 	    session.setAttribute("formattedDates", formattedDates);
 	    
-        response.sendRedirect("S0021Servlet");
+        response.sendRedirect("S0021.html");
 	}
 	
 	// アカウント一覧

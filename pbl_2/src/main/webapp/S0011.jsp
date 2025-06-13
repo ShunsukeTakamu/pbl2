@@ -64,7 +64,7 @@
 	</header>
 	<main class="container mt-5">
 		<h1>売上登録確認</h1>
-		<form action="S0011Servlet" method="post">
+		<form action="S0011.html" method="post">
 
 			<div class="form-group">
 				<label for="inputSale_date">販売日</label>
