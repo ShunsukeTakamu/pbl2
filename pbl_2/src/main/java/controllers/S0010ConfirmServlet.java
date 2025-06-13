@@ -111,7 +111,7 @@ public class S0010ConfirmServlet extends HttpServlet {
         // 個数チェック
         if (saleNumberStr == null || saleNumberStr.trim().isEmpty()) {
             errors.add("個数を入力してください。");
-        } else if (unitPriceStr.getBytes("UTF-8").length >= 10) {
+        } else if (saleNumberStr.getBytes("UTF-8").length >= 10) {
             errors.add("個数が長すぎます。");
         } else {
 	        try {
