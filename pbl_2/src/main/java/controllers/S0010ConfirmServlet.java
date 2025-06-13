@@ -40,7 +40,7 @@ public class S0010ConfirmServlet extends HttpServlet {
         String note = request.getParameter("note");
 
         List<String> errors = new ArrayList<>();
-        int accountId = 0, categoryId = 0, unitPrice = 0, saleNumber = 0;
+        int accountId = 0, categoryId = 0, unitPrice = -1, saleNumber = -1;
 
         // 販売日チェック
         if (saleDate == null || saleDate.isBlank()) {
