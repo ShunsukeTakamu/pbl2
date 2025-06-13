@@ -58,7 +58,7 @@
 
                 <form action="S0023.html" method="get" style="display: inline-block;">
                     <input type="hidden" name="sale_id" value="${detail.saleId}">
-                    <button class="btn btn-primary">✔ 更新</button>
+                    <button class="btn btn-primary">✔ 編集</button>
                 </form>
 
                 <!-- 削除ボタン -->
