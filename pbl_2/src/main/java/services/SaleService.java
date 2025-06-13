@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.NamingException;
 
@@ -108,4 +110,35 @@ public class SaleService {
 		}
 		return id;
 	}
+	//ランキング用
+	public Map<String, Integer> getSalesByAccount() {
+	    Map<String, Integer> result = new LinkedHashMap<>();
+
+	    String sql = """
+	        SELECT a.name AS account_name,
+	               SUM(s.unit_price * s.sale_number) AS total_sales
+	        FROM sales s
+	        JOIN accounts a ON s.account_id = a.account_id
+	        GROUP BY a.name
+	        ORDER BY total_sales DESC
+	        """;
+
+	    try (Connection con = Db.open();
+	         PreparedStatement ps = con.prepareStatement(sql);
+	         ResultSet rs = ps.executeQuery()) {
+
+	        while (rs.next()) {
+	            String name = rs.getString("account_name");
+	            int total = rs.getInt("total_sales");
+	            result.put(name, total);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return result;
+	}
+	//ランキング用
+
 }
