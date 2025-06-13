@@ -85,20 +85,29 @@ public class S0010ConfirmServlet extends HttpServlet {
         }
 
         // 単価チェック
+        if (unitPriceStr == null || unitPriceStr.trim().isEmpty()) {
+            errors.add("単価を入力してください。");
+        } else {
+        	
         try {
-            unitPrice = Integer.parseInt(unitPriceStr);
-            System.out.println(unitPrice);
-            if (unitPrice <= 0) errors.add("単価を入力してください。");
+        	unitPrice = Integer.parseInt(unitPriceStr);
+        	if (unitPrice <= 0) errors.add("単価を入力してください。");
         } catch (NumberFormatException e) {
-            errors.add("単価を正しく入力してください。");
+        	errors.add("単価を正しく入力してください。");
         }
+        }
+        
 
         // 個数チェック
+        if (saleNumberStr == null || saleNumberStr.trim().isEmpty()) {
+            errors.add("個数を入力してください。");
+        } else {
         try {
             saleNumber = Integer.parseInt(saleNumberStr);
             if (saleNumber <= 0) errors.add("個数を入力してください。");
         } catch (NumberFormatException e) {
             errors.add("個数を正しく入力してください。");
+        }
         }
 
         // 備考チェック
