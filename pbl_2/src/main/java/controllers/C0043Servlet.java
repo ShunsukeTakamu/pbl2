@@ -50,6 +50,10 @@ public class C0043Servlet extends HttpServlet {
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
+			String oldPassword = request.getParameter("oldPassword");
+			if(password == null || password.isBlank()) {
+				password = oldPassword;
+			}
 			String[] authorities = request.getParameterValues("authorities");
 
 			// 権限値の計算（bit演算）
@@ -69,15 +73,15 @@ public class C0043Servlet extends HttpServlet {
 
 			AccountService service = new AccountService();
 			service.update(updated);
-			
-			request.getSession().setAttribute("success", "アカウントが更新されました。");
+
+			request.getSession().setAttribute("update", "アカウントが更新されました。");
 
 			response.sendRedirect("C0041Servlet");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "アカウントの更新に失敗しました。");
-			request.getRequestDispatcher("error.jsp").forward(request, response);
+			request.getRequestDispatcher("C0042Servlet").forward(request, response);
 		}
 	}
 

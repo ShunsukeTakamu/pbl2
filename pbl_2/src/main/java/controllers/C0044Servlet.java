@@ -53,9 +53,13 @@ public class C0044Servlet extends HttpServlet {
 
 		try {
 			int id = Integer.parseInt(accountId);
+			
 			AccountService service = new AccountService();
 			service.delete(id);
+			
+			request.getSession().setAttribute("delete", "アカウントが削除されました。");
 			response.sendRedirect("C0041Servlet");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", "アカウント削除に失敗しました。");

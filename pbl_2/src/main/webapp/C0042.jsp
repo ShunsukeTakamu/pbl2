@@ -104,8 +104,13 @@ form {
 
 			<div class="mb-3">
 				<label class="form-label">パスワード <span
-					class="badge bg-secondary">必須</span></label> <input type="password"
-					name="password" class="form-control">
+					class="badge bg-secondary">必須</span></label>
+				<div class="input-group">
+					<input type="password" name="password" id="password"
+						class="form-control">
+					<button class="btn btn-outline-secondary" type="button"
+						onclick="togglePassword('password', this)">👁</button>
+				</div>
 				<c:if test="${not empty errors.password}">
 					<div class="text-danger">${errors.password}</div>
 				</c:if>
@@ -113,43 +118,54 @@ form {
 
 			<div class="mb-3">
 				<label class="form-label">パスワード（確認） <span
-					class="badge bg-secondary">必須</span></label> <input type="password"
-					name="passwordConfirm" class="form-control">
+					class="badge bg-secondary">必須</span></label>
+				<div class="input-group">
+					<input type="password" name="passwordConfirm" id="passwordConfirm"
+						class="form-control">
+					<button class="btn btn-outline-secondary" type="button"
+						onclick="togglePassword('passwordConfirm', this)">👁</button>
+				</div>
 				<c:if test="${not empty errors.passwordConfirm}">
 					<div class="text-danger">${errors.passwordConfirm}</div>
 				</c:if>
 			</div>
 
-			<c:set var="authVal" value="${account.authority[0]}" />
+
+			<c:set var="joinedAuthorities"
+				value="${fn:join(paramAuthorities, ',')}" />
 			<c:set var="hasParam" value="${not empty paramAuthorities}" />
+			<c:set var="authVal" value="${account.authority[0]}" />
 
 			<div class="mb-3">
 				<label class="form-label">権限 </label>
 
+				<!-- 権限なし -->
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" type="checkbox" name="authorities"
 						value="0" id="authNone"
-						<c:if test="${hasParam and fn:contains(paramAuthorities, '0')}">checked</c:if>
+						<c:if test="${hasParam and fn:contains(joinedAuthorities, '0')}">checked</c:if>
 						<c:if test="${not hasParam and authVal == 0}">checked</c:if>>
 					<label class="form-check-label" for="authNone">権限なし</label>
 				</div>
 
+				<!-- 売上登録 -->
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" type="checkbox" name="authorities"
 						value="1" id="authSales"
-						<c:if test="${hasParam and fn:contains(paramAuthorities, '1')}">checked</c:if>
+						<c:if test="${hasParam and fn:contains(joinedAuthorities, '1')}">checked</c:if>
 						<c:if test="${not hasParam and (authVal == 1 or authVal == 3)}">checked</c:if>>
 					<label class="form-check-label" for="authSales">売上登録</label>
 				</div>
 
+				<!-- アカウント登録 -->
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" type="checkbox" name="authorities"
 						value="2" id="authAccount"
-						<c:if test="${hasParam and fn:contains(paramAuthorities, '2')}">checked</c:if>
+						<c:if test="${hasParam and fn:contains(joinedAuthorities, '2')}">checked</c:if>
 						<c:if test="${not hasParam and (authVal == 2 or authVal == 3)}">checked</c:if>>
 					<label class="form-check-label" for="authAccount">アカウント登録</label>
-
 				</div>
+
 				<c:if test="${not empty errors.authorities}">
 					<div class="text-danger">${errors.authorities}</div>
 				</c:if>
@@ -160,48 +176,62 @@ form {
 
 			<div class="form-group d-flex" style="margin-left: 210px;">
 				<button type="submit" class="btn btn-primary me-2">更新</button>
-				<button type="reset" class="btn btn-outline-secondary">クリア</button>
+				<a href="C0041Servlet" class="btn btn-outline-secondary">キャンセル</a>
 			</div>
 
 		</form>
 	</main>
 
 	<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const checkNone = document.getElementById("authNone");
-  const checkSales = document.getElementById("authSales");
-  const checkAccount = document.getElementById("authAccount");
+	function togglePassword(fieldId, btn) {
+		  const field = document.getElementById(fieldId);
+		  const isHidden = field.type === "password";
+		  field.type = isHidden ? "text" : "password";
+		  btn.textContent = isHidden ? "🙈" : "👁";
+		}
 
-  function updateUI() {
-    if (checkNone.checked) {
-      checkSales.checked = false;
-      checkAccount.checked = false;
-      checkSales.disabled = true;
-      checkAccount.disabled = true;
-    }else if(!checkSales.checked && !checkAccount.checked){
-        checkSales.disabled = false;
-        checkAccount.disabled = false;
-        } else {
-      checkSales.disabled = false;
-      checkAccount.disabled = false;
-    }
-  }
+		document.addEventListener("DOMContentLoaded", () => {
+		  // 権限チェックボックスの挙動
+		  const checkNone = document.getElementById("authNone");
+		  const checkSales = document.getElementById("authSales");
+		  const checkAccount = document.getElementById("authAccount");
 
-  checkNone.addEventListener("change", updateUI);
+		  function updateUI() {
+		    const isNone = checkNone.checked;
+		    const isSales = checkSales.checked;
+		    const isAccount = checkAccount.checked;
 
-  [checkSales, checkAccount].forEach(cb => {
-    cb.addEventListener("change", () => {
-      // いずれかが選択されたら「権限なし」を外す
-      if (checkSales.checked || checkAccount.checked) {
-        checkNone.checked = false;
-      }
-      updateUI(); // 状態を更新
-    });
-  });
+		    checkSales.disabled = isNone;
+		    checkAccount.disabled = isNone;
+		  }
 
-  // 初期表示時に実行
-  updateUI();
-});
+		  checkNone.addEventListener("change", () => {
+		    if (checkNone.checked) {
+		      checkSales.checked = false;
+		      checkAccount.checked = false;
+		    }
+		    updateUI();
+		  });
+
+		  [checkSales, checkAccount].forEach(cb => {
+		    cb.addEventListener("change", () => {
+		      if (checkSales.checked || checkAccount.checked) {
+		        checkNone.checked = false;
+		      }
+		      updateUI();
+		    });
+		  });
+
+		  updateUI();
+
+		  // 成功メッセージの自動非表示
+		  setTimeout(() => {
+		    const alert = document.getElementById("successAlert");
+		    if (alert) {
+		      alert.classList.remove('show');
+		    }
+		  }, 3000);
+		});
 </script>
 
 

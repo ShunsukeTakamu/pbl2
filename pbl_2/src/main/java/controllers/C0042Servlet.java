@@ -48,8 +48,16 @@ public class C0042Servlet extends HttpServlet {
 		String passwordConfirm = request.getParameter("passwordConfirm");
 		String[] authorities = request.getParameterValues("authorities");
 
-		Map<String, String> errors = new HashMap<>();
+		if ("back".equals(action)) {
+			request.setAttribute("accountId", idStr);
+			request.setAttribute("param.name", name);
+			request.setAttribute("param.email", email);
+			request.setAttribute("paramAuthorities", authorities);
+			request.getRequestDispatcher("C0042.jsp").forward(request, response);
+			return;
+		}
 
+		Map<String, String> errors = new HashMap<>();
 
 		if (name == null || name.isBlank()) {
 			errors.put("name", "氏名を入力してください。");
@@ -81,13 +89,13 @@ public class C0042Servlet extends HttpServlet {
 
 		if (!errors.isEmpty()) {
 			request.setAttribute("errors", errors);
+			request.setAttribute("accountId", idStr);
 			request.setAttribute("param.name", name);
 			request.setAttribute("param.email", email);
-			request.setAttribute("paramAuthorities", authorities);
+			request.setAttribute("authorities", authorities);
 			request.getRequestDispatcher("C0042.jsp").forward(request, response);
 			return;
 		}
-
 
 		boolean has0 = false, has1 = false, has2 = false;
 		for (String auth : authorities) {
@@ -116,7 +124,7 @@ public class C0042Servlet extends HttpServlet {
 		if ("delete".equals(action)) {
 			request.getRequestDispatcher("C0044.jsp").forward(request, response);
 		} else {
-			
+
 			request.getRequestDispatcher("C0043.jsp").forward(request, response);
 		}
 	}

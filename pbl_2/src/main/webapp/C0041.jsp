@@ -61,9 +61,22 @@ body {
 		<h1>アカウント検索結果表示</h1>
 		<table class="table custom-table align-middle w-100">
 			<thead class="table-light">
-				<c:if test="${not empty success }">
-					<div class="alert alert-success" role="alert">${success}</div>
+
+				<c:if test="${not empty update}">
+					<div id="successAlert"
+						class="alert alert-success alert-dismissible fade show"
+						role="alert">${update}</div>
+					<c:remove var="update" scope="session" />
 				</c:if>
+
+				<c:if test="${not empty delete}">
+					<div id="deleteAlert"
+						class="alert alert-danger alert-dismissible fade show"
+						role="alert">${delete}</div>
+					<c:remove var="delete" scope="session" />
+				</c:if>
+
+
 				<tr>
 					<th>操作</th>
 					<th>No</th>
@@ -97,5 +110,20 @@ body {
 			</tbody>
 		</table>
 		</div>
+
+		<script>
+  // 3秒後にアラートをフェードアウトさせる
+  setTimeout(() => {
+    const successAlert = document.getElementById('successAlert');
+    if (successAlert) {
+      successAlert.classList.remove('show');
+    }
+
+    const deleteAlert = document.getElementById('deleteAlert');
+    if (deleteAlert) {
+      deleteAlert.classList.remove('show');
+    }
+  }, 3000); // 3000ミリ秒 = 3秒
+</script>
 </body>
 </html>

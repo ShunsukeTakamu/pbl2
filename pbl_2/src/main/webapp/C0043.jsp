@@ -19,110 +19,103 @@
 </head>
 <body>
 
-	<%
-	String uri = request.getRequestURI();
-	%>
-	<header>
-		<nav class="navbar">
-			<div class="logo">物品売上管理システム</div>
-			<ul class="nav-links">
-				<li><a class="<%=uri.endsWith("C0020.jsp") ? "active" : ""%>"
-					href="C0020Servlet">ダッシュボード</a></li>
-				<li><a class="<%=uri.endsWith("S0010.jsp") ? "active" : ""%>"
-					href="S0010Servlet">売上登録</a></li>
-				<li><a class="<%=uri.endsWith("S0020.jsp") ? "active" : ""%>"
-					href="S0020Servlet">売上検索</a></li>
-				<li><a class="<%=uri.endsWith("S0030.jsp") ? "active" : ""%>"
-					href="S0030Servlet">アカウント登録</a></li>
-				<li><a class="<%=uri.endsWith("C0040.jsp") ? "active" : ""%>"
-					href="C0040Servlet">アカウント検索</a></li>
-				<li><a class="logout right" href="logout.jsp">ログアウト</a></li>
-			</ul>
-		</nav>
-	</header>
+<%
+String uri = request.getRequestURI();
+%>
+<header>
+	<nav class="navbar">
+		<div class="logo">物品売上管理システム</div>
+		<ul class="nav-links">
+			<li><a class="<%=uri.endsWith("C0020.jsp") ? "active" : ""%>" href="C0020Servlet">ダッシュボード</a></li>
+			<li><a class="<%=uri.endsWith("S0010.jsp") ? "active" : ""%>" href="S0010Servlet">売上登録</a></li>
+			<li><a class="<%=uri.endsWith("S0020.jsp") ? "active" : ""%>" href="S0020Servlet">売上検索</a></li>
+			<li><a class="<%=uri.endsWith("S0030.jsp") ? "active" : ""%>" href="S0030Servlet">アカウント登録</a></li>
+			<li><a class="<%=uri.endsWith("C0040.jsp") ? "active" : ""%>" href="C0040Servlet">アカウント検索</a></li>
+			<li><a class="logout right" href="logout.jsp">ログアウト</a></li>
+		</ul>
+	</nav>
+</header>
 
-	<main class="container mt-5">
-		<h1>アカウント詳細編集確認</h1>
+<main class="container mt-5">
+	<h1>アカウント詳細編集確認</h1>
 
+	<!-- boolean 権限フラグを JSTL でセット -->
+	<c:set var="has0" value="false" />
+	<c:set var="has1" value="false" />
+	<c:set var="has2" value="false" />
+	<c:forEach var="auth" items="${authorities}">
+		<c:if test="${auth == '0'}"><c:set var="has0" value="true" /></c:if>
+		<c:if test="${auth == '1'}"><c:set var="has1" value="true" /></c:if>
+		<c:if test="${auth == '2'}"><c:set var="has2" value="true" /></c:if>
+	</c:forEach>
 
+	<!-- 表示項目 -->
+	<div class="mb-3">
+		<label class="form-label">氏名</label>
+		<input type="text" class="form-control" value="${fn:escapeXml(name)}" readonly disabled />
+	</div>
 
+	<div class="mb-3">
+		<label class="form-label">メールアドレス</label>
+		<input type="text" class="form-control" value="${fn:escapeXml(email)}" readonly disabled />
+	</div>
 
-		<!-- boolean フラグを JSTL でセット -->
-		<c:set var="has0" value="false" />
-		<c:set var="has1" value="false" />
-		<c:set var="has2" value="false" />
-		<c:forEach var="auth" items="${authorities}">
-			<c:if test="${auth == '0'}">
-				<c:set var="has0" value="true" />
-			</c:if>
-			<c:if test="${auth == '1'}">
-				<c:set var="has1" value="true" />
-			</c:if>
-			<c:if test="${auth == '2'}">
-				<c:set var="has2" value="true" />
-			</c:if>
-		</c:forEach>
+	<div class="mb-3">
+		<label class="form-label">パスワード</label>
+		<input type="password" class="form-control" value="${fn:escapeXml(password)}" readonly disabled />
+	</div>
 
-		<form action="C0043Servlet" method="post">
+	<div class="mb-3">
+		<label class="form-label">パスワード（確認）</label>
+		<input type="password" class="form-control" value="${fn:escapeXml(password)}" readonly disabled />
+	</div>
 
-			<input type="hidden" name="accountId" value="${accountId}" /> <input
-				type="hidden" name="name" value="${fn:escapeXml(name)}" /> <input
-				type="hidden" name="email" value="${fn:escapeXml(email)}" /> <input
-				type="hidden" name="password" value="${fn:escapeXml(password)}" />
+	<div class="mb-3">
+		<label class="form-label">権限</label><br />
+		<div class="form-check form-check-inline">
+			<input type="checkbox" class="form-check-input" disabled ${has0 ? 'checked' : ''}>
+			<label class="form-check-label">権限なし</label>
+		</div>
+		<div class="form-check form-check-inline">
+			<input type="checkbox" class="form-check-input" disabled ${has1 ? 'checked' : ''}>
+			<label class="form-check-label">売上登録</label>
+		</div>
+		<div class="form-check form-check-inline">
+			<input type="checkbox" class="form-check-input" disabled ${has2 ? 'checked' : ''}>
+			<label class="form-check-label">アカウント登録</label>
+		</div>
+	</div>
+
+	<!-- ボタン -->
+	<div class="d-flex justify-content-center mt-4">
+
+		<!-- OK（更新） -->
+		<form action="C0043Servlet" method="post" class="me-2">
+			<input type="hidden" name="accountId" value="${accountId}" />
+			<input type="hidden" name="name" value="${fn:escapeXml(name)}" />
+			<input type="hidden" name="email" value="${fn:escapeXml(email)}" />
+			<input type="hidden" name="password" value="${fn:escapeXml(password)}" />
 			<c:forEach var="auth" items="${authorities}">
 				<input type="hidden" name="authorities" value="${auth}" />
 			</c:forEach>
-
-			<!-- 表示項目 -->
-			<div class="mb-3">
-				<label class="form-label">氏名</label> <input type="text"
-					class="form-control" value="${fn:escapeXml(name)}" readonly
-					disabled />
-			</div>
-
-			<div class="mb-3">
-				<label class="form-label">メールアドレス</label> <input type="text"
-					class="form-control" value="${fn:escapeXml(email)}" readonly
-					disabled />
-			</div>
-
-			<div class="mb-3">
-				<label class="form-label">パスワード</label> <input type="password"
-					class="form-control" value="${fn:escapeXml(password)}" readonly
-					disabled />
-			</div>
-
-			<div class="mb-3">
-				<label class="form-label">パスワード（確認）</label> <input type="password"
-					class="form-control" value="${fn:escapeXml(password)}" readonly
-					disabled />
-			</div>
-
-			<div class="mb-3">
-				<label class="form-label">権限</label><br />
-
-				<div class="form-check form-check-inline">
-					<input type="checkbox" class="form-check-input" value="0"disabled ${has0 ? 'checked' : ''}>
-					<label class="form-check-label">権限なし</label>
-				</div>
-
-				<div class="form-check form-check-inline">
-					<input type="checkbox" class="form-check-input" value="1"disabled ${has1 ? 'checked' : ''}>
-					<label class="form-check-label">売上登録</label>
-				</div>
-
-				<div class="form-check form-check-inline">
-					<input type="checkbox" class="form-check-input" value="2"disabled ${has2 ? 'checked' : ''}>
-					<label class="form-check-label">アカウント登録</label>
-				</div>
-			</div>
-
-			<div class="d-flex justify-content-center mt-4">
-				<button type="submit" class="btn btn-primary me-2">✔ OK</button>
-				<button type="button" class="btn btn-secondary"
-					onclick="history.back()">キャンセル</button>
-			</div>
+			<button type="submit" class="btn btn-primary">✔ OK</button>
 		</form>
-	</main>
+
+		<!-- キャンセル（戻る） -->
+		<form action="C0042Servlet" method="post">
+			<input type="hidden" name="accountId" value="${accountId}" />
+			<input type="hidden" name="name" value="${fn:escapeXml(name)}" />
+			<input type="hidden" name="email" value="${fn:escapeXml(email)}" />
+			<input type="hidden" name="password" value="${fn:escapeXml(password)}" />
+			<input type="hidden" name="passwordConfirm" value="${fn:escapeXml(password)}" />
+			<input type="hidden" name="action" value="back" />
+			<c:forEach var="auth" items="${authorities}">
+				<input type="hidden" name="authorities" value="${auth}" />
+			</c:forEach>
+			<button type="submit" class="btn btn-outline-secondary">キャンセル</button>
+		</form>
+
+	</div>
+</main>
 </body>
 </html>
