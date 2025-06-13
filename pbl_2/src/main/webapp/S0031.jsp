@@ -174,7 +174,7 @@
 		</div>
 		<div class="submit-btn">
         	<button type="submit" class="ok-btn">O K</button>
-        	<button type="button" class="cancel-btn" onclick="history.back()">キャンセル</button>
+        	<button type="button" class="cancel-btn" onclick="location.href='S0030.jsp?reset=true'">キャンセル</button>
     	</div>
 	</form>
 	</div>
