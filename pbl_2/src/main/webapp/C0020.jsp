@@ -86,9 +86,7 @@ window.ShopifyPay.apiHost = "shop.app\/pay";</script>
 <script data-source-attribution="shopify.dynamic_checkout.buyer_consent">
   function portableWalletsHideBuyerConsent(e){var t=document.getElementById("shopify-buyer-consent"),n=document.getElementById("shopify-subscription-policy-button");t&&n&&(t.classList.add("hidden"),t.setAttribute("aria-hidden","true"),n.removeEventListener("click",e))}function portableWalletsShowBuyerConsent(e){var t=document.getElementById("shopify-buyer-consent"),n=document.getElementById("shopify-subscription-policy-button");t&&n&&(t.classList.remove("hidden"),t.removeAttribute("aria-hidden"),n.addEventListener("click",e))}window.Shopify?.PaymentButton&&(window.Shopify.PaymentButton.hideBuyerConsent=portableWalletsHideBuyerConsent,window.Shopify.PaymentButton.showBuyerConsent=portableWalletsShowBuyerConsent);
 </script>
-<script
-	data-source-attribution="shopify.dynamic_checkout.cart.bootstrap">document.addEventListener("DOMContentLoaded",(function(){function t(){return document.querySelector("shopify-accelerated-checkout-cart, shopify-accelerated-checkout")}if(t())Shopify.PaymentButton.init();else{new MutationObserver((function(e,n){t()&&(Shopify.PaymentButton.init(),n.disconnect())})).observe(document.body,{childList:!0,subtree:!0})}}));
-</script>
+
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/bootstrap.bundle.min.js"></script>
@@ -97,30 +95,8 @@ window.ShopifyPay.apiHost = "shop.app\/pay";</script>
 	href="https://themes.materializecss.com/cdn/shopifycloud/portable-wallets/latest/accelerated-checkout-backwards-compat.css"
 	crossorigin="anonymous">
 
-<style id="shopify-accelerated-checkout-cart">
-#shopify-buyer-consent {
-	margin-top: 1em;
-	display: inline-block;
-	width: 100%;
-}
 
-#shopify-buyer-consent.hidden {
-	display: none;
-}
 
-#shopify-subscription-policy-button {
-	background: none;
-	border: none;
-	padding: 0;
-	text-decoration: underline;
-	font-size: inherit;
-	cursor: pointer;
-}
-
-#shopify-subscription-policy-button::before {
-	box-shadow: none;
-}
-</style>
 <script>window.performance && window.performance.mark && window.performance.mark('shopify.content_for_header.end');</script>
 <link rel="canonical"
 	href="https://themes.materializecss.com/pages/admin-dashboard">
@@ -361,7 +337,7 @@ String uri = request.getRequestURI();
 							<div class="card-metrics card-metrics-static">
 								<div class="card-metric">
 									<div class="card-metric-title">総売上</div>
-									<div class="card-metric-value">$12,476.00</div>
+									<div class="card-metric-value">1,232,343,234円</div>
 									<div class="card-metric-change increase">
 										<i class="material-icons left">keyboard_arrow_up</i> 12%
 									</div>
@@ -381,7 +357,7 @@ String uri = request.getRequestURI();
 							<div class="card-metrics card-metrics-static">
 								<div class="card-metric">
 									<div class="card-metric-title">アクセス数</div>
-									<div class="card-metric-value">11,893</div>
+									<div class="card-metric-value">11回</div>
 									<div class="card-metric-change increase">
 										<i class="material-icons left">keyboard_arrow_up</i> 8%
 									</div>
@@ -401,7 +377,7 @@ String uri = request.getRequestURI();
 							<div class="card-metrics card-metrics-static">
 								<div class="card-metric">
 									<div class="card-metric-title">登録者数</div>
-									<div class="card-metric-value">230,648</div>
+									<div class="card-metric-value">23人</div>
 									<div class="card-metric-change decrease">
 										<i class="material-icons left">keyboard_arrow_down</i> 2%
 									</div>
@@ -416,22 +392,22 @@ String uri = request.getRequestURI();
 				</div>
 				<div class="col l3 m6 s12">
 
-					<div class="card">
-						<div class="card-stacked">
-							<div class="card-metrics card-metrics-static">
-								<div class="card-metric">
-									<div class="card-metric-title">Conversion Rate</div>
-									<div class="card-metric-value">0.24%</div>
-									<div class="card-metric-change decrease">
-										<i class="material-icons left">keyboard_arrow_down</i> 9%
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="card-chart">
-							<canvas id="flush-area-chart-green" height="100"></canvas>
-						</div>
-					</div>
+<!--					<div class="card">-->
+<!--						<div class="card-stacked">-->
+<!--							<div class="card-metrics card-metrics-static">-->
+<!--								<div class="card-metric">-->
+<!--									<div class="card-metric-title">Conversion Rate</div>-->
+<!--									<div class="card-metric-value">0.24%</div>-->
+<!--									<div class="card-metric-change decrease">-->
+<!--										<i class="material-icons left">keyboard_arrow_down</i> 9%-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="card-chart">-->
+<!--							<canvas id="flush-area-chart-green" height="100"></canvas>-->
+<!--						</div>-->
+<!--					</div>-->
 
 				</div>
 
@@ -442,21 +418,21 @@ String uri = request.getRequestURI();
 							class="card-metrics card-metrics-toggle card-metrics-centered">
 							<div class="card-metric waves-effect active"
 								data-metric="revenue">
-								<div class="card-metric-title">Revenue</div>
+								<div class="card-metric-title">総売上</div>
 								<div class="card-metric-value">$12,476.00</div>
 								<div class="card-metric-change">
 									<i class="material-icons">keyboard_arrow_up</i> 12%
 								</div>
 							</div>
 							<div class="card-metric waves-effect" data-metric="users">
-								<div class="card-metric-title">Users</div>
+								<div class="card-metric-title">利用者数</div>
 								<div class="card-metric-value">2024</div>
 								<div class="card-metric-change">
 									<i class="material-icons">keyboard_arrow_up</i> 9%
 								</div>
 							</div>
 							<div class="card-metric waves-effect" data-metric="ctr">
-								<div class="card-metric-title">CTR</div>
+								<div class="card-metric-title">満足度</div>
 								<div class="card-metric-value">0.20%</div>
 								<div class="card-metric-change">
 									<i class="material-icons">keyboard_arrow_up</i> 4%
@@ -470,11 +446,12 @@ String uri = request.getRequestURI();
 					</div>
 
 				</div>
-
+				
+<!--更新履歴-->
 				<div class="col m6 s12">
 					<div class="card">
 						<div class="card-content">
-							<span class="card-title">Updates</span>
+							<span class="card-title">更新履歴</span>
 							<ul class="badge-updates">
 								<li><span class="new badge red" data-badge-caption="refund"></span>
 									<span class="message">45$ refunded to Alan Chang</span> <span
@@ -489,13 +466,15 @@ String uri = request.getRequestURI();
 						</div>
 					</div>
 				</div>
+				
 
+				<!--期間別カテゴリー売上推移-->
 				<div class="col m6 s12">
 					<div id="tab-legend-chart-card" class="card primary-color">
 						<div class="card-content">
-							<p class="white-text">I am a very simple card. I am good at
-								containing small bits of information. I am convenient because I
-								require little markup to use effectively.</p>
+							<p class="white-text">
+								こちらは期間別で売上の推移を確認できます。<br> 期間を選択してください。
+							</p>
 						</div>
 						<div class="card-content">
 							<canvas class="card-chart" id="tab-legend-line-chart" width="400"
@@ -517,11 +496,11 @@ String uri = request.getRequestURI();
 				</div>
 
 
-
+				<!--カテゴリー別売上-->
 				<div class="col m6 s12">
 					<div class="card">
 						<div class="card-content">
-							<span class="card-title">Devices</span>
+							<span class="card-title">カテゴリー別</span>
 							<div class="row row-vertical-center">
 								<div class="col s6">
 									<canvas id="doughnut-chart" width="50%"></canvas>
@@ -533,6 +512,8 @@ String uri = request.getRequestURI();
 						</div>
 					</div>
 				</div>
+
+
 			</div>
 
 			<div class="masonry row">
@@ -656,31 +637,31 @@ String uri = request.getRequestURI();
 			</div>
 		</div>
 	</footer>
-	
+
 	<!--新規追加 担当者売上ランキング-->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<%
-List<String> names = (List<String>) request.getAttribute("accountNames");
-List<Integer> totals = (List<Integer>) request.getAttribute("salesTotals");
-%>
-<script>
+	<%
+	List<String> names = (List<String>) request.getAttribute("accountNames");
+	List<Integer> totals = (List<Integer>) request.getAttribute("salesTotals");
+	%>
+	<script>
 const labels = [
-  <% if (names != null) {
-       for (int i = 0; i < names.size(); i++) {
-         String name = names.get(i); %>
-    "<%= name %>"<%= (i < names.size() - 1) ? "," : "" %>
-  <%   }
-     } %>
+  <%if (names != null) {
+	for (int i = 0; i < names.size(); i++) {
+		String name = names.get(i);%>
+    "<%=name%>"<%=(i < names.size() - 1) ? "," : ""%>
+  <%}
+}%>
 ];
 
 const data = [
-  <% if (totals != null) {
-       for (int i = 0; i < totals.size(); i++) {
-         int val = totals.get(i); %>
-    <%= val %><%= (i < totals.size() - 1) ? "," : "" %>
-  <%   }
-     } %>
+  <%if (totals != null) {
+	for (int i = 0; i < totals.size(); i++) {
+		int val = totals.get(i);%>
+    <%=val%><%=(i < totals.size() - 1) ? "," : ""%>
+  <%}
+}%>
 ];
 
 const ctx = document.getElementById('salesChart').getContext('2d');
@@ -751,7 +732,7 @@ new Chart(ctx, {
 	<script
 		src="//themes.materializecss.com/cdn/shop/t/1/assets/dashboard.min.js?v=4816808830627109061528498722"></script>
 
-	
+
 
 
 </body>
