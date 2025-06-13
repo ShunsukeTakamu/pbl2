@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -141,4 +142,23 @@ public class SaleService {
 	}
 	//ランキング用
 
+	// 総売上
+	public int getTotalSales() {
+		String sql = "select SUM(unit_price * sale_number) from sales";
+		int total = 0;
+
+		try (
+				Connection con = Db.open();
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)) {
+			if (rs.next()) {
+				total = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch(NamingException e) {
+			e.printStackTrace();
+		}
+		return total;
+	}
 }
