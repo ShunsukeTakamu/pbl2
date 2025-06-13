@@ -24,25 +24,27 @@
 </head>
 
 <body>
-	<!-- ナビゲーションバー -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
-		<a class="navbar-brand" href="#">物品売上管理システム</a>
-		<div class="collapse navbar-collapse">
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item"><a class="nav-link" href="dashboard.jsp">ダッシュボード</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="sales_register.jsp">売上登録</a></li>
-				<li class="nav-item"><a class="nav-link active" href="#">売上検索</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="account_register.jsp">アカウント登録</a></li>
-				<li class="nav-item"><a class="nav-link"
-					href="account_search.jsp">アカウント検索</a></li>
+	<%
+	String uri = request.getRequestURI();
+	%>
+	<header>
+		<nav class="navbar">
+			<div class="logo">物品売上管理システム</div>
+			<ul class="nav-links">
+				<li><a class="<%=uri.endsWith("C0020.jsp") ? "active" : ""%>"
+					href="C0020.html">ダッシュボード</a></li>
+				<li><a class="<%=uri.endsWith("S0010.jsp") ? "active" : ""%>"
+					href="S0010.html">売上登録</a></li>
+				<li><a class="<%=uri.endsWith("S0020.jsp") ? "active" : ""%>"
+					href="S0020.html">売上検索</a></li>
+				<li><a class="<%=uri.endsWith("S0030.jsp") ? "active" : ""%>"
+					href="S0030.html">アカウント登録</a></li>
+				<li><a class="<%=uri.endsWith("C0040.jsp") ? "active" : ""%>"
+					href="C0040.html">アカウント検索</a></li>
+				<li><a class="logout right" href="logout.jsp">ログアウト</a></li>
 			</ul>
-			<span class="navbar-text"> <a class="nav-link"
-				href="logout.jsp">ログアウト</a>
-			</span>
-		</div>
-	</nav>
+		</nav>
+	</header>
 
 	<!-- メインコンテンツ -->
 	<div class="container mt-5">
