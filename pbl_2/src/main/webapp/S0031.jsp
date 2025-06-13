@@ -142,7 +142,7 @@
     </div>
 	<% } %>
     <div class="form-container">
-        <form action="S0031Servlet" method="post">
+        <form action="S0031.html" method="post">
 		<div class="form-group">
 			<label>氏名 <span class="required">必須</span></label>
 			<div class="input-field"><%= name %></div>

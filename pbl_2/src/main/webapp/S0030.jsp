@@ -117,7 +117,7 @@
 
 	<h2>アカウント登録</h2>
 	<div class="form-container">
-	<form action="S0030" method="post">
+	<form action="S0030.html" method="post">
 		<div class="form-group">
 			<label>氏名 <span class="required">必須</span></label>
 			<input type="text" name="name" class="input-field" placeholder="氏名" required>

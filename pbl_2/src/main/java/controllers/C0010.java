@@ -20,7 +20,7 @@ import beans.Login;
 /**
  * Servlet implementation class C0010
  */
-@WebServlet("/C0010")
+@WebServlet("/C0010.html")
 public class C0010 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

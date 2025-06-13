@@ -66,7 +66,7 @@
 	<div class="error-message">${errorMessage}</div>
 	</c:if>
 	
-	<form action="C0010" method="post">
+	<form action="C0010.html" method="post">
 	<div class="input-group">
 	<input type="text" name="mail" placeholder="メールアドレス" value="${mail != null ? mail : ''}">
 	<div class="input-note">※必須 / 例：user@example.com</div>
