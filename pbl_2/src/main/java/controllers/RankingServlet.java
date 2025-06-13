@@ -22,6 +22,6 @@ public class RankingServlet extends HttpServlet {
         request.setAttribute("accountNames", new ArrayList<>(salesMap.keySet()));
         request.setAttribute("salesTotals", new ArrayList<>(salesMap.values()));
 
-        request.getRequestDispatcher("/Ranking.jsp").forward(request, response);
+        request.getRequestDispatcher("/C0020.jsp").forward(request, response);
     }
 }

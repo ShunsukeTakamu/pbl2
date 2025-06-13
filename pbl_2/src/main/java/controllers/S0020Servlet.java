@@ -45,6 +45,8 @@ public class S0020Servlet extends HttpServlet {
 		request.setAttribute("dateStart", "");
 		request.setAttribute("dateEnd", "");
 		request.getRequestDispatcher("/S0020.jsp").forward(request, response);
+		
+		
 	}
 
 	/**
