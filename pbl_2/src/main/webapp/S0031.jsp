@@ -88,7 +88,6 @@
         margin-left: 10px;
     } @media screen and (max-width: 768px) {
         h2 {
-            padding-left: 0;
             text-align: center;
         }
 

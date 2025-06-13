@@ -11,24 +11,19 @@
 <style>
 	body {
 		background-color: #eeeeee;
-		padding: 0;
-		height: 100%;
 	}
 	.container-wrapper {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: 100%;
-	}
-	
 	}
 	h2 {
+		margin-top: 100px;
 		margin-bottom: 30px;
-        font-size: 22px;
+        font-size: 32px;
 	}
 	.input-group {
 	margin-bottom: 20px;
-	text-align: left;
 	}
 	input[type="text"], input[type="password"] {
 		width: 100%;
@@ -73,7 +68,7 @@
 	
 	<form action="C0010" method="post">
 	<div class="input-group">
-	<input type="text" name="email" placeholder="メールアドレス" value="${email != null ? email : ''}">
+	<input type="text" name="mail" placeholder="メールアドレス" value="${mail != null ? mail : ''}">
 	<div class="input-note">※必須 / 例：user@example.com</div>
 	</div>
 	<div class="input-group">

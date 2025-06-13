@@ -36,7 +36,6 @@
     	flex: 1;
     	padding: 8px;
         font-size: 14px;
-        background-color: #e9ecef;
         border-radius: 4px;
         border: 1px solid #ced4da;
         min-width: 200px;
@@ -48,8 +47,7 @@
         padding: 2px 6px;
         border-radius: 12px;
         margin-left: 10px;
-    }
-    
+    } 
     .roles {
         display: flex;
         align-items: center;
@@ -76,7 +74,6 @@
     }
     @media screen and (max-width: 768px) {
         h2 {
-            padding-left: 0;
             text-align: center;
         }
 
@@ -123,19 +120,19 @@
 	<form action="S0030" method="post">
 		<div class="form-group">
 			<label>氏名 <span class="required">必須</span></label>
-			<input type="text" name="name" placeholder="氏名" required>
+			<input type="text" name="name" class="input-field" placeholder="氏名" required>
 		</div>
 		<div class="form-group">
 			<label>メールアドレス <span class="required">必須</span></label>
-        	<input type="mail" name="mail" placeholder="メールアドレス" required>
+        	<input type="mail" name="mail" class="input-field" placeholder="メールアドレス" required>
 		</div>
 		<div class="form-group">
 			 <label>パスワード <span class="required">必須</span></label>
-        	<input type="password" name="password" placeholder="パスワード" required>
+        	<input type="password" name="password" class="input-field" placeholder="パスワード" required>
 		</div>
 		<div class="form-group">
 			<label>パスワード（確認）<span class="required">必須</span></label>
-        	<input type="password" name="confirmPassword" placeholder="パスワード（確認）" required>
+        	<input type="password" name="confirmPassword" class="input-field" placeholder="パスワード（確認）" required>
 		</div>
 		<div class="form-group">
 			<label>権限 <span class="required">必須</span></label>

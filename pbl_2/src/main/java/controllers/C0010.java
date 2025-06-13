@@ -52,22 +52,22 @@ public class C0010 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String email = request.getParameter("email");
+		String mail = request.getParameter("mail");
 		String password = request.getParameter("password");
 		
-		if (email == null || email.trim().isEmpty()) {
+		if (mail == null || mail.trim().isEmpty()) {
 			request.setAttribute("errorMessage", "メールアドレスを入力してください");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
-		if (email.getBytes("UTF-8").length >= 101) {
+		if (mail.getBytes("UTF-8").length >= 101) {
 			request.setAttribute("errorMessage", "メールアドレスが長すぎます");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
-		if (!email.matches("^[\\w\\.-]+@[\\w\\.-]+$")) {
+		if (!mail.matches("^[\\w\\.-]+@[\\w\\.-]+$")) {
 			request.setAttribute("errorMessage", "メールアドレスを正しく入力してください");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
 			dispatcher.forward(request, response);
@@ -88,7 +88,7 @@ public class C0010 extends HttpServlet {
 		try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
 			String sql = "SELECT account_id, name, authority, password FROM accounts WHERE mail = ?";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            	 stmt.setString(1, email);
+            	 stmt.setString(1, mail);
                  
                  try (ResultSet rs = stmt.executeQuery()) {
                 	 if (!rs.next()) {
@@ -108,7 +108,7 @@ public class C0010 extends HttpServlet {
                 	  Login login = new Login(
                 		  rs.getInt("account_id"),
                 		  rs.getString("name"),
-                		  email,
+                		  mail,
                 		  dbPassword,
                 		  rs.getString("authority")
                 	 );
