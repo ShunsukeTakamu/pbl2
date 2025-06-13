@@ -96,31 +96,34 @@ public class S0010ConfirmServlet extends HttpServlet {
         // 単価チェック
         if (unitPriceStr == null || unitPriceStr.trim().isEmpty()) {
             errors.add("単価を入力してください。");
+        } else if (unitPriceStr.getBytes("UTF-8").length >= 10) {
+            errors.add("単価が長すぎます。");
         } else {
-        	
-        try {
-        	unitPrice = Integer.parseInt(unitPriceStr);
-        	if (unitPrice <= 0) errors.add("単価を入力してください。");
-        } catch (NumberFormatException e) {
-        	errors.add("単価を正しく入力してください。");
-        }
+	        try {
+	        	unitPrice = Integer.parseInt(unitPriceStr);
+	        	if (unitPrice <= 0) errors.add("単価を入力してください。");
+	        } catch (NumberFormatException e) {
+	        	errors.add("単価を正しく入力してください。");
+	        }
         }
         
 
         // 個数チェック
         if (saleNumberStr == null || saleNumberStr.trim().isEmpty()) {
             errors.add("個数を入力してください。");
+        } else if (unitPriceStr.getBytes("UTF-8").length >= 10) {
+            errors.add("個数が長すぎます。");
         } else {
-        try {
-            saleNumber = Integer.parseInt(saleNumberStr);
-            if (saleNumber <= 0) errors.add("個数を入力してください。");
-        } catch (NumberFormatException e) {
-            errors.add("個数を正しく入力してください。");
-        }
+	        try {
+	            saleNumber = Integer.parseInt(saleNumberStr);
+	            if (saleNumber <= 0) errors.add("個数を入力してください。");
+	        } catch (NumberFormatException e) {
+	            errors.add("個数を正しく入力してください。");
+	        }
         }
 
         // 備考チェック
-        if (note != null && note.length() > 255) {
+        if (note != null && note.getBytes("UTF-8").length >= 400) {
             errors.add("備考が長すぎます。");
         }
 
