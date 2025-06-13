@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.Account;
 import beans.Category;
+import beans.Login;
 import beans.Sale;
 import utils.Db;
 
@@ -27,6 +28,14 @@ public class S0010ConfirmServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	// 権限チェック 未ログイン、b'00'、b'10'の場合 ログイン画面へ
+    	HttpSession session = request.getSession();
+		Login loginAccount = (Login) session.getAttribute("account");
+		if (loginAccount == null || loginAccount.getAuthority().equals("b''") || loginAccount.getAuthority().equals("b'10'")) {
+			response.sendRedirect("C0010.html");
+			return;
+		}
 
         request.setCharacterEncoding("UTF-8");
 
@@ -144,7 +153,6 @@ public class S0010ConfirmServlet extends HttpServlet {
         sale.setSaleNumber(saleNumber);
         sale.setNote(note);
         
-        HttpSession session = request.getSession();
         session.setAttribute("sale", sale);
         response.sendRedirect("S0011.html");
     }

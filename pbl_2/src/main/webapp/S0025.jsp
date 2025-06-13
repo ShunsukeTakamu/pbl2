@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="beans.SaleDetail" %>
 <jsp:useBean id="detail" class="beans.SaleDetail" scope="request" />
 <!DOCTYPE html>
@@ -19,6 +20,10 @@
 			width: 200px;
 			margin-right: 10px;
 			text-align: right;
+		}
+		form {
+			max-width: 700px;
+			margin: 0 auto;
 		}
 		.short-input { width: 150px; }
 		.wide-input  { width: 300px; }
@@ -55,7 +60,7 @@
 
 			<div class="form-group">
 				<label>販売日</label>
-				<input type="text" class="form-control short-input" value="${detail.saleDate}" disabled>
+				<input type="text" class="form-control short-input" value="${formattedSaleDate}" disabled>
 			</div>
 
 			<div class="form-group">
@@ -75,12 +80,14 @@
 
 			<div class="form-group">
 				<label>単価</label>
-				<input type="text" class="form-control short-input" value="${detail.unitPrice}" disabled>
+				<fmt:formatNumber value="${detail.unitPrice}" type="number" groupingUsed="true" var="formattedPrice" />
+				<input type="text" class="form-control short-input" value="${formattedPrice}" disabled>
 			</div>
 
 			<div class="form-group">
 				<label>個数</label>
-				<input type="text" class="form-control short-input" value="${detail.saleNumber}" disabled>
+				<fmt:formatNumber value="${detail.saleNumber}" type="number" groupingUsed="true" var="formattedNumber" />
+				<input type="text" class="form-control short-input" value="${formattedNumber}" disabled>
 			</div>
 
 			<div class="form-group">
@@ -88,7 +95,7 @@
 				<textarea class="form-control wide-input" rows="3" disabled>${detail.note}</textarea>
 			</div>
 
-			<div class="form-group d-flex" style="margin-left: 210px;">
+			<div class="text-center mt-4">
 				<button type="submit" class="btn btn-danger me-2">✘ OK（削除）</button>
 				<button type="button" class="btn btn-outline-secondary" onclick="history.back()">キャンセル</button>
 			</div>

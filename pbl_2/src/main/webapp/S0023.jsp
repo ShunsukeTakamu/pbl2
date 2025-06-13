@@ -13,22 +13,23 @@
 	<style>
 		.form-group { display: flex; align-items: center; margin-bottom: 1rem; }
 		.form-group label { width: 200px; margin-right: 10px; text-align: right; }
+		form { max-width: 700px; margin: 0 auto; }
 		.note-group { align-items: flex-start; }
 		.note-group label { margin-top: 6px; }
 		.short-input { width: 150px; }
 		.wide-input  { width: 300px; }
 		.text-danger { color: red; font-size: 0.9rem; margin-left: 10px; }
 		
-	/* ▼ エラー赤枠調整 */
-	.alert ul {
-		margin-bottom: 0;
-		padding-left: 1.2rem;
-	}
-	.alert li {
-		margin-bottom: 0;
-	}
-	/* エラー赤枠調整 */
-	
+		/* ▼ エラー赤枠調整 */
+		.alert ul {
+			margin-bottom: 0;
+			padding-left: 1.2rem;
+		}
+		.alert li {
+			margin-bottom: 0;
+		}
+		/* エラー赤枠調整 */
+		
 	</style>
 </head>
 <body>
@@ -123,7 +124,7 @@
 				<textarea class="form-control wide-input" rows="5" id="inputNote" name="note" placeholder="備考">${detail.note}</textarea>
 			</div>
 
-			<div class="form-group d-flex" style="margin-left: 210px;">
+			<div class="text-center mt-4">
 				<button type="submit" class="btn btn-primary me-2">✔ 更新</button>
 				<button type="button" class="btn btn-outline-secondary" onclick="history.back()">キャンセル</button>
 			</div>

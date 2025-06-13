@@ -11,9 +11,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import beans.Account;
 import beans.Category;
+import beans.Login;
 import beans.SaleDetail;
 import services.AccountService;
 import services.CategoryService;
@@ -29,6 +31,14 @@ public class S0023Servlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
+    	// 権限チェック 未ログイン、b'00'、b'10'の場合 ログイン画面へ
+    	HttpSession session = request.getSession();
+		Login loginAccount = (Login) session.getAttribute("account");
+		if (loginAccount == null || loginAccount.getAuthority().equals("b''") || loginAccount.getAuthority().equals("b'10'")) {
+			response.sendRedirect("C0010.html");
+			return;
+		}
 
         // sale_id の取得と検証
         String saleIdStr = request.getParameter("sale_id");

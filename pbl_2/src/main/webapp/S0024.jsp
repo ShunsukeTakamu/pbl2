@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +18,10 @@
 			width: 200px;
 			margin-right: 10px;
 			text-align: right;
+		}
+		form {
+			max-width: 700px;
+			margin: 0 auto;
 		}
 		.note-group {
 			align-items: flex-start;
@@ -95,12 +100,14 @@
 
 			<div class="form-group">
 				<label>単価</label>
-				<input type="text" class="form-control short-input" value="${param.unit_price}" disabled>
+				<fmt:formatNumber value="${param.unit_price}" type="number" groupingUsed="true" var="formattedPrice" />
+				<input type="text" class="form-control short-input" value="${formattedPrice}" disabled>
 			</div>
 
 			<div class="form-group">
 				<label>個数</label>
-				<input type="text" class="form-control short-input" value="${param.sale_number}" disabled>
+				<fmt:formatNumber value="${param.sale_number}" type="number" groupingUsed="true" var="formattedNumber" />
+				<input type="text" class="form-control short-input" value="${formattedNumber}" disabled>
 			</div>
 
 			<div class="form-group note-group">
@@ -108,7 +115,7 @@
 				<textarea class="form-control wide-input" rows="5" disabled>${param.note}</textarea>
 			</div>
 
-			<div class="form-group d-flex" style="margin-left: 210px;">
+			<div class="text-center mt-4">
 				<button type="submit" class="btn btn-primary me-2">✔ OK</button>
 				<button type="button" class="btn btn-outline-secondary" onclick="history.back()">キャンセル</button>
 			</div>
