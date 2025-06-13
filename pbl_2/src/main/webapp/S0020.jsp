@@ -25,6 +25,11 @@
 		flex: 1;
 	}
 	
+	form {
+		max-width: 700px;
+		margin: 0 auto;
+	}
+	
 	.wide-input {
 		width: 400px;
 	}
@@ -118,7 +123,7 @@
 				<label for="inputNote" class="pt-10">備考 <span class="badge bg-secondary">部分一致</span> </label>
 				<input type="text" class="form-control wide-input" id="inputNote" name="note" placeholder="備考" value="${ sale.note }">
 			</div>
-			<div class="form-group d-flex" style="margin-left: 210px;">
+			<div class="text-center mt-4">
 				<button type="submit" class="btn btn-primary me-2">検索</button>
 				<button type="reset" class="btn btn-outline-secondary">クリア</button>
 			</div>
