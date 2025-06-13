@@ -390,26 +390,26 @@ String uri = request.getRequestURI();
 					</div>
 
 				</div>
-				<div class="col l3 m6 s12">
+				<!--				<div class="col l3 m6 s12">-->
 
-<!--					<div class="card">-->
-<!--						<div class="card-stacked">-->
-<!--							<div class="card-metrics card-metrics-static">-->
-<!--								<div class="card-metric">-->
-<!--									<div class="card-metric-title">Conversion Rate</div>-->
-<!--									<div class="card-metric-value">0.24%</div>-->
-<!--									<div class="card-metric-change decrease">-->
-<!--										<i class="material-icons left">keyboard_arrow_down</i> 9%-->
-<!--									</div>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--						<div class="card-chart">-->
-<!--							<canvas id="flush-area-chart-green" height="100"></canvas>-->
-<!--						</div>-->
-<!--					</div>-->
+				<!--					<div class="card">-->
+				<!--						<div class="card-stacked">-->
+				<!--							<div class="card-metrics card-metrics-static">-->
+				<!--								<div class="card-metric">-->
+				<!--									<div class="card-metric-title">Conversion Rate</div>-->
+				<!--									<div class="card-metric-value">0.24%</div>-->
+				<!--									<div class="card-metric-change decrease">-->
+				<!--										<i class="material-icons left">keyboard_arrow_down</i> 9%-->
+				<!--									</div>-->
+				<!--								</div>-->
+				<!--							</div>-->
+				<!--						</div>-->
+				<!--						<div class="card-chart">-->
+				<!--							<canvas id="flush-area-chart-green" height="100"></canvas>-->
+				<!--						</div>-->
+				<!--					</div>-->
 
-				</div>
+				<!--				</div>-->
 
 				<div class="col s12">
 
@@ -444,10 +444,9 @@ String uri = request.getRequestURI();
 								width="400" height="400"></canvas>
 						</div>
 					</div>
-
 				</div>
-				
-<!--更新履歴-->
+
+				<!--更新履歴-->
 				<div class="col m6 s12">
 					<div class="card">
 						<div class="card-content">
@@ -466,7 +465,7 @@ String uri = request.getRequestURI();
 						</div>
 					</div>
 				</div>
-				
+
 
 				<!--期間別カテゴリー売上推移-->
 				<div class="col m6 s12">
@@ -495,7 +494,6 @@ String uri = request.getRequestURI();
 					</div>
 				</div>
 
-
 				<!--カテゴリー別売上-->
 				<div class="col m6 s12">
 					<div class="card">
@@ -512,14 +510,10 @@ String uri = request.getRequestURI();
 						</div>
 					</div>
 				</div>
-
-
 			</div>
-
-			
 		</div>
 	</main>
-	
+
 
 	<!--新規追加 担当者売上ランキング-->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
