@@ -37,13 +37,13 @@ public class S0025Servlet extends HttpServlet {
 
 		int saleId = Integer.parseInt(request.getParameter("saleId"));
 		
-		Sale detail = (new SaleService()).selectById(saleId);
-		Account account = (new AccountService()).selectById(detail.getAccountId());
-		Category category = (new CategoryService()).selectById(detail.getCategoryId());
-		request.setAttribute("detail", detail);
+		Sale sale = (new SaleService()).selectById(saleId);
+		Account account = (new AccountService()).selectById(sale.getAccountId());
+		Category category = (new CategoryService()).selectById(sale.getCategoryId());
+		request.setAttribute("sale", sale);
 		request.setAttribute("account", account);
 		request.setAttribute("category", category);
-		request.setAttribute("formattedSaleDate", DateUtil.formatLocDateToStr(detail.getSaleDate()));
+		request.setAttribute("formattedSaleDate", DateUtil.formatLocDateToStr(sale.getSaleDate()));
 		request.getRequestDispatcher("S0025.jsp").forward(request, response);
 	}
 

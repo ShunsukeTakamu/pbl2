@@ -54,7 +54,7 @@
 		<h1>売上詳細削除確認</h1>
 
 		<form action="S0025.html" method="post">
-			<input type="hidden" name="saleId" value="${ detail.saleId }">
+			<input type="hidden" name="saleId" value="${ sale.saleId }">
 
 			<div class="form-group">
 				<label>販売日</label>
@@ -73,24 +73,24 @@
 
 			<div class="form-group">
 				<label>商品名</label>
-				<input type="text" class="form-control wide-input" value="${ detail.tradeName }" disabled>
+				<input type="text" class="form-control wide-input" value="${ sale.tradeName }" disabled>
 			</div>
 
 			<div class="form-group">
 				<label>単価</label>
-				<fmt:formatNumber value="${detail.unitPrice}" type="number" groupingUsed="true" var="formattedPrice" />
+				<fmt:formatNumber value="${sale.unitPrice}" type="number" groupingUsed="true" var="formattedPrice" />
 				<input type="text" class="form-control short-input" value="${ formattedPrice }" disabled>
 			</div>
 
 			<div class="form-group">
 				<label>個数</label>
-				<fmt:formatNumber value="${detail.saleNumber}" type="number" groupingUsed="true" var="formattedNumber" />
+				<fmt:formatNumber value="${sale.saleNumber}" type="number" groupingUsed="true" var="formattedNumber" />
 				<input type="text" class="form-control short-input" value="${ formattedNumber }" disabled>
 			</div>
 
 			<div class="form-group">
 				<label>備考</label>
-				<textarea class="form-control wide-input" rows="3" disabled><c:out value="${ detail.note }" /></textarea>
+				<textarea class="form-control wide-input" rows="3" disabled><c:out value="${ sale.note }" /></textarea>
 			</div>
 
 			<div class="text-center mt-4">

@@ -57,14 +57,14 @@ public class S0023Servlet extends HttpServlet {
         }
 
         // 売上データの取得
-        Sale detail = (new SaleService()).selectById(saleId);
+        Sale sale = (new SaleService()).selectById(saleId);
 
         // ▼ DBからアカウント・カテゴリ情報を取得
         ArrayList<Account> accounts = new AccountService().selectAll();
         ArrayList<Category> categories = new CategoryService().selectAll();
 
         // JSPに渡す
-        request.setAttribute("detail", detail);
+        request.setAttribute("sale", sale);
         request.setAttribute("accounts", accounts);
         request.setAttribute("categories", categories);
         request.getRequestDispatcher("S0023.jsp").forward(request, response);
@@ -172,18 +172,18 @@ public class S0023Servlet extends HttpServlet {
 
         // エラーがあれば編集画面に戻す
         if (!errors.isEmpty()) {
-            Sale detail = new Sale();
-            detail.setSaleId(saleId);
-            detail.setSaleDate(LocalDate.parse(saleDate));
-            detail.setAccountId(accountId);
-            detail.setCategoryId(categoryId);
-            detail.setTradeName(tradeName);
-            detail.setUnitPrice(unitPrice);
-            detail.setSaleNumber(saleNumber);
-            detail.setNote(note);
+            Sale sale = new Sale();
+            sale.setSaleId(saleId);
+            sale.setSaleDate(LocalDate.parse(saleDate));
+            sale.setAccountId(accountId);
+            sale.setCategoryId(categoryId);
+            sale.setTradeName(tradeName);
+            sale.setUnitPrice(unitPrice);
+            sale.setSaleNumber(saleNumber);
+            sale.setNote(note);
 
             request.setAttribute("errors", errors);
-            request.setAttribute("detail", detail);
+            request.setAttribute("sale", sale);
             request.setAttribute("accounts", as.selectAll());
             request.setAttribute("categories", cs.selectAll());
             request.getRequestDispatcher("S0023.jsp").forward(request, response);
@@ -191,17 +191,17 @@ public class S0023Servlet extends HttpServlet {
         }
 
         // 確認画面へ進む：IDから名前を取得してセット
-        Sale detail = new Sale();
-        detail.setSaleId(saleId);
-        detail.setSaleDate(LocalDate.parse(saleDate));
-        detail.setAccountId(accountId);
-        detail.setCategoryId(categoryId);
-        detail.setTradeName(tradeName);
-        detail.setUnitPrice(unitPrice);
-        detail.setSaleNumber(saleNumber);
-        detail.setNote(note);
+        Sale sale = new Sale();
+        sale.setSaleId(saleId);
+        sale.setSaleDate(LocalDate.parse(saleDate));
+        sale.setAccountId(accountId);
+        sale.setCategoryId(categoryId);
+        sale.setTradeName(tradeName);
+        sale.setUnitPrice(unitPrice);
+        sale.setSaleNumber(saleNumber);
+        sale.setNote(note);
 
-        request.setAttribute("sale", detail);
+        request.setAttribute("sale", sale);
         request.setAttribute("account", as.selectById(accountId));
         request.setAttribute("category", cs.selectById(categoryId));
         request.getRequestDispatcher("S0024.jsp").forward(request, response);
