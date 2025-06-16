@@ -45,8 +45,8 @@ public class S0024Servlet extends HttpServlet {
         // 更新処理
         (new SaleService()).update(s);
         
-        // 更新後は詳細表示画面へリダイレクト
-        response.sendRedirect("S0022.html?saleId=" + saleId);
+        // 更新後は一覧画面へリダイレクト
+        response.sendRedirect("S0021.html");
 
     }
 }
