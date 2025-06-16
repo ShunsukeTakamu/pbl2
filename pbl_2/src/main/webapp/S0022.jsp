@@ -44,28 +44,28 @@
             <h2 class="mb-4">売上詳細表示</h2>
             
             <!-- データのフォーマットを整える -->
-			<fmt:formatNumber value="${ detail.unitPrice }" type="number" groupingUsed="true" var="formattedPrice" />
-			<fmt:formatNumber value="${ detail.saleNumber }" type="number" groupingUsed="true" var="formattedNumber" />
+			<fmt:formatNumber value="${ sale.unitPrice }" type="number" groupingUsed="true" var="formattedPrice" />
+			<fmt:formatNumber value="${ sale.saleNumber }" type="number" groupingUsed="true" var="formattedNumber" />
             <table class="table w-50 mx-auto">
                 <tr><th class="fw-bold ps-4">販売日</th><td>${ formattedDate }</td></tr>
                 <tr><th class="fw-bold ps-4">担当</th><td>${ accountName }</td></tr>
                 <tr><th class="fw-bold ps-4">商品カテゴリー</th><td>${ categoryName }</td></tr>
-                <tr><th class="fw-bold ps-4">商品名</th><td>${ detail.tradeName }</td></tr>
+                <tr><th class="fw-bold ps-4">商品名</th><td>${ sale.tradeName }</td></tr>
                 <tr><th class="fw-bold ps-4">単価</th><td>${ formattedPrice }</td></tr>
                 <tr><th class="fw-bold ps-4">個数</th><td>${ formattedNumber }</td></tr>
-                <tr><th class="fw-bold ps-4">備考</th><td class="note-cell">${ detail.note }</td></tr>
+                <tr><th class="fw-bold ps-4">備考</th><td class="note-cell">${ sale.note }</td></tr>
             </table>
 
             <div class="text-center mt-4">
 
                 <form action="S0023.html" method="get" style="display: inline-block;">
-                    <input type="hidden" name="saleId" value="${ detail.saleId }">
+                    <input type="hidden" name="saleId" value="${ sale.saleId }">
                     <button class="btn btn-primary">✔ 編集</button>
                 </form>
 
                 <!-- 削除ボタン -->
                 <form action="S0025.html" method="get" style="display: inline-block;">
-                    <input type="hidden" name="saleId" value="${ detail.saleId }">
+                    <input type="hidden" name="saleId" value="${ sale.saleId }">
                     <button class="btn btn-danger">✘ 削除</button>
                 </form>
 
