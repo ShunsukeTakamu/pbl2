@@ -82,14 +82,14 @@
 			<div class="form-group">
 				<label>担当</label>
 				<select class="form-select wide-input" disabled>
-					<option>${param.account_id}</option>
+					<option>${sale.accountName}</option>
 				</select>
 			</div>
 
 			<div class="form-group">
 				<label>商品カテゴリー</label>
 				<select class="form-select wide-input" disabled>
-					<option>${param.category_id}</option>
+					<option>${sale.categoryName}</option>
 				</select>
 			</div>
 
