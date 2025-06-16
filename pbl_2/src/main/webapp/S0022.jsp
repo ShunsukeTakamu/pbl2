@@ -9,8 +9,12 @@
     <title>売上詳細表示 | 物品売上管理システム</title>
         <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
-
-    
+    <style>
+	.note-cell {
+		word-break: break-word;
+		max-width: 400px;
+	}
+	</style>
 </head>
 <body>
 	<%
@@ -49,7 +53,7 @@
                 <tr><th class="fw-bold ps-4">商品名</th><td>${ detail.tradeName }</td></tr>
                 <tr><th class="fw-bold ps-4">単価</th><td>${ formattedPrice }</td></tr>
                 <tr><th class="fw-bold ps-4">個数</th><td>${ formattedNumber }</td></tr>
-                <tr><th class="fw-bold ps-4">備考</th><td>${ detail.note }</td></tr>
+                <tr><th class="fw-bold ps-4">備考</th><td class="note-cell">${ detail.note }</td></tr>
             </table>
 
             <div class="text-center mt-4">
