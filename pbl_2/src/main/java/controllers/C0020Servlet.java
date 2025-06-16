@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import services.AccountService;
 import services.SaleService;
 
 /**
@@ -42,29 +43,29 @@ public class C0020Servlet extends HttpServlet {
 		    request.setAttribute("saleYears", new ArrayList<>(yearMap.keySet()));
 		    request.setAttribute("yearlyTotals", new ArrayList<>(yearMap.values()));
 
-
+		    // 前年比の増減
 		    int totalSales = saleService.getTotalSales();
-		    int previousSales = saleService.getPreviousTotalSales(); // 前回期間（例：1日前、1週間前など）とするメソッド
+		    int previousSales = saleService.getPreviousTotalSales(); // 前回期間
 
 		    int changeAmount = totalSales - previousSales;
 		    double changeRate = previousSales == 0 ? 0 : (double) changeAmount / previousSales * 100;
 		    boolean isIncrease = changeAmount >= 0;
 
 		    request.setAttribute("totalSales", totalSales);
-		    request.setAttribute("changeRate", Math.abs(changeRate)); // 絶対値にして表示用
+		    request.setAttribute("changeRate", Math.abs(changeRate)); // 絶対値にして表示
 		    request.setAttribute("isIncrease", isIncrease);           // 増加かどうか
 
-
-
-
-		    // ★ 日付別
-		    Map<String, Integer> dateMap = saleService.getSalesByDate();
-		    request.setAttribute("saleDates", new ArrayList<>(dateMap.keySet()));
-		    request.setAttribute("dailyTotals", new ArrayList<>(dateMap.values()));
-		    
+		    // カテゴリー別
 		    Map<String, Integer> categoryMap = saleService.getSalesByCategory();
 		    request.setAttribute("categoryNames", new ArrayList<>(categoryMap.keySet()));
 		    request.setAttribute("categoryTotals", new ArrayList<>(categoryMap.values()));
+		    
+		    
+		    AccountService accountService = new AccountService();
+		    int accountCount = accountService.getAccountCount();
+		    request.setAttribute("accountCount", accountCount);
+
+
 
 		    request.getRequestDispatcher("/C0020.jsp").forward(request, response);
 		    

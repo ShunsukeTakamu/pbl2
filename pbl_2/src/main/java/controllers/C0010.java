@@ -111,7 +111,7 @@ public class C0010 extends HttpServlet {
                 	 );
                 	 session.setAttribute("account", login);
 
-                	 response.sendRedirect("C0020.jsp");
+                	 response.sendRedirect("C0020.html");
                  }
             }
 		} catch (SQLException e) {

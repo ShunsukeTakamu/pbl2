@@ -175,5 +175,20 @@ public class AccountService {
 		}
 	// S0010ConfirmServlet.java用
 	}
+	
+	
+	public int getAccountCount() {
+	    String sql = "SELECT COUNT(*) FROM accounts";
+	    try (Connection con = Db.open();
+	         PreparedStatement ps = con.prepareStatement(sql);
+	         ResultSet rs = ps.executeQuery()) {
+	        if (rs.next()) {
+	            return rs.getInt(1);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return 0;
+	}
 
 }
