@@ -57,7 +57,7 @@
 		<h1>売上詳細編集</h1>
 
 		<c:if test="${ not empty errors }">
-			<div class="alert alert-danger w-75">
+			<div class="alert alert-danger">
 				<ul>
 					<c:forEach var="err" items="${ errors }">
 						<li>${ err }</li>
