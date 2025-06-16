@@ -77,7 +77,12 @@ form {
 
 	<main class="container mt-5">
 		<h1>アカウント条件検索表示</h1>
-
+<c:if test="${not empty error}">
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    ${error}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</c:if>
 		<c:if test="${not empty noResult}">
 			<div class="alert alert-warning">${noResult}</div>
 		</c:if>
@@ -90,7 +95,8 @@ form {
 					placeholder="氏名">
 			</div>
 			<div class="mb-3">
-				<label class="form-label">メールアドレス</label> <input type="text"
+				<label class="form-label">メールアドレス <span
+					class="badge bg-secondary">部分一致</span></label> <input type="text"
 					name="email" value="${sessionScope.searchEmail}"
 					class="form-control" placeholder="メールアドレス">
 			</div>
