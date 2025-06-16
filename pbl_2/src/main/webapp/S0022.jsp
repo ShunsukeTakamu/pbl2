@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="beans.SaleDetail" %>
-<jsp:useBean id="detail" class="beans.SaleDetail" scope="request" />
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -45,25 +43,25 @@
 			<fmt:formatNumber value="${ detail.unitPrice }" type="number" groupingUsed="true" var="formattedPrice" />
 			<fmt:formatNumber value="${ detail.saleNumber }" type="number" groupingUsed="true" var="formattedNumber" />
             <table class="table w-50 mx-auto">
-                <tr><th class="fw-bold ps-4">販売日</th><td>${formattedDate}</td></tr>
-                <tr><th class="fw-bold ps-4">担当</th><td>${detail.accountName}</td></tr>
-                <tr><th class="fw-bold ps-4">商品カテゴリー</th><td>${detail.categoryName}</td></tr>
-                <tr><th class="fw-bold ps-4">商品名</th><td>${detail.tradeName}</td></tr>
-                <tr><th class="fw-bold ps-4">単価</th><td>${formattedPrice}</td></tr>
-                <tr><th class="fw-bold ps-4">個数</th><td>${formattedNumber}</td></tr>
-                <tr><th class="fw-bold ps-4">備考</th><td>${detail.note}</td></tr>
+                <tr><th class="fw-bold ps-4">販売日</th><td>${ formattedDate }</td></tr>
+                <tr><th class="fw-bold ps-4">担当</th><td>${ accountName }</td></tr>
+                <tr><th class="fw-bold ps-4">商品カテゴリー</th><td>${ categoryName }</td></tr>
+                <tr><th class="fw-bold ps-4">商品名</th><td>${ detail.tradeName }</td></tr>
+                <tr><th class="fw-bold ps-4">単価</th><td>${ formattedPrice }</td></tr>
+                <tr><th class="fw-bold ps-4">個数</th><td>${ formattedNumber }</td></tr>
+                <tr><th class="fw-bold ps-4">備考</th><td>${ detail.note }</td></tr>
             </table>
 
             <div class="text-center mt-4">
 
                 <form action="S0023.html" method="get" style="display: inline-block;">
-                    <input type="hidden" name="sale_id" value="${detail.saleId}">
+                    <input type="hidden" name="sale_id" value="${ detail.saleId }">
                     <button class="btn btn-primary">✔ 編集</button>
                 </form>
 
                 <!-- 削除ボタン -->
                 <form action="S0025Loader.html" method="get" style="display: inline-block;">
-                    <input type="hidden" name="sale_id" value="${detail.saleId}">
+                    <input type="hidden" name="sale_id" value="${ detail.saleId }">
                     <button class="btn btn-danger">✘ 削除</button>
                 </form>
 

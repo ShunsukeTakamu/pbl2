@@ -76,7 +76,7 @@
 							<!-- 詳細ボタン -->
 							<td class="text-left">
 								<form action="S0022.html" method="get">
-									<input type="hidden" name="sale_id"
+									<input type="hidden" name="saleId"
 										value="${ sale.getSaleId() }">
 									<button class="btn btn-primary btn-sm">✔ 詳細</button>
 								</form>

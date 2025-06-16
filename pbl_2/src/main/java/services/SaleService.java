@@ -82,6 +82,32 @@ public class SaleService {
 		return list;
 	}
 	
+	public Sale selectById(int id) {
+		Sale s = null;
+		String sql = "SELECT * FROM sales WHERE sale_id = ?";
+
+		try (
+				Connection con = Db.open();
+				PreparedStatement ps = con.prepareStatement(sql)) {
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				s = new Sale(
+						rs.getInt("sale_id"),
+						LocalDate.parse(rs.getString("sale_date")),
+						rs.getInt("account_id"),
+						rs.getInt("category_id"),
+						rs.getString("trade_name"),
+						rs.getInt("unit_price"),
+						rs.getInt("sale_number"),
+						rs.getString("note"));
+			}
+		} catch (SQLException | NamingException e) {
+			e.printStackTrace();
+		}
+
+		return s;
+	}
 	
 	public int insert(Sale s) {
 		
