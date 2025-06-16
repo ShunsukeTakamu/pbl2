@@ -55,13 +55,13 @@
             <div class="text-center mt-4">
 
                 <form action="S0023.html" method="get" style="display: inline-block;">
-                    <input type="hidden" name="sale_id" value="${ detail.saleId }">
+                    <input type="hidden" name="saleId" value="${ detail.saleId }">
                     <button class="btn btn-primary">✔ 編集</button>
                 </form>
 
                 <!-- 削除ボタン -->
-                <form action="S0025Loader.html" method="get" style="display: inline-block;">
-                    <input type="hidden" name="sale_id" value="${ detail.saleId }">
+                <form action="S0025.html" method="get" style="display: inline-block;">
+                    <input type="hidden" name="saleId" value="${ detail.saleId }">
                     <button class="btn btn-danger">✘ 削除</button>
                 </form>
 

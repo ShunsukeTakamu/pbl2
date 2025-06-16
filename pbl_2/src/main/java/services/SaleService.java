@@ -14,6 +14,8 @@ import java.util.Map;
 
 import javax.naming.NamingException;
 
+import jakarta.servlet.ServletException;
+
 import beans.Sale;
 import utils.Db;
 
@@ -137,6 +139,51 @@ public class SaleService {
 		}
 		return id;
 	}
+	
+	public void update(Sale s) {
+    	String sql = """
+                    UPDATE sales
+                    SET sale_date = ?, account_id = ?, category_id = ?,
+                        trade_name = ?, unit_price = ?, sale_number = ?, note = ?
+                    WHERE sale_id = ?
+                """;
+    	
+    	// DB接続と更新処理
+    	try (
+    			Connection conn = Db.open();
+    			PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setDate(1, Date.valueOf(s.getSaleDate()));
+            ps.setInt(2, s.getAccountId());
+            ps.setInt(3, s.getCategoryId());
+            ps.setString(4, s.getTradeName());
+            ps.setInt(5, s.getUnitPrice());
+            ps.setInt(6, s.getSaleNumber());
+            ps.setString(7, s.getNote());
+            ps.setInt(8, s.getSaleId());
+
+            int updated = ps.executeUpdate();
+            if (updated == 0) {
+                throw new ServletException("更新対象が存在しません (saleId=" + s.getSaleId() + ")");
+            }
+
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
+	public void delete(int id) {
+		String sql = "DELETE FROM sales WHERE sale_id = ?";
+		try (
+				Connection con = Db.open();
+				PreparedStatement ps = con.prepareStatement(sql)) {
+			ps.setInt(1, id);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	//ランキング用
 	public Map<String, Integer> getSalesByAccount() {
 	    Map<String, Integer> result = new LinkedHashMap<>();

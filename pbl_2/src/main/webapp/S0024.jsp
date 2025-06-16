@@ -65,54 +65,54 @@
 
 		<form action="S0024.html" method="post">
 			<!-- Hidden: 値の保持 -->
-			<input type="hidden" name="sale_id" value="${param.sale_id}">
-			<input type="hidden" name="sale_date" value="${param.sale_date}">
-			<input type="hidden" name="account_id" value="${param.account_id}">
-			<input type="hidden" name="category_id" value="${param.category_id}">
-			<input type="hidden" name="trade_name" value="${param.trade_name}">
-			<input type="hidden" name="unit_price" value="${param.unit_price}">
-			<input type="hidden" name="sale_number" value="${param.sale_number}">
-			<input type="hidden" name="note" value="${param.note}">
+			<input type="hidden" name="saleId" value="${ sale.saleId }">
+			<input type="hidden" name="saleDate" value="${ sale.saleDate }">
+			<input type="hidden" name="accountId" value="${ sale.accountId }">
+			<input type="hidden" name="categoryId" value="${ sale.categoryId }">
+			<input type="hidden" name="tradeName" value="${ sale.tradeName }">
+			<input type="hidden" name="unitPrice" value="${ sale.unitPrice }">
+			<input type="hidden" name="saleNumber" value="${ sale.saleNumber }">
+			<input type="hidden" name="note" value="${ sale.note }">
 
 			<div class="form-group">
 				<label>販売日</label>
-				<input type="date" class="form-control short-input" value="${param.sale_date}" disabled>
+				<input type="date" class="form-control short-input" value="${ sale.saleDate }" disabled>
 			</div>
 
 			<div class="form-group">
 				<label>担当</label>
 				<select class="form-select wide-input" disabled>
-					<option>${sale.accountName}</option>
+					<option><c:out value="${ account.name }" /></option>
 				</select>
 			</div>
 
 			<div class="form-group">
 				<label>商品カテゴリー</label>
 				<select class="form-select wide-input" disabled>
-					<option>${sale.categoryName}</option>
+					<option><c:out value="${ category.categoryName }" /></option>
 				</select>
 			</div>
 
 			<div class="form-group">
 				<label>商品名</label>
-				<input type="text" class="form-control wide-input" value="${param.trade_name}" disabled>
+				<input type="text" class="form-control wide-input" value="${ sale.tradeName }" disabled>
 			</div>
 
 			<div class="form-group">
 				<label>単価</label>
-				<fmt:formatNumber value="${param.unit_price}" type="number" groupingUsed="true" var="formattedPrice" />
-				<input type="text" class="form-control short-input" value="${formattedPrice}" disabled>
+				<fmt:formatNumber value="${ sale.unitPrice }" type="number" groupingUsed="true" var="formattedPrice" />
+				<input type="text" class="form-control short-input" value="${ formattedPrice }" disabled>
 			</div>
 
 			<div class="form-group">
 				<label>個数</label>
-				<fmt:formatNumber value="${param.sale_number}" type="number" groupingUsed="true" var="formattedNumber" />
-				<input type="text" class="form-control short-input" value="${formattedNumber}" disabled>
+				<fmt:formatNumber value="${ sale.saleNumber }" type="number" groupingUsed="true" var="formattedNumber" />
+				<input type="text" class="form-control short-input" value="${ formattedNumber }" disabled>
 			</div>
 
 			<div class="form-group note-group">
 				<label>備考</label>
-				<textarea class="form-control wide-input" rows="5" disabled>${param.note}</textarea>
+				<textarea class="form-control wide-input" rows="5" disabled><c:out value="${ sale.note }" /></textarea>
 			</div>
 
 			<div class="text-center mt-4">

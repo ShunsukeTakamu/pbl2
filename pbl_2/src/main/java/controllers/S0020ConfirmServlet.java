@@ -1,9 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +13,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-import beans.Account;
-import beans.Category;
 import beans.Sale;
+import services.AccountService;
+import services.CategoryService;
 import services.SaleService;
 import utils.DateUtil;
-import utils.Db;
 
 /**
  * Servlet implementation class S0020ConfirmServlet
@@ -61,6 +57,8 @@ public class S0020ConfirmServlet extends HttpServlet {
         String note = request.getParameter("note");
 
         List<String> errors = new ArrayList<>();
+        AccountService as = new AccountService();
+        CategoryService cs = new CategoryService();
         int accountId = Integer.parseInt(accountIdStr);
         int categoryId = Integer.parseInt(categoryIdStr);
 
@@ -95,8 +93,8 @@ public class S0020ConfirmServlet extends HttpServlet {
             request.setAttribute("sale", sale);
             request.setAttribute("dateStart", dateStart);
     		request.setAttribute("dateEnd", dateEnd);
-    		request.setAttribute("accounts", getAccountList());
-            request.setAttribute("categories", getCategoryList());
+    		request.setAttribute("accounts", as.selectAll());
+            request.setAttribute("categories", cs.selectAll());
             request.getRequestDispatcher("S0020.jsp").forward(request, response);
             return;
         }
@@ -116,15 +114,20 @@ public class S0020ConfirmServlet extends HttpServlet {
             request.setAttribute("sale", sale);
             request.setAttribute("dateStart", dateStart);
     		request.setAttribute("dateEnd", dateEnd);
-    		request.setAttribute("accounts", getAccountList());
-            request.setAttribute("categories", getCategoryList());
+    		request.setAttribute("accounts", as.selectAll());
+            request.setAttribute("categories", cs.selectAll());
             request.getRequestDispatcher("S0020.jsp").forward(request, response);
             return;
         }
 
         // 正常時 → 検索結果画面へ
         HttpSession session = request.getSession();
-	    session.setAttribute("saleList", sales);
+        session.setAttribute("dateStart", dateStart);
+        session.setAttribute("dateEnd", dateEnd);
+        session.setAttribute("accountIdStr", accountIdStr);
+        session.setAttribute("categoryIdStr", categoryIdStr);
+        session.setAttribute("partOfTradeName", tradeName);
+        session.setAttribute("patrOfNote", note);
 	    
 	    // 販売日 2015-01-15 を 2015/01/15 に変更
 	    List<String> formattedDates = sales.stream()
@@ -134,45 +137,4 @@ public class S0020ConfirmServlet extends HttpServlet {
 	    
         response.sendRedirect("S0021.html");
 	}
-	
-	// アカウント一覧
-    private List<Account> getAccountList() {
-        List<Account> list = new ArrayList<>();
-        try (Connection conn = Db.open()) {
-            String sql = "SELECT account_id, name FROM accounts";
-            try (PreparedStatement ps = conn.prepareStatement(sql);
-                 ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Account a = new Account();
-                    a.setAccountId(rs.getInt("account_id"));
-                    a.setName(rs.getString("name"));
-                    list.add(a);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    // カテゴリ一覧
-    private List<Category> getCategoryList() {
-        List<Category> list = new ArrayList<>();
-        try (Connection conn = Db.open()) {
-            String sql = "SELECT category_id, category_name FROM categories";
-            try (PreparedStatement ps = conn.prepareStatement(sql);
-                 ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Category c = new Category();
-                    c.setCategoryId(rs.getInt("category_id"));
-                    c.setCategoryName(rs.getString("category_name"));
-                    list.add(c);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
 }

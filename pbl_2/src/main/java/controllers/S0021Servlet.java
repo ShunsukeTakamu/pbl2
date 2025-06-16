@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -10,11 +11,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import beans.Account;
 import beans.Category;
+import beans.Sale;
 import services.AccountService;
 import services.CategoryService;
+import services.SaleService;
 
 /**
  * Servlet implementation class S0021Servlet
@@ -35,10 +39,17 @@ public class S0021Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		String dateStart = (String) session.getAttribute("dateStart");
+		String dateEnd = (String) session.getAttribute("dateEnd");
+		String accountIdStr = (String) session.getAttribute("accountIdStr");
+		String categoryIdStr = (String) session.getAttribute("categoryIdStr");
+		String tradeName = (String) session.getAttribute("partOfTradeName");
+		String note = (String) session.getAttribute("partOfNote");
+		
 		ArrayList<Account> accounts = (new AccountService()).selectAll();
-		request.setAttribute("accounts", accounts);
 		ArrayList<Category> categories = (new CategoryService()).selectAll();
-		request.setAttribute("categories", categories);
 		// idとnameのMapに変換
 		Map<Integer, String> accountMap = accounts.stream()
 				.collect(Collectors.toMap(
@@ -50,6 +61,9 @@ public class S0021Servlet extends HttpServlet {
 						c -> c.getCategoryName()));
 		request.setAttribute("accountMap", accountMap);
 		request.setAttribute("categoryMap", categoryMap);
+		
+		List<Sale> sales = (new SaleService()).searchSales(dateStart, dateEnd, accountIdStr, categoryIdStr, tradeName, note);
+		request.setAttribute("saleList", sales);
 		request.getRequestDispatcher("/S0021.jsp").forward(request, response);
 	}
 

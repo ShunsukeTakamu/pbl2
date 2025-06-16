@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="beans.SaleDetail" %>
-<jsp:useBean id="detail" class="beans.SaleDetail" scope="request" />
 <jsp:useBean id="errors" class="java.util.ArrayList" scope="request" />
 <!DOCTYPE html>
 <html>
@@ -58,32 +56,32 @@
 	<main class="container mt-5">
 		<h1>売上詳細編集</h1>
 
-		<c:if test="${not empty errors}">
+		<c:if test="${ not empty errors }">
 			<div class="alert alert-danger w-75">
 				<ul>
-					<c:forEach var="err" items="${errors}">
-						<li>${err}</li>
+					<c:forEach var="err" items="${ errors }">
+						<li>${ err }</li>
 					</c:forEach>
 				</ul>
 			</div>
 		</c:if>
 
 		<form action="S0023Confirm.html" method="post">
-			<input type="hidden" name="sale_id" value="${detail.saleId}">
+			<input type="hidden" name="saleId" value="${ detail.saleId }">
 
 			<!-- 販売日 -->
 			<div class="form-group">
 				<label for="inputSale_date">販売日</label>
-				<input type="date" class="form-control short-input" id="inputSale_date" name="sale_date" value="${detail.saleDate}">
+				<input type="date" class="form-control short-input" id="inputSale_date" name="saleDate" value="${ detail.saleDate }">
 			</div>
 
 			<!-- 担当 -->
 			<div class="form-group">
 				<label for="inputAccount_id">担当</label>
-				<select class="form-select wide-input" id="inputAccount_id" name="account_id">
+				<select class="form-select wide-input" id="inputAccount_id" name="accountId">
 					<option value="">選択してください</option>
-					<c:forEach var="a" items="${accounts}">
-						<option value="${a.accountId}" ${a.accountId == detail.accountId ? 'selected' : ''}>${a.name}</option>
+					<c:forEach var="a" items="${ accounts }">
+						<option value="${ a.accountId }" ${ a.accountId == detail.accountId ? 'selected' : '' }>${ a.name }</option>
 					</c:forEach>
 				</select>
 				
@@ -92,10 +90,10 @@
 			<!-- 商品カテゴリー -->
 			<div class="form-group">
 				<label for="inputCategory_id">商品カテゴリー</label>
-				<select class="form-select wide-input" id="inputCategory_id" name="category_id">
+				<select class="form-select wide-input" id="inputCategory_id" name="categoryId">
 					<option value="">選択してください</option>
-					<c:forEach var="c" items="${categories}">
-						<option value="${c.categoryId}" ${c.categoryId == detail.categoryId ? 'selected' : ''}>${c.categoryName}</option>
+					<c:forEach var="c" items="${ categories }">
+						<option value="${ c.categoryId }" ${ c.categoryId == detail.categoryId ? 'selected' : '' }>${ c.categoryName }</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -103,30 +101,30 @@
 			<!-- 商品名 -->
 			<div class="form-group">
 				<label for="inputTrade_name">商品名</label>
-				<input type="text" class="form-control wide-input" id="inputTrade_name" name="trade_name" placeholder="商品名" value="${detail.tradeName}">
+				<input type="text" class="form-control wide-input" id="inputTrade_name" name="tradeName" placeholder="商品名" value="${ detail.tradeName }">
 			</div>
 
 			<!-- 単価 -->
 			<div class="form-group">
 				<label for="inputUnit_price">単価</label>
-				<input type="number" class="form-control short-input" id="inputUnit_price" name="unit_price" placeholder="単価" <c:if test="${ detail.unitPrice >= 0 }">value="${detail.unitPrice}"</c:if>>
+				<input type="number" class="form-control short-input" id="inputUnit_price" name="unitPrice" placeholder="単価" <c:if test="${ detail.unitPrice >= 0 }">value="${detail.unitPrice}"</c:if>>
 			</div>
 
 			<!-- 個数 -->
 			<div class="form-group">
 				<label for="inputSale_number">個数</label>
-				<input type="number" class="form-control short-input" id="inputSale_number" name="sale_number" placeholder="個数" <c:if test="${ detail.saleNumber >= 0 }">value="${detail.saleNumber}"</c:if>>
+				<input type="number" class="form-control short-input" id="inputSale_number" name="saleNumber" placeholder="個数" <c:if test="${ detail.saleNumber >= 0 }">value="${detail.saleNumber}"</c:if>>
 			</div>
 
 			<!-- 備考 -->
 			<div class="form-group note-group">
 				<label for="inputNote">備考</label>
-				<textarea class="form-control wide-input" rows="5" id="inputNote" name="note" placeholder="備考">${detail.note}</textarea>
+				<textarea class="form-control wide-input" rows="5" id="inputNote" name="note" placeholder="備考">${ detail.note }</textarea>
 			</div>
 
 			<div class="text-center mt-4">
 				<button type="submit" class="btn btn-primary me-2">✔ 更新</button>
-				<button type="button" class="btn btn-outline-secondary" onclick="history.back()">キャンセル</button>
+				<a href="S0022.html?saleId=${ detail.saleId }" class="btn btn-outline-secondary">キャンセル</a>
 			</div>
 		</form>
 	</main>

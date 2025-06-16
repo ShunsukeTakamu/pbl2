@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="beans.SaleDetail" %>
-<jsp:useBean id="detail" class="beans.SaleDetail" scope="request" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,43 +54,43 @@
 		<h1>売上詳細削除確認</h1>
 
 		<form action="S0025.html" method="post">
-			<input type="hidden" name="sale_id" value="${detail.saleId}">
+			<input type="hidden" name="saleId" value="${ detail.saleId }">
 
 			<div class="form-group">
 				<label>販売日</label>
-				<input type="text" class="form-control short-input" value="${formattedSaleDate}" disabled>
+				<input type="text" class="form-control short-input" value="${ formattedSaleDate }" disabled>
 			</div>
 
 			<div class="form-group">
 				<label>担当</label>
-				<input type="text" class="form-control wide-input" value="${detail.accountName}" disabled>
+				<input type="text" class="form-control wide-input" value="${ account.name }" disabled>
 			</div>
 
 			<div class="form-group">
 				<label>商品カテゴリー</label>
-				<input type="text" class="form-control wide-input" value="${detail.categoryName}" disabled>
+				<input type="text" class="form-control wide-input" value="${ category.categoryName }" disabled>
 			</div>
 
 			<div class="form-group">
 				<label>商品名</label>
-				<input type="text" class="form-control wide-input" value="${detail.tradeName}" disabled>
+				<input type="text" class="form-control wide-input" value="${ detail.tradeName }" disabled>
 			</div>
 
 			<div class="form-group">
 				<label>単価</label>
 				<fmt:formatNumber value="${detail.unitPrice}" type="number" groupingUsed="true" var="formattedPrice" />
-				<input type="text" class="form-control short-input" value="${formattedPrice}" disabled>
+				<input type="text" class="form-control short-input" value="${ formattedPrice }" disabled>
 			</div>
 
 			<div class="form-group">
 				<label>個数</label>
 				<fmt:formatNumber value="${detail.saleNumber}" type="number" groupingUsed="true" var="formattedNumber" />
-				<input type="text" class="form-control short-input" value="${formattedNumber}" disabled>
+				<input type="text" class="form-control short-input" value="${ formattedNumber }" disabled>
 			</div>
 
 			<div class="form-group">
 				<label>備考</label>
-				<textarea class="form-control wide-input" rows="3" disabled>${detail.note}</textarea>
+				<textarea class="form-control wide-input" rows="3" disabled><c:out value="${ detail.note }" /></textarea>
 			</div>
 
 			<div class="text-center mt-4">
