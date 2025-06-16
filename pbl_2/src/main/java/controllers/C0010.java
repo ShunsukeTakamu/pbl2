@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -55,36 +57,27 @@ public class C0010 extends HttpServlet {
 		String mail = request.getParameter("mail");
 		String password = request.getParameter("password");
 		
+		List<String> errors = new ArrayList<>();
+		
 		if (mail == null || mail.trim().isEmpty()) {
-			request.setAttribute("errorMessage", "メールアドレスを入力してください");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
-			dispatcher.forward(request, response);
-			return;
-		}
-		if (mail.getBytes("UTF-8").length >= 101) {
-			request.setAttribute("errorMessage", "メールアドレスが長すぎます");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
-			dispatcher.forward(request, response);
-			return;
-		}
-		if (!mail.matches("^[\\w\\.-]+@[\\w\\.-]+$")) {
-			request.setAttribute("errorMessage", "メールアドレスを正しく入力してください");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
-			dispatcher.forward(request, response);
-			return;
+			errors.add("メールアドレスを入力してください。");
+		} else if (mail.getBytes("UTF-8").length >= 101) {
+			errors.add("メールアドレスが長すぎます。");
+		} else if (!mail.matches("^[\\w\\.-]+@[\\w\\.-]+$")) {
+			errors.add("メールアドレスを正しく入力してください。");
 		}
 		if (password == null || password.trim().isEmpty()) {
-			request.setAttribute("errorMessage", "パスワードが未入力です");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
-			dispatcher.forward(request, response);
-			return;
-		}
-		if (password.getBytes("UTF-8").length >= 31) {
-			request.setAttribute("errorMessage", "パスワードが長すぎます");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
-			dispatcher.forward(request, response);
-			return;
-		}
+	        errors.add("パスワードが未入力です");
+	    } else if (password.getBytes("UTF-8").length >= 31) {
+	        errors.add("パスワードが長すぎます");
+	    }
+		if (!errors.isEmpty()) {
+	        request.setAttribute("errors", errors);
+	        request.setAttribute("mail", mail);  // 入力値は戻す
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
+	        dispatcher.forward(request, response);
+	        return;
+	    }
 		try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
 			String sql = "SELECT account_id, name, authority, password FROM accounts WHERE mail = ?";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -92,17 +85,21 @@ public class C0010 extends HttpServlet {
                  
                  try (ResultSet rs = stmt.executeQuery()) {
                 	 if (!rs.next()) {
-                		 request.setAttribute("errorMessage", "メールアドレス、パスワードを正しく入力して下さい");
-                		 RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
-                		 dispatcher.forward(request, response);
-                		 return;
+                		 errors.add("メールアドレス、パスワードを正しく入力して下さい");
+                         request.setAttribute("errors", errors);
+                         request.setAttribute("mail", mail);
+                         RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
+                         dispatcher.forward(request, response);
+                         return;
                 	 } 
                 	  String dbPassword = rs.getString("password");
                 	  if (!dbPassword.equals(password)) {
-                		  request.setAttribute("errorMessage", "メールアドレス、パスワードを正しく入力して下さい");
-                		  RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
-                		  dispatcher.forward(request, response);
-                		  return;
+                		  errors.add("メールアドレス、パスワードを正しく入力して下さい");
+                          request.setAttribute("errors", errors);
+                          request.setAttribute("mail", mail);
+                          RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
+                          dispatcher.forward(request, response);
+                          return;
                 	 }
                 	  HttpSession session = request.getSession();
                 	  Login login = new Login(

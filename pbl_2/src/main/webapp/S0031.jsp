@@ -86,7 +86,15 @@
         padding: 2px 6px;
         border-radius: 12px;
         margin-left: 10px;
-    } @media screen and (max-width: 768px) {
+    } 
+    .alert ul {
+		margin-bottom: 0;
+		padding-left: 1.2rem;
+	}
+	.alert li {
+		margin-bottom: 0;
+	}
+    @media screen and (max-width: 768px) {
         h2 {
             text-align: center;
         }
@@ -151,6 +159,15 @@
 	<% } %>
     <div class="form-container">
         <form action="S0031.html" method="post">
+        <c:if test="${not empty errorMsg}">
+    	<div class="alert alert-danger" style="margin-bottom: 1em;">
+      		<ul>
+        		<c:forEach var="msg" items="${errorMsg}">
+          			<li>${msg}</li>
+        		</c:forEach>
+     		 </ul>
+   		</div>
+  		</c:if>
 		<div class="form-group">
 			<label>氏名 <span class="required">必須</span></label>
 			<div class="input-field"><%= name %></div>

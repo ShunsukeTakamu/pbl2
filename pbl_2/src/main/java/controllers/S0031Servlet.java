@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -81,7 +83,9 @@ public class S0031Servlet extends HttpServlet {
             	stmt.setString(1, mail);
             	 var rs = stmt.executeQuery();
                  if (rs.next() && rs.getInt(1) > 0) {
-                	 request.setAttribute("error", "このメールアドレスはすでに登録されています");
+                	 List<String> errorMsg = new ArrayList<>();
+                	 errorMsg.add("このメールアドレスはすでに登録されています。");
+                	 request.setAttribute("errorMsg", errorMsg);
                      request.getRequestDispatcher("S0031.jsp").forward(request, response);
                      return;
                  }

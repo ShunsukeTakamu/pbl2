@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -72,6 +73,13 @@
     .submit-btn button:hover {
        background-color: #286090;
     }
+    .alert ul {
+		margin-bottom: 0;
+		padding-left: 1.2rem;
+	}
+	.alert li {
+		margin-bottom: 0;
+	}
     @media screen and (max-width: 768px) {
         h2 {
             text-align: center;
@@ -125,29 +133,40 @@
 
 	<h2>アカウント登録</h2>
 	<div class="form-container">
+	
 	<form action="S0030.html" method="post">
+	<c:if test="${not empty errorMsg}">
+    <div class="alert alert-danger" style="margin-bottom: 1em;">
+        <ul>
+            <c:forEach var="msg" items="${errorMsg}">
+                <li>${msg}</li>
+            </c:forEach>
+        </ul>
+    </div>
+	</c:if>
+	
 		<div class="form-group">
 			<label>氏名 <span class="required">必須</span></label>
-			<input type="text" name="name" class="input-field" placeholder="氏名" required>
+			<input type="text" name="name" class="input-field" placeholder="氏名" value="${fn:escapeXml(name)}">
 		</div>
 		<div class="form-group">
 			<label>メールアドレス <span class="required">必須</span></label>
-        	<input type="mail" name="mail" class="input-field" placeholder="メールアドレス" required>
+        	<input type="mail" name="mail" class="input-field" placeholder="メールアドレス" value="${fn:escapeXml(mail)}">
 		</div>
 		<div class="form-group">
 			 <label>パスワード <span class="required">必須</span></label>
-        	<input type="password" name="password" class="input-field" placeholder="パスワード" required>
+        	<input type="password" name="password" class="input-field" placeholder="パスワード" value="${fn:escapeXml(password)}">
 		</div>
 		<div class="form-group">
 			<label>パスワード（確認）<span class="required">必須</span></label>
-        	<input type="password" name="confirmPassword" class="input-field" placeholder="パスワード（確認）" required>
+        	<input type="password" name="confirmPassword" class="input-field" placeholder="パスワード（確認）" value="${fn:escapeXml(confirmPassword)}">
 		</div>
 		<div class="form-group">
 			<label>権限 <span class="required">必須</span></label>
 			<div class="roles">
-        	<label><input type="radio" name="role" value="none" required> 権限なし</label>
-	        <label><input type="radio" name="role" value="view"> 参照</label>
-	        <label><input type="radio" name="role" value="update"> 更新</label>
+        	<label><input type="radio" name="role" value="none" <c:if test="${empty role or role == 'none'}">checked</c:if>> 権限なし</label>
+	        <label><input type="radio" name="role" value="view" <c:if test="${role == 'view'}">checked</c:if>> 参照</label>
+	        <label><input type="radio" name="role" value="update" <c:if test="${role == 'update'}">checked</c:if>> 更新</label>
 		</div>
 		</div>
 		<div class="submit-btn">

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,6 +44,13 @@
 		font-size: 13px;
 		margin-bottom: 15px;
 	}
+	.alert ul {
+		margin: 0;
+		padding-left: 1.2rem;
+	}
+	.alert li {
+		margin-bottom: 4px;
+	}
 	button {
 		background-color: #337ab7;
 		color: white;
@@ -62,13 +70,19 @@
 	<div class="container-wrapper">
 	<div class="login-container">
 	<h2>物品売上管理システム</h2>
-	<c:if test="${not empty errorMessage}">
-	<div class="error-message">${errorMessage}</div>
+	<c:if test="${not empty errors}">
+	<div class="alert alert-danger">
+		<ul>
+			<c:forEach var="err" items="${errors}">
+				<li>${err}</li>
+			</c:forEach>
+		</ul>
+	</div>
 	</c:if>
 	
 	<form action="C0010.html" method="post">
 	<div class="input-group">
-	<input type="text" name="mail" placeholder="メールアドレス" value="${mail != null ? mail : ''}">
+	<input type="text" name="mail" placeholder="メールアドレス" value="${fn:escapeXml(mail)}">
 	<div class="input-note">※必須 / 例：user@example.com</div>
 	</div>
 	<div class="input-group">
@@ -79,5 +93,6 @@
 	</form>
 	</div>
 	</div>
+	<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
