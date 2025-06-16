@@ -32,13 +32,43 @@ public class C0020Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		SaleService saleService = new SaleService();
-        Map<String, Integer> salesMap = saleService.getSalesByAccount();
+		 SaleService saleService = new SaleService();
+		    // アカウント別
+		    Map<String, Integer> salesMap = saleService.getSalesByAccount();
+		    request.setAttribute("accountNames", new ArrayList<>(salesMap.keySet()));
+		    request.setAttribute("salesTotals", new ArrayList<>(salesMap.values()));
+		    // 年別推移
+		    Map<String, Integer> yearMap = saleService.getSalesByYear();
+		    request.setAttribute("saleYears", new ArrayList<>(yearMap.keySet()));
+		    request.setAttribute("yearlyTotals", new ArrayList<>(yearMap.values()));
 
-        request.setAttribute("accountNames", new ArrayList<>(salesMap.keySet()));
-        request.setAttribute("salesTotals", new ArrayList<>(salesMap.values()));
 
-        request.getRequestDispatcher("/C0020.jsp").forward(request, response);
+		    int totalSales = saleService.getTotalSales();
+		    int previousSales = saleService.getPreviousTotalSales(); // 前回期間（例：1日前、1週間前など）とするメソッド
+
+		    int changeAmount = totalSales - previousSales;
+		    double changeRate = previousSales == 0 ? 0 : (double) changeAmount / previousSales * 100;
+		    boolean isIncrease = changeAmount >= 0;
+
+		    request.setAttribute("totalSales", totalSales);
+		    request.setAttribute("changeRate", Math.abs(changeRate)); // 絶対値にして表示用
+		    request.setAttribute("isIncrease", isIncrease);           // 増加かどうか
+
+
+
+
+		    // ★ 日付別
+		    Map<String, Integer> dateMap = saleService.getSalesByDate();
+		    request.setAttribute("saleDates", new ArrayList<>(dateMap.keySet()));
+		    request.setAttribute("dailyTotals", new ArrayList<>(dateMap.values()));
+		    
+		    Map<String, Integer> categoryMap = saleService.getSalesByCategory();
+		    request.setAttribute("categoryNames", new ArrayList<>(categoryMap.keySet()));
+		    request.setAttribute("categoryTotals", new ArrayList<>(categoryMap.values()));
+
+		    request.getRequestDispatcher("/C0020.jsp").forward(request, response);
+		    
+		    
 		
 	}
 

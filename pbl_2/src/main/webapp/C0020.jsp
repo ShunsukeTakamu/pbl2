@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.List"%>
 
+
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,26 +15,31 @@
 <link
 	href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"
 	rel="stylesheet">
-<link
-	href="//themes.materializecss.com/cdn/shop/t/1/assets/jqvmap.css?v=162757563705857184351528499283"
-	rel="stylesheet">
-<link
-	href="//themes.materializecss.com/cdn/shop/t/1/assets/flag-icon.min.css?v=107574258948483483761528499307"
-	rel="stylesheet">
+<!--<link-->
+<!--	href="//themes.materializecss.com/cdn/shop/t/1/assets/jqvmap.css?v=162757563705857184351528499283"-->
+<!--	rel="stylesheet">-->
+<!--<link-->
+<!--	href="//themes.materializecss.com/cdn/shop/t/1/assets/flag-icon.min.css?v=107574258948483483761528499307"-->
+<!--	rel="stylesheet">-->
 <!-- Fullcalendar-->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.css"
-	rel="stylesheet">
+<!--<link-->
+<!--	href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.css"-->
+<!--	rel="stylesheet">-->
 <!-- Materialize-->
 <link
 	href="//themes.materializecss.com/cdn/shop/t/1/assets/admin-materialize.min.css?v=88505356707424191531528497992"
 	rel="stylesheet">
 <!-- Material Icons-->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
+<!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons"-->
+<!--	rel="stylesheet">-->
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<script src="js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+
 <script src="js/bootstrap.bundle.min.js"></script>
 <%
 String uri = request.getRequestURI();
@@ -62,18 +68,37 @@ String uri = request.getRequestURI();
 		<div class="container">
 			<div class="masonry row">
 				<div class="col s12">
-					<h2>売上管理だっしゅぼーど</h2>
+					<h2>Dashboard</h2>
 				</div>
 				<div class="col l3 m6 s12">
+
+					<%
+					Integer totalSales = (Integer) request.getAttribute("totalSales");
+					Double changeRate = (Double) request.getAttribute("changeRate");
+					Boolean isIncrease = (Boolean) request.getAttribute("isIncrease");
+
+					if (totalSales == null)
+						totalSales = 0;
+					if (changeRate == null)
+						changeRate = 0.0;
+					if (isIncrease == null)
+						isIncrease = true;
+
+					String changeClass = isIncrease ? "increase" : "decrease";
+					String arrowIcon = isIncrease ? "↑" : "↓";
+					%>
 
 					<div class="card">
 						<div class="card-stacked">
 							<div class="card-metrics card-metrics-static">
 								<div class="card-metric">
 									<div class="card-metric-title">総売上</div>
-									<div class="card-metric-value">1,232,343,234円</div>
-									<div class="card-metric-change increase">
-										<i class="material-icons left">keyboard_arrow_up</i> 12%
+									<div class="card-metric-value">
+										<%=String.format("%,d円", totalSales)%>
+									</div>
+									<div class="card-metric-change <%=changeClass%>">
+										<i class="material-icons"><%=arrowIcon%></i>
+										<%=String.format("%.1f%%", changeRate)%>
 									</div>
 								</div>
 							</div>
@@ -82,6 +107,7 @@ String uri = request.getRequestURI();
 							<canvas id="flush-area-chart-blue" height="100px"></canvas>
 						</div>
 					</div>
+
 
 				</div>
 				<div class="col l3 m6 s12">
@@ -146,73 +172,20 @@ String uri = request.getRequestURI();
 				<!--				</div>-->
 
 				<div class="col s12">
-
 					<div class="card">
 						<div
 							class="card-metrics card-metrics-toggle card-metrics-centered">
 							<div class="card-metric waves-effect active"
 								data-metric="revenue">
 								<div class="card-metric-title">総売上</div>
-								<div class="card-metric-value">$12,476.00</div>
-								<div class="card-metric-change">
-									<i class="material-icons">keyboard_arrow_up</i> 12%
-								</div>
-							</div>
-							<div class="card-metric waves-effect" data-metric="users">
-								<div class="card-metric-title">利用者数</div>
-								<div class="card-metric-value">2024</div>
-								<div class="card-metric-change">
-									<i class="material-icons">keyboard_arrow_up</i> 9%
-								</div>
-							</div>
-							<div class="card-metric waves-effect" data-metric="ctr">
-								<div class="card-metric-title">満足度</div>
-								<div class="card-metric-value">0.20%</div>
-								<div class="card-metric-change">
-									<i class="material-icons">keyboard_arrow_up</i> 4%
+								<div class="card-metric-value">
+									<%=String.format("%,d円", (Integer) request.getAttribute("totalSales"))%>
 								</div>
 							</div>
 						</div>
 						<div class="card-content">
 							<canvas class="card-chart" id="main-toggle-line-chart"
-								width="400" height="400"></canvas>
-						</div>
-					</div>
-				</div>
-
-				<!--更新履歴-->
-				<div class="col m6 s12">
-					<div class="card">
-						<div class="card-content">
-							<span class="card-title">更新履歴</span>
-							<ul class="badge-updates">
-								<li><span class="new badge red" data-badge-caption="refund"></span>
-									<span class="message">45$ refunded to Alan Chang</span> <span
-									class="time">14 minutes ago</span></li>
-								<li><span class="new badge green"
-									data-badge-caption="purchase"></span> <span class="message">45$
-										from Alan Chang</span> <span class="time">14 minutes ago</span></li>
-								<li><span class="new badge red" data-badge-caption="refund"></span>
-									<span class="message">45$ refunded to Alan Chang</span> <span
-									class="time">14 minutes ago</span></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-
-				<!--期間別カテゴリー売上推移-->
-				<div class="col m6 s12">
-					<div id="tab-legend-chart-card" class="card primary-color">
-						<div class="card-content">
-							<p class="white-text">
-								こちらは期間別で売上の推移を確認できます。<br> 期間を選択してください。
-							</p>
-						</div>
-						<div class="card-content">
-						
-							<canvas class="card-chart" id="tab-legend-line-chart" width="400"
-								height="400"></canvas>
+								width="1000" height="300"></canvas>
 						</div>
 					</div>
 				</div>
@@ -233,29 +206,139 @@ String uri = request.getRequestURI();
 				<div class="col m6 s12">
 					<div class="card">
 						<div class="card-content">
-							<span class="card-title">カテゴリー別</span>
-							<div class="row row-vertical-center">
-								<div class="col s6">
-									<canvas id="doughnut-chart" width="50%"></canvas>
-								</div>
-								<div class="col s6">
-									<div class="chart-legend-wrapper"></div>
-								</div>
-							</div>
+							<span class="card-title">カテゴリー別売上（円）</span>
+							<canvas id="categorySalesChart" width="1000" height="400"></canvas>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</main>
+
+
 	<!--新規追加 担当者売上ランキング-->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 	<%
+	List<String> saleDates = (List<String>) request.getAttribute("saleYears");
+	List<Integer> dailyTotals = (List<Integer>) request.getAttribute("yearlyTotals");
+
 	List<String> names = (List<String>) request.getAttribute("accountNames");
 	List<Integer> totals = (List<Integer>) request.getAttribute("salesTotals");
+
+	List<String> categoryNames = (List<String>) request.getAttribute("categoryNames");
+	List<Integer> categoryTotals = (List<Integer>) request.getAttribute("categoryTotals");
 	%>
 	<script>
+
+// -----------------------------
+// カテゴリー別売上グラフのデータ作成
+// -----------------------------
+
+// カテゴリー名のラベル（例：食品、日用品...）
+const categoryLabels = [
+  <%if (categoryNames != null) {
+	for (int i = 0; i < categoryNames.size(); i++) {%>
+    "<%=categoryNames.get(i)%>"<%=(i < categoryNames.size() - 1) ? "," : ""%>
+  <%}
+}%>
+];
+
+// カテゴリーごとの売上合計（円）
+const categoryData = [
+  <%if (categoryTotals != null) {
+	for (int i = 0; i < categoryTotals.size(); i++) {%>
+    <%=categoryTotals.get(i)%><%=(i < categoryTotals.size() - 1) ? "," : ""%>
+  <%}
+}%>
+];
+
+// カテゴリー売上グラフ描画
+const ctxCategory = document.getElementById('categorySalesChart').getContext('2d');
+new Chart(ctxCategory, {
+  type: 'bar',
+  data: {
+    labels: categoryLabels,
+    datasets: [{
+      label: 'カテゴリー別売上（円）',
+      data: categoryData,
+      backgroundColor: 'rgba(255, 159, 64, 0.5)',
+      borderColor: 'rgba(255, 159, 64, 1)',
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          callback: function(value) {
+            return '¥' + value.toLocaleString(); // カンマ付き円表示
+          }
+        }
+      }
+    }
+  }
+});
+
+// -----------------------------
+// 日別売上グラフのデータ作成
+// -----------------------------
+
+// 売上日（X軸のラベル：日付）
+const dateLabels = [
+  <%if (saleDates != null) {
+	for (int i = 0; i < saleDates.size(); i++) {%>
+    "<%=saleDates.get(i)%>"<%=(i < saleDates.size() - 1) ? "," : ""%>
+  <%}
+}%>
+];
+
+// 日別の売上金額（Y軸の値）
+const dailyData = [
+  <%if (dailyTotals != null) {
+	for (int i = 0; i < dailyTotals.size(); i++) {%>
+    <%=dailyTotals.get(i)%><%=(i < dailyTotals.size() - 1) ? "," : ""%>
+  <%}
+}%>
+];
+
+// 日別売上のラインチャート描画
+const ctxLine = document.getElementById('main-toggle-line-chart').getContext('2d');
+new Chart(ctxLine, {
+  type: 'line',
+  data: {
+    labels: dateLabels,
+    datasets: [{
+      label: '日別売上額（円）',
+      data: dailyData,
+      fill: true,
+      borderColor: 'rgba(54, 162, 235, 1)',
+      backgroundColor: 'rgba(54, 162, 235, 0.2)',
+      tension: 0.4  // 線のなめらかさ
+    }]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          callback: function(value) {
+            return '¥' + value.toLocaleString(); // カンマ付き円表示
+          }
+        }
+      }
+    }
+  }
+});
+
+// -----------------------------
+// 担当者別売上ランキンググラフ
+// -----------------------------
+
+// 担当者名のラベル
 const labels = [
   <%if (names != null) {
 	for (int i = 0; i < names.size(); i++) {
@@ -265,6 +348,7 @@ const labels = [
 }%>
 ];
 
+// 担当者ごとの売上金額
 const data = [
   <%if (totals != null) {
 	for (int i = 0; i < totals.size(); i++) {
@@ -274,6 +358,7 @@ const data = [
 }%>
 ];
 
+// 担当者売上の棒グラフ描画
 const ctx = document.getElementById('salesChart').getContext('2d');
 new Chart(ctx, {
   type: 'bar',
@@ -301,36 +386,15 @@ new Chart(ctx, {
     }
   }
 });
-
-
 </script>
 
+
 	<!-- Scripts -->
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.2/moment.min.js"></script>
+
 
 	<!-- External libraries -->
-	
-	<!-- ChartJS -->
-	<!--	<script type="text/javascript"-->
-	<!--		src="//themes.materializecss.com/cdn/shop/t/1/assets/Chart.js?v=28848919051585277061528498087"></script>-->
-	<script
-		src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-		
-	<script type="text/javascript"
-		src="//themes.materializecss.com/cdn/shop/t/1/assets/Chart.Financial.js?v=34644991646752552951528498109"></script>
 
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.7.0/fullcalendar.min.js"></script>
-	<script type="text/javascript"
-		src="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.js"></script>
-	<script
-		src="//themes.materializecss.com/cdn/shop/t/1/assets/imagesloaded.pkgd.min.js?v=58819771796763510541528498326"></script>
-	<!--画面配置-->
-	<script
-		src="//themes.materializecss.com/cdn/shop/t/1/assets/masonry.pkgd.min.js?v=180312904682597569011528498229"></script>
+
 
 	<!-- Initialization script -->
 	<script

@@ -217,4 +217,58 @@ public class SaleService {
 
 		    return result;
 		}
+		
+		// 年別売上推移
+		public Map<String, Integer> getSalesByYear() {
+		    Map<String, Integer> yearMap = new LinkedHashMap<>();
+		    String sql = """
+		        SELECT DATE_FORMAT(sale_date, '%Y') AS year,
+		               SUM(unit_price * sale_number) AS total_sales
+		        FROM sales
+		        GROUP BY year
+		        ORDER BY year
+		        """;
+		    try (Connection con = Db.open();
+		         PreparedStatement ps = con.prepareStatement(sql);
+		         ResultSet rs = ps.executeQuery()) {
+		        while (rs.next()) {
+		            yearMap.put(rs.getString("year"), rs.getInt("total_sales"));
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		    return yearMap;
+		}
+		
+		public int getPreviousTotalSales() {
+		    String sql = "SELECT SUM(unit_price * sale_number) FROM sales WHERE sale_date < (SELECT MAX(sale_date) FROM sales)";
+		    int total = 0;
+		    try (Connection con = Db.open();
+		         Statement stmt = con.createStatement();
+		         ResultSet rs = stmt.executeQuery(sql)) {
+		        if (rs.next()) {
+		            total = rs.getInt(1);
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		    return total;
+		}
+
+		
+		   // 日付別売上
+		public Map<String, Integer> getSalesByDate() {
+		    Map<String, Integer> dateMap = new LinkedHashMap<>();
+		    String sql = "SELECT sale_date, SUM(unit_price * sale_number) AS total_sales FROM sales GROUP BY sale_date ORDER BY sale_date";
+		    try (Connection con = Db.open();
+		         PreparedStatement ps = con.prepareStatement(sql);
+		         ResultSet rs = ps.executeQuery()) {
+		        while (rs.next()) {
+		            dateMap.put(rs.getString("sale_date"), rs.getInt("total_sales"));
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		    return dateMap;
+		}
 }
