@@ -210,6 +210,7 @@ String uri = request.getRequestURI();
 							</p>
 						</div>
 						<div class="card-content">
+						
 							<canvas class="card-chart" id="tab-legend-line-chart" width="400"
 								height="400"></canvas>
 						</div>
@@ -300,6 +301,8 @@ new Chart(ctx, {
     }
   }
 });
+
+
 </script>
 
 	<!-- Scripts -->
