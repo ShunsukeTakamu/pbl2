@@ -101,13 +101,13 @@
 			<div class="form-group">
 				<label>単価</label>
 				<fmt:formatNumber value="${ sale.unitPrice }" type="number" groupingUsed="true" var="formattedPrice" />
-				<input type="text" class="form-control short-input" value="${ formattedPrice }" disabled>
+				<input type="number" class="form-control short-input" value="${ formattedPrice }" disabled>
 			</div>
 
 			<div class="form-group">
 				<label>個数</label>
 				<fmt:formatNumber value="${ sale.saleNumber }" type="number" groupingUsed="true" var="formattedNumber" />
-				<input type="text" class="form-control short-input" value="${ formattedNumber }" disabled>
+				<input type="number" class="form-control short-input" value="${ formattedNumber }" disabled>
 			</div>
 
 			<div class="form-group note-group">

@@ -120,11 +120,11 @@
 			</div>
 			<div class="form-group">
 				<label for="inputUnit_price">単価 <span class="badge bg-secondary">必須</span> </label>
-				<input type="text" class="form-control short-input" id="inputUnit_price" name="unitPrice" placeholder="単価" <c:if test="${ sale.unitPrice >= 0 }">value="${ sale.unitPrice }"</c:if>>
+				<input type="number" class="form-control short-input" id="inputUnit_price" name="unitPrice" placeholder="単価" <c:if test="${ sale.unitPrice >= 0 }">value="${ sale.unitPrice }"</c:if>>
 			</div>
 			<div class="form-group">
 				<label for="inputSale_number">個数 <span class="badge bg-secondary">必須</span> </label>
-				<input type="text" class="form-control short-input" id="inputSale_number" name="saleNumber" placeholder="個数" <c:if test="${ sale.saleNumber >= 0 }">value="${ sale.saleNumber }"</c:if>>
+				<input type="number" class="form-control short-input" id="inputSale_number" name="saleNumber" placeholder="個数" <c:if test="${ sale.saleNumber >= 0 }">value="${ sale.saleNumber }"</c:if>>
 			</div>
 			<div class="form-group note-group">
 				<label for="inputNote" class="pt-10">備考</label>
