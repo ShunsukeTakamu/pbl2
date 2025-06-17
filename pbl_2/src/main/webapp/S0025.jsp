@@ -63,12 +63,12 @@
 
 			<div class="form-group">
 				<label>担当</label>
-				<input type="text" class="form-control wide-input" value="${ account.name }" disabled>
+				<input type="text" class="form-control wide-input" value="${ selectedAccount.name }" disabled>
 			</div>
 
 			<div class="form-group">
 				<label>商品カテゴリー</label>
-				<input type="text" class="form-control wide-input" value="${ category.categoryName }" disabled>
+				<input type="text" class="form-control wide-input" value="${ selectedCategory.categoryName }" disabled>
 			</div>
 
 			<div class="form-group">

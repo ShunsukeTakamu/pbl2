@@ -41,8 +41,8 @@ public class S0025Servlet extends HttpServlet {
 		Account account = (new AccountService()).selectById(sale.getAccountId());
 		Category category = (new CategoryService()).selectById(sale.getCategoryId());
 		request.setAttribute("sale", sale);
-		request.setAttribute("account", account);
-		request.setAttribute("category", category);
+		request.setAttribute("selectedAccount", account);
+		request.setAttribute("selectedCategory", category);
 		request.setAttribute("formattedSaleDate", DateUtil.formatLocDateToStr(sale.getSaleDate()));
 		request.getRequestDispatcher("S0025.jsp").forward(request, response);
 	}

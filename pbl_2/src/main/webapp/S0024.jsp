@@ -82,14 +82,14 @@
 			<div class="form-group">
 				<label>担当</label>
 				<select class="form-select wide-input" disabled>
-					<option><c:out value="${ account.name }" /></option>
+					<option><c:out value="${ selectedAccount.name }" /></option>
 				</select>
 			</div>
 
 			<div class="form-group">
 				<label>商品カテゴリー</label>
 				<select class="form-select wide-input" disabled>
-					<option><c:out value="${ category.categoryName }" /></option>
+					<option><c:out value="${ selectedCategory.categoryName }" /></option>
 				</select>
 			</div>
 

@@ -202,8 +202,8 @@ public class S0023Servlet extends HttpServlet {
         sale.setNote(note);
 
         request.setAttribute("sale", sale);
-        request.setAttribute("account", as.selectById(accountId));
-        request.setAttribute("category", cs.selectById(categoryId));
+        request.setAttribute("selectedAccount", as.selectById(accountId));
+        request.setAttribute("selectedCategory", cs.selectById(categoryId));
         request.getRequestDispatcher("S0024.jsp").forward(request, response);
     }
 }
