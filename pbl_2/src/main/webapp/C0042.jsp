@@ -134,7 +134,6 @@ form {
 			<c:set var="joinedAuthorities"
 				value="${fn:join(paramAuthorities, ',')}" />
 			<c:set var="hasParam" value="${not empty paramAuthorities}" />
-			<c:set var="authVal" value="${account.authority[0]}" />
 
 			<div class="mb-3">
 				<label class="form-label">権限 </label>

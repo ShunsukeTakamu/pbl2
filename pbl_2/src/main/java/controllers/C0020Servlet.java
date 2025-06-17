@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -44,16 +45,28 @@ public class C0020Servlet extends HttpServlet {
 		    request.setAttribute("yearlyTotals", new ArrayList<>(yearMap.values()));
 
 		    // 前年比の増減
-		    int totalSales = saleService.getTotalSales();
-		    int previousSales = saleService.getPreviousTotalSales(); // 前回期間
+		    Map<String, Integer> yearSales = saleService.getSalesByYear();
 
-		    int changeAmount = totalSales - previousSales;
-		    double changeRate = previousSales == 0 ? 0 : (double) changeAmount / previousSales * 100;
+		    int currentYear = LocalDate.now().getYear();
+		    String thisYearStr = String.valueOf(currentYear);
+		    String lastYearStr = String.valueOf(currentYear - 1);
+
+		    int thisYearSales = yearSales.getOrDefault(thisYearStr, 0);
+		    int lastYearSales = yearSales.getOrDefault(lastYearStr, 0);
+
+		    int changeAmount = thisYearSales - lastYearSales;
+		    double changeRate = lastYearSales == 0 ? 0 : (double) changeAmount / lastYearSales * 100;
 		    boolean isIncrease = changeAmount >= 0;
 
-		    request.setAttribute("totalSales", totalSales);
-		    request.setAttribute("changeRate", Math.abs(changeRate)); // 絶対値にして表示
-		    request.setAttribute("isIncrease", isIncrease);           // 増加かどうか
+		    request.setAttribute("totalSales", thisYearSales);
+		    request.setAttribute("changeRate", Math.abs(changeRate));
+		    request.setAttribute("isIncrease", isIncrease);
+		    
+		    // 売上総額の表示
+		    int allTimeSales = saleService.getTotalSales();
+		    request.setAttribute("allTimeSales", allTimeSales);
+
+
 
 		    // カテゴリー別
 		    Map<String, Integer> categoryMap = saleService.getSalesByCategory();
