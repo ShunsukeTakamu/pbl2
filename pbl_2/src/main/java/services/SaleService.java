@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -284,7 +285,23 @@ public class SaleService {
 		    } catch (Exception e) {
 		        e.printStackTrace();
 		    }
-		    return yearMap;
+
+	        // キーを int に変換して範囲を取得
+	        List<Integer> keys = new ArrayList<>();
+	        for (String key : yearMap.keySet()) {
+	            keys.add(Integer.parseInt(key));
+	        }
+	        int min = Collections.min(keys);
+	        int max = Collections.max(keys);
+
+	        // 新しいマップを作成して、順序付きで格納
+	        Map<String, Integer> filled = new LinkedHashMap<>();
+	        for (int i = min; i <= max; i++) {
+	            String keyStr = String.valueOf(i);
+	            filled.put(keyStr, yearMap.getOrDefault(keyStr, 0));
+	        }
+	        
+		    return filled;
 		}
 		
 		public int getPreviousTotalSales() {
