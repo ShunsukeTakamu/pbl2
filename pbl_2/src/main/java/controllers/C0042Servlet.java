@@ -28,6 +28,11 @@ public class C0042Servlet extends HttpServlet {
 				Account account = service.selectById(id);
 				System.out.println("取得したアカウント: " + account);
 				request.setAttribute("account", account);
+
+				if (account.getAuthority() != null && account.getAuthority().length > 0) {
+					int authVal = account.getAuthority()[0] & 0xFF; // byte を unsigned int に変換
+					request.setAttribute("authVal", authVal);
+				}
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
