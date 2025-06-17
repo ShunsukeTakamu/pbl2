@@ -43,17 +43,22 @@ public class C0020Servlet extends HttpServlet {
 		    request.setAttribute("saleYears", new ArrayList<>(yearMap.keySet()));
 		    request.setAttribute("yearlyTotals", new ArrayList<>(yearMap.values()));
 
-		    // 前年比の増減
-		    int totalSales = saleService.getTotalSales();
-		    int previousSales = saleService.getPreviousTotalSales(); // 前回期間
+		 // 今年の売上と前年の売上を取得して比較
+		    int totalSales = saleService.getCurrentYearSales();
+		    int previousSales = saleService.getPreviousTotalSales(); // 前年（同月）
 
 		    int changeAmount = totalSales - previousSales;
 		    double changeRate = previousSales == 0 ? 0 : (double) changeAmount / previousSales * 100;
 		    boolean isIncrease = changeAmount >= 0;
 
 		    request.setAttribute("totalSales", totalSales);
-		    request.setAttribute("changeRate", Math.abs(changeRate)); // 絶対値にして表示
-		    request.setAttribute("isIncrease", isIncrease);           // 増加かどうか
+		    request.setAttribute("changeRate", Math.abs(changeRate));
+		    request.setAttribute("isIncrease", isIncrease);
+
+		    // 全期間売上はそのまま
+		    int allTimeSales = saleService.getTotalSales();
+		    request.setAttribute("allTimeSales", allTimeSales);
+
 
 		    // カテゴリー別
 		    Map<String, Integer> categoryMap = saleService.getSalesByCategory();
