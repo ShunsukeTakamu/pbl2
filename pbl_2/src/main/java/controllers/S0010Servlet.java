@@ -153,6 +153,10 @@ public class S0010Servlet extends HttpServlet {
 	        }
         }
 
+        // 空文字ならnoteをnullにする
+        if (note.isEmpty()) {
+            note = null;
+        }
         // 備考チェック
         if (note != null && note.getBytes("UTF-8").length >= 400) {
             errors.add("備考が長すぎます。");
@@ -173,7 +177,7 @@ public class S0010Servlet extends HttpServlet {
             request.setAttribute("sale", sale);
             request.setAttribute("accounts", as.selectAll());
             request.setAttribute("categories", cs.selectAll());
-            request.getRequestDispatcher("S0010.jsp").forward(request, response);
+            request.getRequestDispatcher("/S0010.jsp").forward(request, response);
             return;
         }
 

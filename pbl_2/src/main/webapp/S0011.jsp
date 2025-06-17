@@ -59,42 +59,42 @@
 
 			<div class="form-group">
 				<label for="inputSale_date">販売日</label>
-				<input type="date" class="form-control short-input" id="inputSale_date" name="saleDate" value="${ sale.getSaleDate() }" disabled>
+				<input type="date" class="form-control short-input" id="inputSale_date" name="saleDate" value="${ sale.saleDate }" disabled>
 			</div>
 			<div class="form-group">
 				<label for="inputAccount_id">担当</label>
 				<select class="form-select wide-input" id="inputAccount_id" name="accountId" disabled>
-					<option value="${ sale.getAccountId() }"><c:out value="${ account.getName() }" /></option>
+					<option value="${ sale.accountId }"><c:out value="${ selectedAccount.name }" /></option>
 				</select>
 			</div>
 			<div class="form-group">
 				<label for="inputCategory_id">商品カテゴリー</label>
 				<select class="form-select wide-input" id="inputCategory_id" name="categoryId" disabled>
-					<option value="${ sale.getCategoryId() }"><c:out value="${ category.getCategoryName() }" /></option>
+					<option value="${ sale.categoryId }"><c:out value="${ selectedCategory.categoryName }" /></option>
 				</select>
 			</div>
 			<div class="form-group">
 				<label for="inputTrade_name">商品名</label>
-				<input type="text" class="form-control wide-input" id="inputTrade_name" name="tradeName" value="${ sale.getTradeName() }" disabled>
+				<input type="text" class="form-control wide-input" id="inputTrade_name" name="tradeName" value="${ sale.tradeName }" disabled>
 			</div>
 			<div class="form-group">
 				<label for="inputUnit_price">単価</label>
-				<fmt:formatNumber value="${ sale.getUnitPrice() }" type="number" groupingUsed="true" var="formattedPrice" />
+				<fmt:formatNumber value="${ sale.unitPrice }" type="number" groupingUsed="true" var="formattedPrice" />
 				<input type="text" class="form-control short-input" id="inputUnit_price" name="unitPrice" value="${ formattedPrice }" disabled>
 			</div>
 			<div class="form-group">
 				<label for="inputSale_number">個数</label>
-				<fmt:formatNumber value="${ sale.getSaleNumber() }" type="number" groupingUsed="true" var="formattedNumber" />
+				<fmt:formatNumber value="${ sale.saleNumber }" type="number" groupingUsed="true" var="formattedNumber" />
 				<input type="text" class="form-control short-input" id="inputSale_number" name="saleNumber" value="${ formattedNumber }" disabled>
 			</div>
 			<div class="form-group">
 				<label for="inputTotal">小計</label>
-				<fmt:formatNumber value="${ sale.getUnitPrice() * sale.getSaleNumber() }" type="number" groupingUsed="true" var="formattedSubTotal" />
+				<fmt:formatNumber value="${ sale.unitPrice * sale.saleNumber }" type="number" groupingUsed="true" var="formattedSubTotal" />
 				<input type="text" class="form-control short-input" id="inputTotal" name="subTotal" value="${ formattedSubTotal }" disabled>
 			</div>
 			<div class="form-group note-group">
 				<label for="inputNote" class="pt-10">備考</label>
-				<textarea type="text" class="form-control wide-input" rows="5" id="inputNote" name="note" placeholder="備考" disabled><c:out value="${ sale.getNote() }" /></textarea>
+				<textarea type="text" class="form-control wide-input" rows="5" id="inputNote" name="note" placeholder="備考" disabled><c:out value="${ sale.note }" /></textarea>
 			</div>
 			<div class="text-center">
 				<button type="submit" class="btn btn-primary me-2">✔ OK</button>

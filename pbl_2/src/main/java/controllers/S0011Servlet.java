@@ -37,10 +37,10 @@ public class S0011Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Sale sale = (Sale) session.getAttribute("sale");
-		Category category = (new CategoryService()).selectById(sale.getCategoryId());
-		request.setAttribute("category", category);
 		Account account = (new AccountService()).selectById(sale.getAccountId());
-		request.setAttribute("account", account);
+		Category category = (new CategoryService()).selectById(sale.getCategoryId());
+		request.setAttribute("selectedAccount", account);
+		request.setAttribute("selectedCategory", category);
 		request.getRequestDispatcher("/S0011.jsp").forward(request, response);
 	}
 
