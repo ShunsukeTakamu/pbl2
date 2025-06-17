@@ -31,9 +31,6 @@
 	</style>
 </head>
 <body>
-	<%
-	String uri = request.getRequestURI();
-	%>
 	<header>
 		<!-- ナビバーのインクルード -->
     	<jsp:include page="/navbar.jsp" />
