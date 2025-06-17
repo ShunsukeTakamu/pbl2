@@ -15,6 +15,14 @@ import services.SaleService;
 @WebServlet("/S0024.html")
 public class S0024Servlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    
+    /**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        request.getRequestDispatcher("S0024.jsp").forward(request, response);
+	}
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

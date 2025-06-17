@@ -32,14 +32,6 @@ public class S0023Servlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	
-    	// 権限チェック 未ログイン、b'00'、b'10'の場合 ログイン画面へ
-    	HttpSession session = request.getSession();
-		Login loginAccount = (Login) session.getAttribute("account");
-		if (loginAccount == null || loginAccount.getAuthority().equals("b''") || loginAccount.getAuthority().equals("b'10'")) {
-			response.sendRedirect("C0010.html");
-			return;
-		}
 
         // saleId の取得と検証
         String saleIdStr = request.getParameter("saleId");
@@ -91,6 +83,13 @@ public class S0023Servlet extends HttpServlet {
 
         int saleId = 0, accountId = 0, categoryId = 0;
         int unitPrice = -1, saleNumber = -1;
+        
+        // 権限チェック 未ログイン、権限なし（b'00'、b'10'）の場合
+        HttpSession session = request.getSession();
+        Login loginAccount = (Login) session.getAttribute("account");
+        if (loginAccount == null || loginAccount.getAuthority().equals("b''") || loginAccount.getAuthority().equals("b'10'")) {
+        	errors.add("権限がありません。");
+        }
 
         try {
             saleId = Integer.parseInt(saleIdStr);
@@ -201,9 +200,9 @@ public class S0023Servlet extends HttpServlet {
         sale.setSaleNumber(saleNumber);
         sale.setNote(note);
 
-        request.setAttribute("sale", sale);
-        request.setAttribute("selectedAccount", as.selectById(accountId));
-        request.setAttribute("selectedCategory", cs.selectById(categoryId));
-        request.getRequestDispatcher("S0024.jsp").forward(request, response);
+        session.setAttribute("sale", sale);
+        session.setAttribute("selectedAccount", as.selectById(accountId));
+        session.setAttribute("selectedCategory", cs.selectById(categoryId));
+        response.sendRedirect("S0024.html");
     }
 }

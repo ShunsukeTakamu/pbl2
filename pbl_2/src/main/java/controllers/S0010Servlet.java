@@ -58,13 +58,6 @@ public class S0010Servlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 権限チェック 未ログイン、b'00'、b'10'の場合 ログイン画面へ
-    	HttpSession session = request.getSession();
-		Login loginAccount = (Login) session.getAttribute("account");
-		if (loginAccount == null || loginAccount.getAuthority().equals("b''") || loginAccount.getAuthority().equals("b'10'")) {
-			response.sendRedirect("C0010.html");
-			return;
-		}
 
         request.setCharacterEncoding("UTF-8");
 
@@ -82,6 +75,13 @@ public class S0010Servlet extends HttpServlet {
         CategoryService cs = new CategoryService();
         int accountId = 0, categoryId = 0, unitPrice = -1, saleNumber = -1;
 
+        // 権限チェック 未ログイン、b'00'、b'10'の場合 ログイン画面へ
+        HttpSession session = request.getSession();
+        Login loginAccount = (Login) session.getAttribute("account");
+        if (loginAccount == null || loginAccount.getAuthority().equals("b''") || loginAccount.getAuthority().equals("b'10'")) {
+        	errors.add("権限がありません。");
+        }
+        
         // 販売日チェック
         if (saleDate == null || saleDate.isBlank()) {
             errors.add("販売日を入力してください。");

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
@@ -14,6 +15,16 @@
 		word-break: break-word;
 		max-width: 400px;
 	}
+	
+	/* ▼ エラー赤枠調整 */
+	.alert ul {
+		margin-bottom: 0;
+		padding-left: 1.2rem;
+	}
+	.alert li {
+		margin-bottom: 0;
+	}
+	/* エラー赤枠調整 */
 	</style>
 </head>
 <body>
@@ -43,6 +54,16 @@
         <div class="container mt-5">
             <h2 class="mb-4">売上詳細表示</h2>
             
+            <c:if test="${ not empty errors }">
+				<div class="alert alert-danger">
+					<ul>
+						<c:forEach var="err" items="${ errors }">
+							<li>${ err }</li>
+						</c:forEach>
+					</ul>
+				</div>
+			</c:if>
+            
             <!-- データのフォーマットを整える -->
 			<fmt:formatNumber value="${ sale.unitPrice }" type="number" groupingUsed="true" var="formattedPrice" />
 			<fmt:formatNumber value="${ sale.saleNumber }" type="number" groupingUsed="true" var="formattedNumber" />
@@ -58,15 +79,15 @@
 
             <div class="text-center mt-4">
 
-                <form action="S0023.html" method="get" style="display: inline-block;">
+                <form action="S0022.html" method="post" style="display: inline-block;">
                     <input type="hidden" name="saleId" value="${ sale.saleId }">
-                    <button class="btn btn-primary">✔ 編集</button>
+                    <button name="button" value="edit" class="btn btn-primary">✔ 編集</button>
                 </form>
 
                 <!-- 削除ボタン -->
-                <form action="S0025.html" method="get" style="display: inline-block;">
+                <form action="S0022.html" method="post" style="display: inline-block;">
                     <input type="hidden" name="saleId" value="${ sale.saleId }">
-                    <button class="btn btn-danger">✘ 削除</button>
+                    <button name="button" value="delete"class="btn btn-danger">✘ 削除</button>
                 </form>
 
                 <!-- キャンセルボタン -->

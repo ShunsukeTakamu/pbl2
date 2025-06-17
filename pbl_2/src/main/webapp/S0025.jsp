@@ -52,7 +52,17 @@
 
 	<main class="container mt-5">
 		<h1>売上詳細削除確認</h1>
-
+		
+		<c:if test="${ not empty errors }">
+			<div class="alert alert-danger">
+				<ul>
+					<c:forEach var="err" items="${ errors }">
+						<li>${ err }</li>
+					</c:forEach>
+				</ul>
+			</div>
+		</c:if>
+		
 		<form action="S0025.html" method="post">
 			<input type="hidden" name="saleId" value="${ sale.saleId }">
 
