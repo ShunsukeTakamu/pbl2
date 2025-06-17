@@ -32,12 +32,12 @@ public class C0040Servlet extends HttpServlet {
 	    String[] authorities = request.getParameterValues("authorities");
 
 	    if (name != null && name.getBytes("UTF-8").length >= 21) {
-	        request.setAttribute("error", "氏名の指定が長すぎます。");
+	        request.setAttribute("error", "氏名が長すぎます");
 	        request.getRequestDispatcher("/C0040.jsp").forward(request, response);
 	        return;
 	    }
 	    if (email != null && email.getBytes("UTF-8").length >= 100) {
-	        request.setAttribute("error", "メールアドレスの指定が長すぎます。");
+	        request.setAttribute("error", "メールが長すぎます");
 	        request.getRequestDispatcher("/C0040.jsp").forward(request, response);
 	        return;
 	    }

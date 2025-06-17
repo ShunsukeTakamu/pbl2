@@ -28,15 +28,6 @@ public class C0042Servlet extends HttpServlet {
 				Account account = service.selectById(id);
 				System.out.println("取得したアカウント: " + account);
 				request.setAttribute("account", account);
-
-				// authority[0] を int に変換して渡す
-				byte[] authorityBytes = account.getAuthority();
-				int authVal = 0;
-				if (authorityBytes != null && authorityBytes.length > 0) {
-					authVal = authorityBytes[0] & 0xFF;
-				}
-				request.setAttribute("authVal", authVal);
-
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			}
