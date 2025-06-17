@@ -13,6 +13,7 @@ import services.AccountService;
 @WebServlet("/C0044.html")
 public class C0044Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+//	private static final int id = 0;
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,8 +55,9 @@ public class C0044Servlet extends HttpServlet {
 		try {
 			int id = Integer.parseInt(accountId);
 			
+			
 			AccountService service = new AccountService();
-			service.delete(id);
+			service.deleteAccountAndSales(id);
 			
 			request.getSession().setAttribute("delete", "アカウントが削除されました。");
 			response.sendRedirect("C0041.html");

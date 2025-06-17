@@ -168,6 +168,8 @@ public class SaleService {
             e.printStackTrace();
         }
     }
+    
+
 
     // アカウント別売上集計
     public Map<String, Integer> getSalesByAccount() {

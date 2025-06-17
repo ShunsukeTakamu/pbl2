@@ -151,15 +151,28 @@ public class AccountService {
 		}
 	}
 
-	public void delete(int accountId) {
-		try(Connection con = Db.open();
-			PreparedStatement ps = con.prepareStatement("DELETE FROM accounts WHERE account_id = ?")){
-			ps.setInt(1, accountId);
-			ps.executeUpdate();
-		}catch(Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException("アカウント削除に失敗しました。");
-		}
+	public void deleteAccountAndSales(int id) {
+	    String deleteSalesSql = "DELETE FROM sales WHERE account_id = ?";
+	    String deleteAccountSql = "DELETE FROM accounts WHERE account_id = ?";
+
+	    try (Connection con = Db.open()) {
+	        con.setAutoCommit(false); // トランザクション開始
+
+	        try (PreparedStatement ps1 = con.prepareStatement(deleteSalesSql)) {
+	            ps1.setInt(1, id);
+	            ps1.executeUpdate();
+	        }
+
+	        try (PreparedStatement ps2 = con.prepareStatement(deleteAccountSql)) {
+	            ps2.setInt(1, id);
+	            ps2.executeUpdate();
+	        }
+
+	        con.commit();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        throw new RuntimeException("削除処理に失敗しました。");
+	    }
 	}
 	// S0010ConfirmServlet.java用
 	public boolean existsById(int id) {
@@ -190,5 +203,6 @@ public class AccountService {
 	    }
 	    return 0;
 	}
+
 
 }
