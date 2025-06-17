@@ -66,7 +66,7 @@ public class S0030 extends HttpServlet {
 			errors.add("メールアドレスを入力してください。");
 		} else if (mail.getBytes("UTF-8").length >= 101) {
 			errors.add("メールアドレスが長すぎます。");
-		} else if (!mail.matches("^[\\w\\.-]+@[\\w\\.-]+$")) {
+		} else if (!mail.matches("^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{2,}$")) {
 			errors.add("メールアドレスを正しく入力してください。");
 		} 
 		if (password == null || password.isEmpty()) {
