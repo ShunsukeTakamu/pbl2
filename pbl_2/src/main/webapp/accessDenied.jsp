@@ -11,6 +11,6 @@
   <div class="alert alert-danger">
     このページにアクセスする権限がありません。
   </div>
-  <a href="C0020.jsp" class="btn btn-secondary">ダッシュボードに戻る</a>
+  <a href="C0020.html" class="btn btn-secondary">ダッシュボードに戻る</a>
 </body>
 </html>
