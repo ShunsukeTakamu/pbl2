@@ -56,8 +56,6 @@ form {
 	<main class="container mt-5">
 		<h1>アカウント詳細編集</h1>
 
-
-
 		<c:if test="${not empty successMessage }">
 			<div class="alert alert-success" role="alert">${successMessage }</div>
 		</c:if>
@@ -112,7 +110,6 @@ form {
 				</c:if>
 			</div>
 
-
 			<c:set var="joinedAuthorities"
 				value="${fn:join(paramAuthorities, ',')}" />
 			<c:set var="hasParam" value="${not empty paramAuthorities}" />
@@ -152,9 +149,6 @@ form {
 				</c:if>
 			</div>
 
-
-
-
 			<div class="form-group d-flex" style="margin-left: 210px;">
 				<button type="submit" class="btn btn-primary me-2">更新</button>
 				<a href="S0041.html" class="btn btn-outline-secondary">キャンセル</a>
@@ -163,57 +157,58 @@ form {
 		</form>
 	</main>
 
-	<script>
-	function togglePassword(fieldId, btn) {
-		  const field = document.getElementById(fieldId);
-		  const isHidden = field.type === "password";
-		  field.type = isHidden ? "text" : "password";
-		  btn.textContent = isHidden ? "🙈" : "👁";
-		}
+<script>
+function togglePassword(fieldId, btn) {
+  const field = document.getElementById(fieldId);
+  const isHidden = field.type === "password";
+  field.type = isHidden ? "text" : "password";
+  btn.textContent = isHidden ? "🙈" : "👁";
+}
 
-		document.addEventListener("DOMContentLoaded", () => {
-		  // 権限チェックボックスの挙動
-		  const checkNone = document.getElementById("authNone");
-		  const checkSales = document.getElementById("authSales");
-		  const checkAccount = document.getElementById("authAccount");
+document.addEventListener("DOMContentLoaded", () => {
+  const checkNone = document.getElementById("authNone");
+  const checkSales = document.getElementById("authSales");
+  const checkAccount = document.getElementById("authAccount");
 
-		  function updateUI() {
-		    const isNone = checkNone.checked;
-		    const isSales = checkSales.checked;
-		    const isAccount = checkAccount.checked;
+  function updateUI() {
+    const isNone = checkNone.checked;
+    const isSalesOrAccount = checkSales.checked || checkAccount.checked;
 
-		    checkSales.disabled = isNone;
-		    checkAccount.disabled = isNone;
-		  }
+    checkSales.disabled = isNone;
+    checkAccount.disabled = isNone;
 
-		  checkNone.addEventListener("change", () => {
-		    if (checkNone.checked) {
-		      checkSales.checked = false;
-		      checkAccount.checked = false;
-		    }
-		    updateUI();
-		  });
+    checkNone.disabled = isSalesOrAccount;
+  }
 
-		  [checkSales, checkAccount].forEach(cb => {
-		    cb.addEventListener("change", () => {
-		      if (checkSales.checked || checkAccount.checked) {
-		        checkNone.checked = false;
-		      }
-		      updateUI();
-		    });
-		  });
+  checkNone.addEventListener("change", () => {
+    if (checkNone.checked) {
+      checkSales.checked = false;
+      checkAccount.checked = false;
+    }
+    updateUI();
+  });
 
-		  updateUI();
+  [checkSales, checkAccount].forEach(cb => {
+    cb.addEventListener("change", () => {
+      if (checkSales.checked || checkAccount.checked) {
+        checkNone.checked = false;
+      }
+      updateUI();
+    });
+  });
 
-		  // 成功メッセージの自動非表示
-		  setTimeout(() => {
-		    const alert = document.getElementById("successAlert");
-		    if (alert) {
-		      alert.classList.remove('show');
-		    }
-		  }, 3000);
-		});
+  updateUI();
+
+  // 成功メッセージ自動非表示
+  setTimeout(() => {
+    const alert = document.getElementById("successAlert");
+    if (alert) {
+      alert.classList.remove('show');
+    }
+  }, 3000);
+});
 </script>
+
 
 
 </body>

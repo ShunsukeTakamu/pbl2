@@ -50,8 +50,6 @@ form {
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 </c:if>
-
-
   <form action="S0040.html" method="post">
     <!-- 氏名 -->
     <div class="row align-items-center mb-3">
@@ -98,7 +96,6 @@ form {
     </div>
   </div>
 </div>
-
 
     <!-- ボタン -->
     <div class="row">

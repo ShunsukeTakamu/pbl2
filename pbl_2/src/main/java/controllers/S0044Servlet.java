@@ -65,7 +65,7 @@ public class S0044Servlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", "アカウント削除に失敗しました。");
-			
+			request.getRequestDispatcher("S0044.html").forward(request, response);
 		}
 	}
 }

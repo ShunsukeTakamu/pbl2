@@ -34,30 +34,28 @@ body {
 
 </head>
 <body>
-<header>
+	<header>
 		<!-- ナビバーのインクルード -->
-    	<jsp:include page="/navbar.jsp" />
+		<jsp:include page="/navbar.jsp" />
 	</header>
 	<main class="container mt-5">
 		<h1>アカウント検索結果表示</h1>
+
+		<c:if test="${not empty update}">
+			<div id="successAlert"
+				class="alert alert-success alert-dismissible fade show" role="alert">${update}</div>
+			<c:remove var="update" scope="session" />
+		</c:if>
+
+		<c:if test="${not empty delete}">
+			<div id="deleteAlert"
+				class="alert alert-danger alert-dismissible fade show" role="alert">
+				${delete}</div>
+			<c:remove var="delete" scope="session" />
+		</c:if>
+
 		<table class="table custom-table align-middle w-100">
 			<thead class="table-light">
-
-				<c:if test="${not empty update}">
-					<div id="successAlert"
-						class="alert alert-success alert-dismissible fade show"
-						role="alert">${update}</div>
-					<c:remove var="update" scope="session" />
-				</c:if>
-
-				<c:if test="${not empty delete}">
-					<div id="deleteAlert"
-						class="alert alert-danger alert-dismissible fade show"
-						role="alert">${delete}</div>
-					<c:remove var="delete" scope="session" />
-				</c:if>
-
-
 				<tr>
 					<th>操作</th>
 					<th>No</th>
@@ -66,42 +64,34 @@ body {
 					<th>権限</th>
 				</tr>
 			</thead>
+
 			<tbody>
-	<c:choose>
-		<c:when test="${empty accounts}">
-			<tr>
-				<td colspan="5" class="text-center text-muted">
-					該当するアカウントがありませんでした。
-				</td>
-			</tr>
-		</c:when>
-		<c:otherwise>
-			<c:forEach var="user" items="${accounts}">
-				<tr>
-					<td>
-						<form action="S0042.html" method="get" style="display: inline;">
-							<input type="hidden" name="id" value="${user.accountId}">
-							<button type="submit" class="btn btn-sm btn-primary">✔ 編集</button>
-						</form>
-						<form action="S0044.html" method="get" style="display: inline;">
-							<input type="hidden" name="id" value="${user.accountId}">
-							<button type="submit" class="btn btn-sm btn-danger">✘ 削除</button>
-						</form>
-					</td>
-					<td>${user.accountId}</td>
-					<td>${user.name}</td>
-					<td>${user.mail}</td>
-					<td>${user.authorityLabel}</td>
-				</tr>
-			</c:forEach>
-		</c:otherwise>
-	</c:choose>
-</tbody>
+				<c:forEach var="user" items="${accounts}">
+							<tr>
+								<td>
+									<form action="S0042.html" method="get" style="display: inline;">
+										<input type="hidden" name="id" value="${user.accountId}">
+										<button type="submit" class="btn btn-sm btn-primary">✔
+											編集</button>
+									</form>
+									<form action="S0044.html" method="get" style="display: inline;">
+										<input type="hidden" name="id" value="${user.accountId}">
+										<button type="submit" class="btn btn-sm btn-danger">✘
+											削除</button>
+									</form>
+								</td>
+								<td>${user.accountId}</td>
+								<td>${user.name}</td>
+								<td>${user.mail}</td>
+								<td>${user.authorityLabel}</td>
+							</tr>
+						</c:forEach>
+			</tbody>
 
 		</table>
-		</div>
 
-		<script>
+	</main>
+	<script>
   // 3秒後にアラートをフェードアウトさせる
   setTimeout(() => {
     const successAlert = document.getElementById('successAlert');

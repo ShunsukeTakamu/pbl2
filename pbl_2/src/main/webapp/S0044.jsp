@@ -5,7 +5,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>物品売上管理システム</title>
+<title>アカウント削除確認</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/bootstrap.bundle.min.js"></script>
@@ -20,72 +20,65 @@
 <body>
 
 	<header>
-		<!-- ナビバーのインクルード -->
-    	<jsp:include page="/navbar.jsp" />
+		<jsp:include page="/navbar.jsp" />
 	</header>
 
-	<div class="container mt-5">
-		<h2>アカウント詳細削除確認</h2>
+	<main class="container mt-5">
+		<h2>アカウント削除確認</h2>
 
 		<form action="S0044.html" method="post">
+			<input type="hidden" name="accountId" value="${accountId}" />
 
-			<input type="hidden" name="accountId" value="${accountId}" /> <input
-				type="hidden" name="name" value="${fn:escapeXml(name)}" /> <input
-				type="hidden" name="email" value="${fn:escapeXml(email)}" /> <input
-				type="hidden" name="password" value="${fn:escapeXml(password)}" />
-			<c:forEach var="auth" items="${authorities}">
-				<input type="hidden" name="authorities" value="${auth}" />
-			</c:forEach>
-
+			<!-- 氏名 -->
 			<div class="mb-3">
 				<label class="form-label">氏名</label> <input type="text"
-					class="form-control" value="${fn:escapeXml(name)}" readonly
-					disabled />
+					class="form-control" value="${name}" readonly disabled>
 			</div>
 
+			<!-- メール -->
 			<div class="mb-3">
 				<label class="form-label">メールアドレス</label> <input type="text"
-					class="form-control" value="${fn:escapeXml(email)}" readonly
-					disabled />
+					class="form-control" value="${email}" readonly disabled>
 			</div>
 
+			<!-- パスワード -->
 			<div class="mb-3">
 				<label class="form-label">パスワード</label> <input type="password"
-					class="form-control" value="${fn:escapeXml(password)}" readonly
-					disabled />
+					class="form-control" value="${password}" readonly disabled>
 			</div>
 
+			<!-- 権限 -->
 			<div class="mb-3">
-				<label class="form-label">パスワード（確認）</label> <input type="password"
-					class="form-control" value="${fn:escapeXml(password)}" readonly
-					disabled />
-			</div>
-
-			<div class="mb-3">
-				<label class="form-label">権限</label><br />
+				<label class="form-label">権限</label><br>
 
 				<div class="form-check form-check-inline">
-					<input type="checkbox" class="form-check-input" value="0"disabled ${has0 ? 'checked' : ''}>
-					<label class="form-check-label">権限なし</label>
+					<input type="checkbox" class="form-check-input" disabled
+						<c:if test="${has0}">checked</c:if> /> <label
+						class="form-check-label">権限なし</label>
 				</div>
-
 				<div class="form-check form-check-inline">
-					<input type="checkbox" class="form-check-input" value="1"disabled ${has1 ? 'checked' : ''}>
-					<label class="form-check-label">売上登録</label>
+					<input type="checkbox" class="form-check-input" disabled
+						<c:if test="${has1}">checked</c:if> /> <label
+						class="form-check-label">売上登録</label>
 				</div>
-
 				<div class="form-check form-check-inline">
-					<input type="checkbox" class="form-check-input" value="2"disabled ${has2 ? 'checked' : ''}>
-					<label class="form-check-label">アカウント登録</label>
+					<input type="checkbox" class="form-check-input" disabled
+						<c:if test="${has2}">checked</c:if> /> <label
+						class="form-check-label">アカウント登録</label>
 				</div>
 			</div>
 
+			<!-- ボタン -->
 			<div class="d-flex justify-content-center mt-4">
-				<button type="submit" class="btn btn-primary me-2">✔ OK</button>
-				<button type="button" class="btn btn-secondary"
-					onclick="history.back()">キャンセル</button>
+				<button type="submit" class="btn btn-danger me-2">✔ 削除</button>
+				<a href="S0041.html" class="btn btn-secondary">キャンセル</a>
 			</div>
 		</form>
-	</div>
+
+		<c:if test="${not empty error}">
+			<div class="alert alert-danger mt-3">${error}</div>
+		</c:if>
+
+	</main>
 </body>
 </html>

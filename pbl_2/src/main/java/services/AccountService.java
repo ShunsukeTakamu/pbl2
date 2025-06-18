@@ -28,34 +28,36 @@ public class AccountService {
 			params.add("%" + email + "%");
 		}
 
+		// 
 		if (authorities != null && authorities.length > 0) {
-			boolean containsZero = false;
-			int requiredBits = 0;
+			boolean containsZero = false; // 権限０が含まれているか
+			int requiredBits = 0; // ビットを合成する。
 
 			for (String auth : authorities) {
 				int bit = Integer.parseInt(auth);
 				if (bit == 0) {
-					containsZero = true;
+					containsZero = true; // ORで０が消えるため
 				} else {
-					requiredBits |= bit;
+					requiredBits |= bit; // OR|=で権限の合成
 				}
 			}
 
 			if (containsZero && requiredBits == 0) {
-				sql.append(" AND CAST(authority AS UNSIGNED) = 0");
-			} else if (containsZero) {
+				sql.append(" AND CAST(authority AS UNSIGNED) = 0"); // 権限なしのみ
+			} else if (containsZero) { // 権限なし＋ほかの権限
 				sql.append(" AND (CAST(authority AS UNSIGNED) = 0 OR (CAST(authority AS UNSIGNED) & ?) = ?)");
 				params.add(requiredBits);
 				params.add(requiredBits);
-			} else {
+			} else { // 権限なしは選択なし>> ビットAND検索
 				sql.append(" AND (CAST(authority AS UNSIGNED) & ?) = ?");
 				params.add(requiredBits);
 				params.add(requiredBits);
 			}
 
 		}
-		System.out.println("実行SQL: " + sql.toString());
-		System.out.println("パラメータ: " + params);
+//		System.out.println("実行SQL: " + sql.toString());
+//		System.out.println("パラメータ: " + params);
+		
 		try (Connection con = Db.open();
 				PreparedStatement stmt = con.prepareStatement(sql.toString())) {
 			for (int i = 0; i < params.size(); i++) {
