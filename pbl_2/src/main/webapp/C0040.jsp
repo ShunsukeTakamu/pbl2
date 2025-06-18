@@ -35,17 +35,22 @@ form {
 
 <main class="container mt-5">
   <h1>アカウント条件検索表示</h1>
+  
+<!--  エラー表示-->
+<c:if test="${not empty error}">
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    ${error}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</c:if>
 
-  <c:if test="${not empty error}">
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      ${error}
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  </c:if>
+<c:if test="${not empty noResult}">
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    ${noResult}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</c:if>
 
-  <c:if test="${not empty noResult}">
-    <div class="alert alert-warning">${noResult}</div>
-  </c:if>
 
   <form action="C0040.html" method="post">
     <!-- 氏名 -->
