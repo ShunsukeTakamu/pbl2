@@ -111,6 +111,11 @@ public class C0010 extends HttpServlet {
                 	 );
                 	 session.setAttribute("account", login);
 
+                	 byte[] authorityBytes = rs.getBytes("authority");
+                	 int authorityInt = authorityBytes[0] & 0xFF; // 符号なしに変換
+                	 session.setAttribute("loginAuthority", new byte[] { (byte) authorityInt });
+
+                	 
                 	 response.sendRedirect("C0020.html");
                  }
             }
