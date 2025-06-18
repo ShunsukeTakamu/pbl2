@@ -48,15 +48,19 @@ public class S0022Servlet extends HttpServlet {
         }
 
         Sale sale = (new SaleService()).selectById(saleId);
-        String accountName = (new AccountService()).selectById(sale.getAccountId()).getName();
-        String categoryName = (new CategoryService()).selectById(sale.getCategoryId()).getCategoryName();
+        String accountName = null;
+        String categoryName = null;
+        String formattedDate = null;
+        if (sale != null) {
+        	accountName = (new AccountService()).selectById(sale.getAccountId()).getName();
+        	categoryName = (new CategoryService()).selectById(sale.getCategoryId()).getCategoryName();
+        	// 日付のフォーマットを整える
+            formattedDate = DateUtil.formatLocDateToStr(sale.getSaleDate());
+        }
 
         request.setAttribute("sale", sale);
         request.setAttribute("accountName", accountName);
         request.setAttribute("categoryName", categoryName);
-        
-        // 日付のフォーマットを整える
-        String formattedDate = DateUtil.formatLocDateToStr(sale.getSaleDate());
         request.setAttribute("formattedDate", formattedDate);
         request.getRequestDispatcher("/S0022.jsp").forward(request, response);
     }
@@ -110,15 +114,19 @@ public class S0022Servlet extends HttpServlet {
         request.setAttribute("errors", errors);
 	    
 	    Sale sale = (new SaleService()).selectById(saleId);
-        String accountName = (new AccountService()).selectById(sale.getAccountId()).getName();
-        String categoryName = (new CategoryService()).selectById(sale.getCategoryId()).getCategoryName();
+	    String accountName = null;
+        String categoryName = null;
+        String formattedDate = null;
+        if (sale != null) {
+        	accountName = (new AccountService()).selectById(sale.getAccountId()).getName();
+        	categoryName = (new CategoryService()).selectById(sale.getCategoryId()).getCategoryName();
+        	// 日付のフォーマットを整える
+            formattedDate = DateUtil.formatLocDateToStr(sale.getSaleDate());
+        }
 
         request.setAttribute("sale", sale);
         request.setAttribute("accountName", accountName);
         request.setAttribute("categoryName", categoryName);
-        
-        // 日付のフォーマットを整える
-        String formattedDate = DateUtil.formatLocDateToStr(sale.getSaleDate());
         request.setAttribute("formattedDate", formattedDate);
         request.getRequestDispatcher("/S0022.jsp").forward(request, response);
 	    
