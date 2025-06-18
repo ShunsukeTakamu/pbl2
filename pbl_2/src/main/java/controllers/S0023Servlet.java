@@ -59,7 +59,7 @@ public class S0023Servlet extends HttpServlet {
         request.setAttribute("sale", sale);
         request.setAttribute("accounts", accounts);
         request.setAttribute("categories", categories);
-        request.getRequestDispatcher("S0023.jsp").forward(request, response);
+        request.getRequestDispatcher("/S0023.jsp").forward(request, response);
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -185,7 +185,7 @@ public class S0023Servlet extends HttpServlet {
             request.setAttribute("sale", sale);
             request.setAttribute("accounts", as.selectAll());
             request.setAttribute("categories", cs.selectAll());
-            request.getRequestDispatcher("S0023.jsp").forward(request, response);
+            request.getRequestDispatcher("/S0023.jsp").forward(request, response);
             return;
         }
 

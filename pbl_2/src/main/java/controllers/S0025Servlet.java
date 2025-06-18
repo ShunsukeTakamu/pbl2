@@ -38,7 +38,7 @@ public class S0025Servlet extends HttpServlet {
 		request.setAttribute("selectedAccount", account);
 		request.setAttribute("selectedCategory", category);
 		request.setAttribute("formattedSaleDate", DateUtil.formatLocDateToStr(sale.getSaleDate()));
-		request.getRequestDispatcher("S0025.jsp").forward(request, response);
+		request.getRequestDispatcher("/S0025.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -62,7 +62,7 @@ public class S0025Servlet extends HttpServlet {
     		request.setAttribute("selectedCategory", category);
     		request.setAttribute("formattedSaleDate", DateUtil.formatLocDateToStr(sale.getSaleDate()));
     		request.setAttribute("errors", errors);
-    		request.getRequestDispatcher("S0025.jsp").forward(request, response);
+    		request.getRequestDispatcher("/S0025.jsp").forward(request, response);
         }
         
 		(new SaleService()).delete(saleId);

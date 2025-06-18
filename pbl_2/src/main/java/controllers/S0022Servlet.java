@@ -58,7 +58,7 @@ public class S0022Servlet extends HttpServlet {
         // 日付のフォーマットを整える
         String formattedDate = DateUtil.formatLocDateToStr(sale.getSaleDate());
         request.setAttribute("formattedDate", formattedDate);
-        request.getRequestDispatcher("S0022.jsp").forward(request, response);
+        request.getRequestDispatcher("/S0022.jsp").forward(request, response);
     }
     
     /**
