@@ -108,7 +108,7 @@ public class S0020Servlet extends HttpServlet {
     		request.setAttribute("dateEnd", dateEnd);
     		request.setAttribute("accounts", as.selectAll());
             request.setAttribute("categories", cs.selectAll());
-            request.getRequestDispatcher("S0020.jsp").forward(request, response);
+            request.getRequestDispatcher("/S0020.jsp").forward(request, response);
             return;
         }
         
@@ -129,7 +129,7 @@ public class S0020Servlet extends HttpServlet {
     		request.setAttribute("dateEnd", dateEnd);
     		request.setAttribute("accounts", as.selectAll());
             request.setAttribute("categories", cs.selectAll());
-            request.getRequestDispatcher("S0020.jsp").forward(request, response);
+            request.getRequestDispatcher("/S0020.jsp").forward(request, response);
             return;
         }
 

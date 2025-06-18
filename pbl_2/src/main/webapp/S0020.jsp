@@ -85,7 +85,7 @@
 				<select class="form-select wide-input" id="inputAccount_id" name="accountId">
 					<option value="0" <c:if test="${ sale.accountId == 0 }">selected</c:if>>選択してください</option>
 					<c:forEach var="item" items="${ accounts }">
-						<option value="${ item.getAccountId() }"><c:out value="${ item.getName() }" /></option>
+						<option value="${ item.accountId }"><c:out value="${ item.name }" /></option>
 					</c:forEach>
 				</select>
 			</div>
@@ -94,7 +94,7 @@
 				<select class="form-select wide-input" id="inputCategory_id" name="categoryId">
 					<option value="0" <c:if test="${ sale.accountId == 0 }">selected</c:if>>選択してください</option>
 					<c:forEach var="item" items="${ categories }">
-						<option value="${ item.getCategoryId() }"><c:out value="${ item.getCategoryName() }" /></option>
+						<option value="${ item.categoryId }"><c:out value="${ item.categoryName }" /></option>
 					</c:forEach>
 				</select>
 			</div>

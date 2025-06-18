@@ -58,23 +58,23 @@
 						<tr>
 							<!-- 詳細ボタン -->
 							<td class="text-left">
-								<form action="S0022.html" method="get">
-									<input type="hidden" name="saleId"
-										value="${ sale.getSaleId() }">
-									<button class="btn btn-primary btn-sm">✔ 詳細</button>
-								</form>
+                                <form action="S0022.html" method="get">
+                                    <input type="hidden" name="saleId"
+                                        value="${ sale.saleId() }">
+                                    <button class="btn btn-primary btn-sm">✔ 詳細</button>
+                                </form>
 							</td>
 
 							<!-- データのフォーマットを整える -->
-							<fmt:formatNumber value="${ sale.getUnitPrice() }" type="number" groupingUsed="true" var="formattedPrice" />
-							<fmt:formatNumber value="${ sale.getSaleNumber() }" type="number" groupingUsed="true" var="formattedNumber" />
-							<fmt:formatNumber value="${ sale.getUnitPrice() * sale.getSaleNumber() }" type="number" groupingUsed="true" var="formattedSubTotal" />
+							<fmt:formatNumber value="${ sale.unitPrice }" type="number" groupingUsed="true" var="formattedPrice" />
+							<fmt:formatNumber value="${ sale.saleNumber }" type="number" groupingUsed="true" var="formattedNumber" />
+							<fmt:formatNumber value="${ sale.unitPrice * sale.saleNumber }" type="number" groupingUsed="true" var="formattedSubTotal" />
 							<!-- 各項目のデータ表示 -->
-							<td>${ sale.getSaleId() }</td>
+							<td>${ sale.saleId }</td>
 							<td>${ formattedDates.get(stt.index) }</td>
-							<td>${ accountMap.get(sale.getAccountId()) }</td>
-							<td>${ categoryMap.get(sale.getCategoryId()) }</td>
-							<td>${ sale.getTradeName() }</td>
+							<td>${ accountMap.get(sale.accountId) }</td>
+							<td>${ categoryMap.get(sale.categoryId) }</td>
+							<td>${ sale.tradeName }</td>
 							<td>${ formattedPrice }</td>
 							<td>${ formattedNumber }</td>
 							<td>${ formattedSubTotal }</td>
