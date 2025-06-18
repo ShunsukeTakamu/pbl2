@@ -21,7 +21,7 @@
       <li><a class="${ fn:endsWith(uri, 'S0030.jsp') ? 'active' : '' }" href="S0030.html">アカウント登録</a></li>
     </c:if>
 
-    <li><a class="${fn:endsWith(uri, 'C0040.jsp') ? 'active' : ''}" href="C0040.jsp">アカウント検索</a></li>
+    <li><a class="${fn:endsWith(uri, 'C0040.jsp') ? 'active' : ''}" href="C0040.html">アカウント検索</a></li>
 
     <li class="logout">
       <a href="logout.jsp">ログアウト</a>
