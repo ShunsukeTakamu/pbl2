@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,8 +11,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.naming.NamingException;
 
 import jakarta.servlet.ServletException;
 
@@ -98,7 +95,7 @@ public class SaleService {
                         rs.getString("note")
                 );
             }
-        } catch (SQLException | NamingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -124,7 +121,7 @@ public class SaleService {
             if (rs.next()) {
                 id = rs.getInt(1);
             }
-        } catch (SQLException | NamingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return id;
@@ -201,7 +198,7 @@ public class SaleService {
             if (rs.next()) {
                 total = rs.getInt(1);
             }
-        } catch (SQLException | NamingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return total;

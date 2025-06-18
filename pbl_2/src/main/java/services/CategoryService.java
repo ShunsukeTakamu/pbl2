@@ -3,11 +3,8 @@ package services;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import javax.naming.NamingException;
 
 import beans.Category;
 import utils.Db;
@@ -28,9 +25,7 @@ public class CategoryService {
 						rs.getInt("active_flg"));
 				categories.add(c);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (NamingException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -52,9 +47,7 @@ public class CategoryService {
 						rs.getString("category_name"),
 						rs.getInt("active_flg"));
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (NamingException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 

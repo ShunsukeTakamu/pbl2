@@ -3,12 +3,9 @@ package services;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.naming.NamingException;
 
 import beans.Account;
 import utils.Db;
@@ -99,9 +96,7 @@ public class AccountService {
 						rs.getBytes("authority"));
 				accounts.add(a);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (NamingException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -125,7 +120,7 @@ public class AccountService {
 						rs.getString("password"),
 						rs.getBytes("authority"));
 			}
-		} catch (SQLException | NamingException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
