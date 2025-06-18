@@ -15,14 +15,14 @@ import services.AccountService;
 /**
  * Servlet implementation class C0041Servlet
  */
-@WebServlet("/C0041.html")
-public class C0041Servlet extends HttpServlet {
+@WebServlet("/S0041.html")
+public class S0041Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public C0041Servlet() {
+    public S0041Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,7 +49,7 @@ public class C0041Servlet extends HttpServlet {
 
 	    if (accounts == null || accounts.isEmpty()) {
 	        request.setAttribute("noResult", "該当するアカウントがありませんでした。");
-	        request.getRequestDispatcher("C0040.jsp").forward(request, response);  // 検索画面に戻る
+	        request.getRequestDispatcher("S0040.jsp").forward(request, response);  // 検索画面に戻る
 	        return;
 	    }
 	    
@@ -58,7 +58,7 @@ public class C0041Servlet extends HttpServlet {
 	    request.setAttribute("email", email);
 	    request.setAttribute("authorities", authorities);
 	    
-	    request.getRequestDispatcher("C0041.jsp").forward(request, response);
+	    request.getRequestDispatcher("S0041.jsp").forward(request, response);
 	}
 
 	/**

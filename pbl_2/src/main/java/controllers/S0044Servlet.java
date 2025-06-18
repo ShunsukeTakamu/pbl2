@@ -10,8 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import services.AccountService;
 
-@WebServlet("/C0044.html")
-public class C0044Servlet extends HttpServlet {
+@WebServlet("/S0044.html")
+public class S0044Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 //	private static final int id = 0;
 
@@ -43,7 +43,7 @@ public class C0044Servlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		request.getRequestDispatcher("C0044.jsp").forward(request, response);
+		request.getRequestDispatcher("S0044.jsp").forward(request, response);
 	}
 
 
@@ -60,7 +60,7 @@ public class C0044Servlet extends HttpServlet {
 			service.deleteAccountAndSales(id);
 			
 			request.getSession().setAttribute("delete", "アカウントが削除されました。");
-			response.sendRedirect("C0041.html");
+			response.sendRedirect("S0041.html");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -13,8 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import beans.Account;
 import services.AccountService;
 
-@WebServlet("/C0042.html")
-public class C0042Servlet extends HttpServlet {
+@WebServlet("/S0042.html")
+public class S0042Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -37,7 +37,7 @@ public class C0042Servlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		request.getRequestDispatcher("C0042.jsp").forward(request, response);
+		request.getRequestDispatcher("S0042.jsp").forward(request, response);
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class C0042Servlet extends HttpServlet {
 			request.setAttribute("param.name", name);
 			request.setAttribute("param.email", email);
 			request.setAttribute("paramAuthorities", authorities);
-			request.getRequestDispatcher("C0042.jsp").forward(request, response);
+			request.getRequestDispatcher("S0042.jsp").forward(request, response);
 			return;
 		}
 
@@ -98,7 +98,7 @@ public class C0042Servlet extends HttpServlet {
 			request.setAttribute("param.name", name);
 			request.setAttribute("param.email", email);
 			request.setAttribute("authorities", authorities);
-			request.getRequestDispatcher("C0042.jsp").forward(request, response);
+			request.getRequestDispatcher("S0042.jsp").forward(request, response);
 			return;
 		}
 
@@ -127,10 +127,10 @@ public class C0042Servlet extends HttpServlet {
 		request.setAttribute("has2", has2);
 
 		if ("delete".equals(action)) {
-			request.getRequestDispatcher("C0044.jsp").forward(request, response);
+			request.getRequestDispatcher("S0044.jsp").forward(request, response);
 		} else {
 
-			request.getRequestDispatcher("C0043.jsp").forward(request, response);
+			request.getRequestDispatcher("S0043.jsp").forward(request, response);
 		}
 	}
 }

@@ -61,7 +61,7 @@ form {
 		<c:if test="${not empty successMessage }">
 			<div class="alert alert-success" role="alert">${successMessage }</div>
 		</c:if>
-		<form action="C0042.html" method="post">
+		<form action="S0042.html" method="post">
 			<input type="hidden" name="accountId" value="${account.accountId}" />
 
 			<div class="mb-3">
@@ -157,7 +157,7 @@ form {
 
 			<div class="form-group d-flex" style="margin-left: 210px;">
 				<button type="submit" class="btn btn-primary me-2">更新</button>
-				<a href="C0041.html" class="btn btn-outline-secondary">キャンセル</a>
+				<a href="S0041.html" class="btn btn-outline-secondary">キャンセル</a>
 			</div>
 
 		</form>

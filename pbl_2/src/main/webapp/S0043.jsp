@@ -77,7 +77,7 @@
 	<div class="d-flex justify-content-center mt-4">
 
 		<!-- OK（更新） -->
-		<form action="C0043.html" method="post" class="me-2">
+		<form action="S0043.html" method="post" class="me-2">
 			<input type="hidden" name="accountId" value="${accountId}" />
 			<input type="hidden" name="name" value="${fn:escapeXml(name)}" />
 			<input type="hidden" name="email" value="${fn:escapeXml(email)}" />
@@ -89,7 +89,7 @@
 		</form>
 
 		<!-- キャンセル（戻る） -->
-		<form action="C0042.html" method="post">
+		<form action="S0042.html" method="post">
 			<input type="hidden" name="accountId" value="${accountId}" />
 			<input type="hidden" name="name" value="${fn:escapeXml(name)}" />
 			<input type="hidden" name="email" value="${fn:escapeXml(email)}" />

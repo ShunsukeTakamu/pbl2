@@ -79,11 +79,11 @@ body {
 			<c:forEach var="user" items="${accounts}">
 				<tr>
 					<td>
-						<form action="C0042.html" method="get" style="display: inline;">
+						<form action="S0042.html" method="get" style="display: inline;">
 							<input type="hidden" name="id" value="${user.accountId}">
 							<button type="submit" class="btn btn-sm btn-primary">✔ 編集</button>
 						</form>
-						<form action="C0044.html" method="get" style="display: inline;">
+						<form action="S0044.html" method="get" style="display: inline;">
 							<input type="hidden" name="id" value="${user.accountId}">
 							<button type="submit" class="btn btn-sm btn-danger">✘ 削除</button>
 						</form>

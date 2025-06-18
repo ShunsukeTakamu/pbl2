@@ -19,9 +19,9 @@ public class AuthorityFilter implements Filter {
 
     private static final Map<String, Integer> protectedUrls = new HashMap<>();
     static {
-        protectedUrls.put("/S0010.html", 1);
+        protectedUrls.put("/S0010.html", 1); // 売上権限が必要（01）
         protectedUrls.put("/S0010.jsp", 1);
-        protectedUrls.put("/S0030.html", 2);
+        protectedUrls.put("/S0030.html", 2); // アカウント権限が必要（10）
         protectedUrls.put("/S0030.jsp", 2);
     }
 
@@ -35,13 +35,12 @@ public class AuthorityFilter implements Filter {
         String contextPath = request.getContextPath();
         String path = uri.substring(contextPath.length());
 
-        // 除外パス
+        // 除外（静的ファイルなど）
         if (path.startsWith("/css/") || path.startsWith("/js/")) {
             chain.doFilter(request, response);
             return;
         }
 
-        // ログ出力で調査
         System.out.println("[AuthorityFilter] URI: " + uri);
         System.out.println("[AuthorityFilter] path: " + path);
         System.out.println("[AuthorityFilter] is protected: " + protectedUrls.containsKey(path));
@@ -52,17 +51,15 @@ public class AuthorityFilter implements Filter {
         }
 
         HttpSession session = request.getSession(false);
-        byte[] authority = (session != null) ? (byte[]) session.getAttribute("loginAuthority") : null;
+        Integer userAuth = (session != null) ? (Integer) session.getAttribute("loginAuthority") : null;
 
-        if (authority == null) {
+        if (userAuth == null) {
             System.out.println("[AuthorityFilter] loginAuthority is null");
             response.sendRedirect(contextPath + "/accessDenied.jsp");
             return;
         }
 
-        int userAuth = authority[0] & 0xFF;
         int required = protectedUrls.get(path);
-
         System.out.println("[AuthorityFilter] userAuth: " + userAuth + ", required: " + required);
 
         if ((userAuth & required) == 0) {
@@ -71,7 +68,7 @@ public class AuthorityFilter implements Filter {
             return;
         }
 
-        // 権限OK
+        // 通過OK
         chain.doFilter(request, response);
     }
 }

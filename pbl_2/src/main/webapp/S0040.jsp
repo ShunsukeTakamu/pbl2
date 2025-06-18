@@ -52,7 +52,7 @@ form {
 </c:if>
 
 
-  <form action="C0040.html" method="post">
+  <form action="S0040.html" method="post">
     <!-- 氏名 -->
     <div class="row align-items-center mb-3">
       <label for="name" class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center gap-1" style="white-space: nowrap;">
