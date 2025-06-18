@@ -9,11 +9,7 @@
 <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="css/style.css">
 <style>
-	 h2 {
-        margin: 40px 0 30px;
-        text-align: center;
-    	
-    }
+	
     .form-container {
         max-width: 600px;
         margin: 50px auto;
@@ -45,6 +41,7 @@
     .roles {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         gap: 10px; 
     }
     .roles label {
@@ -95,7 +92,7 @@
 		margin-bottom: 0;
 	}
     @media screen and (max-width: 768px) {
-        h2 {
+        h1 {
             text-align: center;
         }
 
@@ -127,13 +124,15 @@
 	String name = (String) session.getAttribute("name");
 	String mail = (String) session.getAttribute("mail");
 	String password = (String) session.getAttribute("password");
-	String role = (String) session.getAttribute("role");
+	String[] authorities = (String[]) session.getAttribute("authorities");
 %>
 	<header>
 		<!-- ナビバーのインクルード -->
     	<jsp:include page="/navbar.jsp" />
 	</header>
-	 <h2>アカウントを登録してよろしいですか？</h2>
+	
+	<main class="container mt-5">
+	 <h1>アカウントを登録してよろしいですか？</h1>
 	 <% String error = (String) request.getAttribute("error"); %>
 	<% if (error != null) { %>
     <div style="color: red; text-align: center; font-weight: bold; margin-bottom: 20px;">
@@ -174,18 +173,29 @@
 		<div class="form-group">
 			<label>権限 <span class="required">必須</span></label>
 			<div class="roles">
-        	<label><input type="radio" name="role" value="none" <%= "none".equals(role) ? "checked" : "" %> disabled> 権限なし</label>
-	        <label><input type="radio" name="role" value="view" <%= "view".equals(role) ? "checked" : "" %> disabled> 参照</label>
-	        <label><input type="radio" name="role" value="update" <%= "update".equals(role) ? "checked" : "" %> disabled> 更新</label>
+        	 <label>
+            	<input type="checkbox" disabled <%= java.util.Arrays.asList(authorities).contains("0") ? "checked" : "" %>>
+				権限なし</label>
+        		<input type="hidden" name="authorities" value="<%= java.util.Arrays.asList(authorities).contains("0") ? "0" : "" %>">
+
+       		 <label>
+           	 	<input type="checkbox" disabled <%= java.util.Arrays.asList(authorities).contains("1") ? "checked" : "" %>>
+            	売上登録</label>
+        		<input type="hidden" name="authorities" value="<%= java.util.Arrays.asList(authorities).contains("1") ? "1" : "" %>">
+
+        	<label>
+            	<input type="checkbox" disabled <%= java.util.Arrays.asList(authorities).contains("2") ? "checked" : "" %>>
+            	アカウント登録</label>
+        	<input type="hidden" name="authorities" value="<%= java.util.Arrays.asList(authorities).contains("2") ? "2" : "" %>">
 		</div>
-			<input type="hidden" name="role" value="<%= role %>">	
 		</div>
+
 		<div class="submit-btn">
         	<button type="submit" class="ok-btn">O K</button>
         	<button type="button" class="cancel-btn" onclick="location.href='S0030.jsp?reset=true'">キャンセル</button>
     	</div>
 	</form>
 	</div>
-	
+	</main>
 </body>
 </html>

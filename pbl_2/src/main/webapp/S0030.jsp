@@ -10,10 +10,7 @@
 <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="css/style.css">
 <style>
-	 h2 {
-        margin: 40px 0 30px;
-        text-align: center;
-    }
+	
     .form-container {
        max-width: 600px;
         margin: 50px auto;
@@ -81,7 +78,7 @@
 		margin-bottom: 0;
 	}
     @media screen and (max-width: 768px) {
-        h2 {
+        h1 {
             text-align: center;
         }
 
@@ -114,9 +111,12 @@
     	<jsp:include page="/navbar.jsp" />
 	</header>
 
-	<h2>アカウント登録</h2>
+	<main class="container mt-5">
+	<h1>アカウント登録</h1>
 	<div class="form-container">
 	
+	<%-- チェックボックスの選択状態を JSTL で処理するためのセットアップ --%>
+	<c:set var="joinedAuthorities" value="${fn:join(authorities, ',')}" />
 	<form action="S0030.html" method="post">
 	<c:if test="${not empty errorMsg}">
     <div class="alert alert-danger" style="margin-bottom: 1em;">
@@ -147,9 +147,10 @@
 		<div class="form-group">
 			<label>権限 <span class="required">必須</span></label>
 			<div class="roles">
-        	<label><input type="radio" name="role" value="none" <c:if test="${empty role or role == 'none'}">checked</c:if>> 権限なし</label>
-	        <label><input type="radio" name="role" value="view" <c:if test="${role == 'view'}">checked</c:if>> 参照</label>
-	        <label><input type="radio" name="role" value="update" <c:if test="${role == 'update'}">checked</c:if>> 更新</label>
+			
+        	<label><input type="checkbox" name="authorities" value="0" id="authNone" <c:if test="${fn:contains(joinedAuthorities, '0')}">checked</c:if>> 権限なし</label>
+	        <label><input type="checkbox" name="authorities" value="1" id="authSales" <c:if test="${fn:contains(joinedAuthorities, '1')}">checked</c:if>> 売上登録</label>
+	        <label><input type="checkbox" name="authorities" value="2" id="authAccount"<c:if test="${fn:contains(joinedAuthorities, '2')}">checked</c:if>> アカウント登録</label>
 		</div>
 		</div>
 		<div class="submit-btn">
@@ -157,6 +158,43 @@
     	</div>
 	</form>
 	</div>
+	</main>
+	
 	<script src="js/bootstrap.bundle.min.js"></script>
+	
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+    const checkNone = document.getElementById("authNone");
+    const checkSales = document.getElementById("authSales");
+    const checkAccount = document.getElementById("authAccount");
+
+    function updateUI() {
+        const isNone = checkNone.checked;
+
+        checkSales.disabled = isNone;
+        checkAccount.disabled = isNone;
+    }
+
+    checkNone.addEventListener("change", () => {
+        if (checkNone.checked) {
+            checkSales.checked = false;
+            checkAccount.checked = false;
+        }
+        updateUI();
+    });
+
+    [checkSales, checkAccount].forEach(cb => {
+        cb.addEventListener("change", () => {
+            if (checkSales.checked || checkAccount.checked) {
+                checkNone.checked = false;
+            }
+            updateUI();
+        });
+    });
+
+    updateUI();
+	});
+</script>
+	
 </body>
 </html>

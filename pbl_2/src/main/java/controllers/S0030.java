@@ -53,7 +53,7 @@ public class S0030 extends HttpServlet {
 		String mail = request.getParameter("mail");
 		String password = request.getParameter("password");
 		String confirmPassword = request.getParameter("confirmPassword");
-		String role = request.getParameter("role");
+		String[] authorities = request.getParameterValues("authorities");
 
 		List<String> errors = new ArrayList<>();
 		
@@ -80,6 +80,9 @@ public class S0030 extends HttpServlet {
 		if ((password != null && !password.isEmpty()) && (confirmPassword != null && !confirmPassword.isEmpty()) && !password.equals(confirmPassword)) {
 			errors.add("パスワードとパスワード（確認）の入力内容が異なります。");
 		}
+		if (authorities == null || authorities.length == 0) {
+			errors.add("権限を1つ以上選択してください。");
+		}
 
 		if (!errors.isEmpty()) {
 			request.setAttribute("errorMsg", errors);
@@ -87,7 +90,7 @@ public class S0030 extends HttpServlet {
 		    request.setAttribute("mail", mail);
 		    request.setAttribute("password", password);
 		    request.setAttribute("confirmPassword", confirmPassword);
-		    request.setAttribute("role", role);
+		    request.setAttribute("authorities", authorities);
 			request.getRequestDispatcher("S0030.jsp").forward(request, response);
 			return;
 		}
@@ -96,7 +99,7 @@ public class S0030 extends HttpServlet {
 		session.setAttribute("mail", mail);
 		session.setAttribute("password", password);
 		session.setAttribute("confirmPassword", confirmPassword);
-		session.setAttribute("role", role);
+		session.setAttribute("authorities", authorities);
 
 		response.sendRedirect("S0031.jsp");
 	}

@@ -60,21 +60,18 @@ public class S0031Servlet extends HttpServlet {
         String name = request.getParameter("name");
         String mail = request.getParameter("mail");
         String password = request.getParameter("password");
-        String role = request.getParameter("role");
+        String[] authorities = request.getParameterValues("authorities");
         
-        byte authority;
-        switch(role) {
-        	case "none":
-            authority = 0;  
-            break;
-        case "view":
-            authority = 1;  
-            break;
-        case "update":
-            authority = 2;  
-            break;
-        default:
-            authority = 0;  // デフォルトは権限なし
+        byte authority = 0;
+        if (authorities != null) {
+            for (String role : authorities) {
+                try {
+                    byte value = Byte.parseByte(role);
+                    authority |= value;  // 複数権限を1バイトにまとめる（ビット和）
+                } catch (NumberFormatException e) {
+                    // 無効な値はスキップ（必要ならログ出力）
+                }
+            }
         }
         
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
@@ -106,7 +103,7 @@ public class S0031Servlet extends HttpServlet {
         session.removeAttribute("name");
         session.removeAttribute("mail");
         session.removeAttribute("password");
-        session.removeAttribute("role");
+        session.removeAttribute("authorities");
         
         response.sendRedirect("S0030.jsp");
 	}
