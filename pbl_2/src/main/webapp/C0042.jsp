@@ -49,27 +49,9 @@ form {
 </style>
 </head>
 <body>
-
-	<%
-	String uri = request.getRequestURI();
-	%>
-	<header>
-		<nav class="navbar">
-			<div class="logo">物品売上管理システム</div>
-			<ul class="nav-links">
-				<li><a class="<%=uri.endsWith("C0020.jsp") ? "active" : ""%>"
-					href="C0020.html">ダッシュボード</a></li>
-				<li><a class="<%=uri.endsWith("S0010.jsp") ? "active" : ""%>"
-					href="S0010.html">売上登録</a></li>
-				<li><a class="<%=uri.endsWith("S0020.jsp") ? "active" : ""%>"
-					href="S0020.html">売上検索</a></li>
-				<li><a class="<%=uri.endsWith("S0030.jsp") ? "active" : ""%>"
-					href="S0030.html">アカウント登録</a></li>
-				<li><a class="<%=uri.endsWith("C0040.jsp") ? "active" : ""%>"
-					href="C0040.html">アカウント検索</a></li>
-				<li class="logout"><a href="logout.jsp">ログアウト</a></li>
-			</ul>
-		</nav>
+<header>
+		<!-- ナビバーのインクルード -->
+    	<jsp:include page="/navbar.jsp" />
 	</header>
 	<main class="container mt-5">
 		<h1>アカウント詳細編集</h1>

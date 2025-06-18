@@ -40,7 +40,7 @@ public class LoginFilter implements Filter {
         // ログイン情報チェック
         if (session == null || session.getAttribute("account") == null) {
             // 未ログインならログイン画面へリダイレクト
-            response.sendRedirect(request.getContextPath() + "/C0010.jsp");
+            response.sendRedirect(request.getContextPath() + "/C0010.html");
             return;
         }
      
