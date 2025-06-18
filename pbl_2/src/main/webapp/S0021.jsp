@@ -60,7 +60,7 @@
 							<td class="text-left">
                                 <form action="S0022.html" method="get">
                                     <input type="hidden" name="saleId"
-                                        value="${ sale.saleId() }">
+                                        value="${ sale.saleId }">
                                     <button class="btn btn-primary btn-sm">✔ 詳細</button>
                                 </form>
 							</td>
