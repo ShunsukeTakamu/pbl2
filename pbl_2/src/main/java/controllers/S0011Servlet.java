@@ -37,8 +37,12 @@ public class S0011Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Sale sale = (Sale) session.getAttribute("sale");
-		Account account = (new AccountService()).selectById(sale.getAccountId());
-		Category category = (new CategoryService()).selectById(sale.getCategoryId());
+		Account account = null;
+		Category category = null;
+		if (sale != null) {
+			account = (new AccountService()).selectById(sale.getAccountId());
+			category = (new CategoryService()).selectById(sale.getCategoryId());
+		}
 		request.setAttribute("selectedAccount", account);
 		request.setAttribute("selectedCategory", category);
 		request.getRequestDispatcher("/S0011.jsp").forward(request, response);
@@ -50,7 +54,9 @@ public class S0011Servlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		Sale sale = (Sale) session.getAttribute("sale");
-		(new SaleService()).insert(sale);
+		if (sale != null) {
+			(new SaleService()).insert(sale);
+		}
 		response.sendRedirect("S0010.html");
 	}
 

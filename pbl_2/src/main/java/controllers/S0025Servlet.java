@@ -29,7 +29,20 @@ public class S0025Servlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
-		int saleId = Integer.parseInt(request.getParameter("saleId"));
+		// saleId パラメータのチェック
+        String saleIdStr = request.getParameter("saleId");
+        if (saleIdStr == null || saleIdStr.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId が指定されていません");
+            return;
+        }
+
+        int saleId;
+        try {
+            saleId = Integer.parseInt(saleIdStr);
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId は整数である必要があります");
+            return;
+        }
 		
 		Sale sale = (new SaleService()).selectById(saleId);
 		Account account = (new AccountService()).selectById(sale.getAccountId());
