@@ -11,11 +11,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import beans.Account;
 import beans.Category;
-import beans.Login;
 import beans.Sale;
 import services.AccountService;
 import services.CategoryService;
@@ -70,13 +68,6 @@ public class S0010Servlet extends HttpServlet {
         AccountService as = new AccountService();
         CategoryService cs = new CategoryService();
         int accountId = 0, categoryId = 0, unitPrice = -1, saleNumber = -1;
-
-        // 権限チェック 未ログイン、b'00'、b'10'の場合 メッセージ出す
-        HttpSession session = request.getSession();
-        Login loginAccount = (Login) session.getAttribute("account");
-        if (loginAccount == null || loginAccount.getAuthority().equals("b''") || loginAccount.getAuthority().equals("b'10'")) {
-        	errors.add("権限がありません。");
-        }
         
         // 販売日チェック
         if (saleDate == null || saleDate.isBlank()) {

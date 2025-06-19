@@ -23,6 +23,12 @@ public class AuthorityFilter implements Filter {
         protectedUrls.put("/S0010.jsp", 1);
         protectedUrls.put("/S0011.html", 1);
         protectedUrls.put("/S0011.jsp", 1);
+        protectedUrls.put("/S0023.html", 1);
+        protectedUrls.put("/S0023.jsp", 1);
+        protectedUrls.put("/S0024.html", 1);
+        protectedUrls.put("/S0024.jsp", 1);
+        protectedUrls.put("/S0025.html", 1);
+        protectedUrls.put("/S0025.jsp", 1);
         protectedUrls.put("/S0030.html", 2); // アカウント権限が必要（10）
         protectedUrls.put("/S0030.jsp", 2);
         protectedUrls.put("/S0031.html", 2);
