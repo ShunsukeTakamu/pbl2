@@ -189,7 +189,20 @@ public class S0023Servlet extends HttpServlet {
             return;
         }
 
-        // 確認画面へ進む
-        response.sendRedirect("S0024.html?saleId=" + saleId);
+        // 確認画面へ進む：IDから名前を取得してセット
+        Sale sale = new Sale();
+        sale.setSaleId(saleId);
+        sale.setSaleDate(LocalDate.parse(saleDate));
+        sale.setAccountId(accountId);
+        sale.setCategoryId(categoryId);
+        sale.setTradeName(tradeName);
+        sale.setUnitPrice(unitPrice);
+        sale.setSaleNumber(saleNumber);
+        sale.setNote(note);
+
+        session.setAttribute("sale", sale);
+        session.setAttribute("selectedAccount", as.selectById(accountId));
+        session.setAttribute("selectedCategory", cs.selectById(categoryId));
+        response.sendRedirect("S0024.html");
     }
 }
