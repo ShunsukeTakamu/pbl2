@@ -35,7 +35,7 @@
 
     <main>
         <div class="container mt-5">
-            <h2 class="mb-4">売上詳細表示</h2>
+            <h1 class="mb-4">売上詳細表示</h1>
             
             <c:if test="${ not empty errors }">
 				<div class="alert alert-danger">

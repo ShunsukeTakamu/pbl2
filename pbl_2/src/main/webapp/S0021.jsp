@@ -32,7 +32,7 @@
 	<!-- メインコンテンツ -->
 	<div class="container mt-5">
 		<!-- 見出し -->
-		<h2 class="mb-4">売上検索結果表示</h2>
+		<h1 class="mb-4">売上検索結果表示</h1>
 
 		<!-- テーブル表示（レスポンシブ対応） -->
 		<div class="table-responsive">
