@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import jakarta.servlet.ServletException;
@@ -12,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import beans.Account;
 import services.AccountService;
+import services.AccountValidation;
 
 @WebServlet("/S0042.html")
 public class S0042Servlet extends HttpServlet {
@@ -64,70 +64,28 @@ public class S0042Servlet extends HttpServlet {
 			request.getRequestDispatcher("S0042.jsp").forward(request, response);
 			return;
 		}
-		// エラー格納
-		Map<String, String> errors = new HashMap<>();
-
-		if (name == null || name.isBlank()) {
-			errors.put("name", "氏名を入力してください。");
-		} else if (name.getBytes("UTF-8").length >= 21) {
-			errors.put("name", "氏名が長すぎます（20バイト以内）。");
-		}
-
-		if (email == null || email.isBlank()) {
-			errors.put("email", "メールアドレスを入力してください。");
-		} else if (email.getBytes("UTF-8").length >= 101) {
-			errors.put("email", "メールアドレスが長すぎます（100バイト以内）。");
-		}
-
-		if (password == null || password.isBlank()) {
-			errors.put("password", "パスワードを入力してください。");
-		} else if (password.getBytes("UTF-8").length >= 31) {
-			errors.put("password", "パスワードが長すぎます（30バイト以内）。");
-		}
-
-		if (passwordConfirm == null || passwordConfirm.isBlank()) {
-			errors.put("passwordConfirm", "パスワード（確認）を入力してください。");
-		} else if (!password.equals(passwordConfirm)) {
-			errors.put("passwordConfirm", "パスワードが一致していません。");
-		}
-
-		if (authorities == null || authorities.length == 0) {
-			errors.put("authorities", "権限を選択してください。");
-		}
-
-		if (!errors.isEmpty()) {
-			request.setAttribute("errors", errors);
-			request.setAttribute("accountId", idStr);
-			request.setAttribute("param.name", name);
-			request.setAttribute("param.email", email);
-			request.setAttribute("authorities", authorities);
-			request.getRequestDispatcher("S0042.jsp").forward(request, response);
-			return;
-		}
-
-		boolean has0 = false, has1 = false, has2 = false;
-		for (String auth : authorities) {
-			switch (auth) {
-			case "0":
-				has0 = true;
-				break;
-			case "1":
-				has1 = true;
-				break;
-			case "2":
-				has2 = true;
-				break;
+		Map<String, String> errors = AccountValidation.validateForEdit(
+			    name, email, password, passwordConfirm, authorities
+			);
+			if (!errors.isEmpty()) {
+			    request.setAttribute("errors", errors);
+			    request.setAttribute("accountId", idStr);
+			    request.setAttribute("param.name", name);
+			    request.setAttribute("param.email", email);
+			    request.setAttribute("authorities", authorities);
+			    request.getRequestDispatcher("S0042.jsp").forward(request, response);
+			    return;
 			}
-		}
 
+			Map<String, Boolean> flags = AccountValidation.resolveAuthorityFlags(authorities);
+			flags.forEach(request::setAttribute);
+
+		
 		request.setAttribute("accountId", idStr);
 		request.setAttribute("name", name);
 		request.setAttribute("email", email);
 		request.setAttribute("password", password);
 		request.setAttribute("authorities", authorities);
-		request.setAttribute("has0", has0);
-		request.setAttribute("has1", has1);
-		request.setAttribute("has2", has2);
 
 		if ("delete".equals(action)) {
 			request.getRequestDispatcher("S0044.jsp").forward(request, response);
