@@ -15,6 +15,7 @@ import beans.Login;
 import beans.Sale;
 import services.AccountService;
 import services.CategoryService;
+import services.SaleIdParamCheckService;
 import services.SaleService;
 import utils.DateUtil;
 
@@ -27,24 +28,15 @@ public class S0022Servlet extends HttpServlet {
     }
 
     /**
-     *
+     *s
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // saleId パラメータのチェック
-        String saleIdStr = request.getParameter("saleId");
-        if (saleIdStr == null || saleIdStr.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId が指定されていません");
-            return;
-        }
-
-        int saleId;
-        try {
-            saleId = Integer.parseInt(saleIdStr);
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId は整数である必要があります");
-            return;
+        SaleIdParamCheckService paramService = new SaleIdParamCheckService();
+        Integer saleId = paramService.check(request, response);
+        if (saleId == null) {
+            return; 
         }
 
         Sale sale = (new SaleService()).selectById(saleId);
@@ -68,21 +60,13 @@ public class S0022Servlet extends HttpServlet {
     /**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		// saleId パラメータのチェック
-        String saleIdStr = request.getParameter("saleId");
-        if (saleIdStr == null || saleIdStr.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId が指定されていません");
-            return;
-        }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        int saleId;
-        try {
-            saleId = Integer.parseInt(saleIdStr);
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId は整数である必要があります");
-            return;
+        SaleIdParamCheckService paramService = new SaleIdParamCheckService();
+        Integer saleId = paramService.check(request, response);
+        if (saleId == null) {
+            return; 
         }
         
         String button = request.getParameter("button");
