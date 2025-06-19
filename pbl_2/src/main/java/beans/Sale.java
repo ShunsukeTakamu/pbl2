@@ -20,11 +20,23 @@ public class Sale {
 	private String note;
 
 	public Sale(LocalDate saleDate, int accountId, int categoryId, int unitPrice, int saleNumber) {
-		super();
 		this.saleDate = saleDate;
 		this.accountId = accountId;
 		this.categoryId = categoryId;
 		this.unitPrice = unitPrice;
 		this.saleNumber = saleNumber;
 	}
+
+	public Sale(int accountId, int categoryId, String tradeName, String note) {
+		this.accountId = accountId;
+		this.categoryId = categoryId;
+		this.tradeName = tradeName;
+		this.note = note;
+	}
+
+	public Sale(int accountId, int categoryId) {
+		this.accountId = accountId;
+		this.categoryId = categoryId;
+	}
+
 }

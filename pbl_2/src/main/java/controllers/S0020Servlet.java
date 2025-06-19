@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpSession;
 import beans.Account;
 import beans.Category;
 import beans.Sale;
+import beans.SaleSearchCond;
 import services.AccountService;
 import services.CategoryService;
 import services.SaleService;
@@ -41,19 +42,16 @@ public class S0020Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Sale sale = new Sale();
-		sale.setAccountId(0);
-		sale.setCategoryId(0);
+		Sale sale = new Sale(0, 0);
 		request.setAttribute("sale", sale);
+		SaleSearchCond saleCond = new SaleSearchCond(0, 0);
 		ArrayList<Account> accounts = (new AccountService()).selectAll();
-		request.setAttribute("accounts", accounts);
 		ArrayList<Category> categories = (new CategoryService()).selectAll();
+		
+		request.setAttribute("saleCond", saleCond);
+		request.setAttribute("accounts", accounts);
 		request.setAttribute("categories", categories);
-		request.setAttribute("dateStart", "");
-		request.setAttribute("dateEnd", "");
 		request.getRequestDispatcher("/S0020.jsp").forward(request, response);
-		
-		
 	}
 
 	/**
@@ -76,6 +74,7 @@ public class S0020Servlet extends HttpServlet {
         int accountId = Integer.parseInt(accountIdStr);
         int categoryId = Integer.parseInt(categoryIdStr);
 
+        // TODO: チェックの共通化
         // 販売日チェック 未入力でない場合
         if (dateStart != null && !dateStart.isBlank()) {
         	try {
@@ -87,24 +86,18 @@ public class S0020Servlet extends HttpServlet {
         
         if (dateEnd != null && !dateEnd.isBlank()) {
         	try {
-        		LocalDate.parse(dateStart);
+        		LocalDate.parse(dateEnd);
         	} catch (DateTimeParseException e) {
         		errors.add("販売日（検索終了日）を正しく入力してください。");
         	}
         }
 
+        SaleSearchCond saleCond = new SaleSearchCond(dateStart, dateEnd, accountId, categoryId, tradeName, note);
+        
         // エラーがあれば戻る
         if (!errors.isEmpty()) {
-            Sale sale = new Sale();
-            sale.setAccountId(accountId);
-            sale.setCategoryId(categoryId);
-            sale.setTradeName(tradeName);
-            sale.setNote(note);
-
             request.setAttribute("errors", errors);
-            request.setAttribute("sale", sale);
-            request.setAttribute("dateStart", dateStart);
-    		request.setAttribute("dateEnd", dateEnd);
+            request.setAttribute("saleCond", saleCond);
     		request.setAttribute("accounts", as.selectAll());
             request.setAttribute("categories", cs.selectAll());
             request.getRequestDispatcher("/S0020.jsp").forward(request, response);
@@ -112,20 +105,12 @@ public class S0020Servlet extends HttpServlet {
         }
         
         // 件数チェック
-        List<Sale> sales = (new SaleService()).searchSales(dateStart, dateEnd, accountIdStr, categoryIdStr, tradeName, note);
+        List<Sale> sales = (new SaleService()).searchSales(saleCond);
         // 0件であれば戻る
         if (sales.isEmpty()) {
         	errors.add("検索結果はありません。");
-        	Sale sale = new Sale();
-            sale.setAccountId(accountId);
-            sale.setCategoryId(categoryId);
-            sale.setTradeName(tradeName);
-            sale.setNote(note);
-
             request.setAttribute("errors", errors);
-            request.setAttribute("sale", sale);
-            request.setAttribute("dateStart", dateStart);
-    		request.setAttribute("dateEnd", dateEnd);
+            request.setAttribute("saleCond", saleCond);
     		request.setAttribute("accounts", as.selectAll());
             request.setAttribute("categories", cs.selectAll());
             request.getRequestDispatcher("/S0020.jsp").forward(request, response);
@@ -134,19 +119,14 @@ public class S0020Servlet extends HttpServlet {
 
         // 正常時 → 検索結果画面へ
         HttpSession session = request.getSession();
-        session.setAttribute("dateStart", dateStart);
-        session.setAttribute("dateEnd", dateEnd);
-        session.setAttribute("accountIdStr", accountIdStr);
-        session.setAttribute("categoryIdStr", categoryIdStr);
-        session.setAttribute("partOfTradeName", tradeName);
-        session.setAttribute("patrOfNote", note);
 	    
 	    // 販売日 2015-01-15 を 2015/01/15 に変更
 	    List<String> formattedDates = sales.stream()
-	    		.map(sale -> DateUtil.formatLocDateToStr(sale.getSaleDate()))
+	    		.map(s -> DateUtil.formatLocDateToStr(s.getSaleDate()))
 	    		.collect(Collectors.toList());
+
+	    session.setAttribute("saleCond", saleCond);
 	    session.setAttribute("formattedDates", formattedDates);
-	    
         response.sendRedirect("S0021.html");
 	}
 

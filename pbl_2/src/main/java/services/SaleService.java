@@ -15,13 +15,20 @@ import java.util.Map;
 import jakarta.servlet.ServletException;
 
 import beans.Sale;
+import beans.SaleSearchCond;
 import utils.Db;
 
 public class SaleService {
 
 	// 売上条件検索
-	public List<Sale> searchSales(String dateStart, String dateEnd, String accountId, String categoryId,
-			String tradeName, String note) {
+	public List<Sale> searchSales(SaleSearchCond saleCond) {
+		String dateStart = saleCond.getDateStart();
+		String dateEnd = saleCond.getDateEnd();
+		String accountId = String.valueOf(saleCond.getAccountId());
+		String categoryId = String.valueOf(saleCond.getCategoryId());
+		String tradeName = saleCond.getTradeName();
+		String note = saleCond.getNote();
+		
 		List<Sale> list = new ArrayList<>();
 		StringBuilder sql = new StringBuilder("SELECT * FROM sales WHERE 1=1");
 		List<Object> params = new ArrayList<>();

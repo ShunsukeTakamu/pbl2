@@ -21,7 +21,7 @@ public class S0024Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.getRequestDispatcher("S0024.jsp").forward(request, response);
+        request.getRequestDispatcher("/S0024.jsp").forward(request, response);
 	}
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
