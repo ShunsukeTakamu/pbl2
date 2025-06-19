@@ -73,13 +73,8 @@ public class C0020Servlet extends HttpServlet {
 		    AccountService accountService = new AccountService();
 		    int accountCount = accountService.getAccountCount();
 		    request.setAttribute("accountCount", accountCount);
-
-
-
+		    
 		    request.getRequestDispatcher("/C0020.jsp").forward(request, response);
-		    
-		    
-		
 	}
 
 	/**
