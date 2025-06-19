@@ -9,7 +9,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import beans.Account;
+import beans.Category;
 import beans.Sale;
+import services.AccountService;
+import services.CategoryService;
 import services.SaleService;
 
 @WebServlet("/S0024.html")
@@ -21,7 +25,33 @@ public class S0024Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.getRequestDispatcher("S0024.jsp").forward(request, response);
+		// saleId の取得と検証
+        String saleIdStr = request.getParameter("saleId");
+        if (saleIdStr == null || saleIdStr.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId が指定されていません");
+            return;
+        }
+
+        int saleId;
+        try {
+            saleId = Integer.parseInt(saleIdStr);
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId は整数である必要があります");
+            return;
+        }
+
+        // 売上データの取得
+        Sale sale = (new SaleService()).selectById(saleId);
+
+        // ▼ DBからアカウント・カテゴリ情報を取得
+        Account account = new AccountService().selectById(sale.getAccountId());
+        Category category = new CategoryService().selectById(sale.getCategoryId());
+
+        // JSPに渡す
+        request.setAttribute("sale", sale);
+        request.setAttribute("selectedAccount", account);
+        request.setAttribute("selectedCategory", category);
+        request.getRequestDispatcher("/S0024.jsp").forward(request, response);
 	}
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
