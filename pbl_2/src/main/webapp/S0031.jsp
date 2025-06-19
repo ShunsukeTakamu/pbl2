@@ -8,115 +8,32 @@
 <title>アカウント登録確認</title>
 <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="css/style.css">
+<script src="js/bootstrap.bundle.min.js"></script>
 <style>
 	
-    .form-container {
-        max-width: 600px;
-        margin: 50px auto;
-        padding: 0 20px;
-    }
-	.form-group {
-		display: flex;
-        align-items: center;
-        margin-bottom: 1.5rem;
-    }
-    .form-group > label {
-    	width: 200px;
-    	text-align: right;
-    	display: flex;
-    	align-items: center;
-    	justify-content: flex-end;
-    	margin-right: 15px;
-    	gap: 6px;
-	}
-	.input-field {
-        flex: 1;
-        padding: 8px;
-        font-size: 14px;
-        background-color: #e9ecef;
-        border-radius: 4px;
-        border: 1px solid #ced4da;
-        min-width: 200px;
-    }
-    .roles {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 10px; 
-    }
-    .roles label {
-        margin-right: 6px;
-    }
-    .submit-btn {
-        text-align: center;
-        margin-top: 20px;
-    }
-    .submit-btn button.ok-btn {
-        padding: 8px 20px;
-        font-size: 14px;
-        background-color: #337ab7;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: bold;
-        margin-right: 10px;
-    }
-    .submit-btn button.ok-btn:hover {
-       background-color: #286090;
-    }
-    .cancel-btn {
-    	background-color: #f5f5f5;   
-    	color: #000;
-    	border: none;
-        padding: 8px 20px;
-        border-radius: 4px;
-        cursor: pointer;             
-	}
-	.cancel-btn:hover {
-    	background-color: #bbb;   
-	}
-	.required {
-        background-color: #666;
-        color: #fff;
-        font-size: 12px;
-        padding: 2px 6px;
-        border-radius: 12px;
-        margin-left: 10px;
-    } 
-    .alert ul {
+     form {
+    max-width: 600px;
+    margin: 0 auto;
+  	}
+  	.form-label span.badge {
+    margin-left: 0.5em;
+  	}
+  	.alert ul {
 		margin-bottom: 0;
 		padding-left: 1.2rem;
 	}
 	.alert li {
 		margin-bottom: 0;
 	}
-    @media screen and (max-width: 768px) {
-        h1 {
-            text-align: center;
-        }
-
-        .form-group {
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        .form-group > label {
-            width: 100%;
-            text-align: left;
-            justify-content: flex-start;
-            margin-bottom: 5px;
-        }
-
-        .input-field {
-            width: 100%;
-        }
-
-        .roles {
-            flex-direction: column;
-            align-items: flex-start;
-        }
+  	@media (max-width: 768px) {
+       .col-md-3, .col-md-9 {
+      width: 100% !important;
     }
+    .col-md-3 {
+      text-align: left !important;
+      margin-bottom: 0.25rem;
+    }
+  }	
 </style>
 </head>
 <body>
@@ -136,14 +53,13 @@
 	 <h1>アカウントを登録してよろしいですか？</h1>
 	 <% String error = (String) request.getAttribute("error"); %>
 	<% if (error != null) { %>
-    <div style="color: red; text-align: center; font-weight: bold; margin-bottom: 20px;">
+    <div class="alert alert-danger text-center fw-bold mb-4">
         <%= error %>
     </div>
 	<% } %>
-    <div class="form-container">
         <form action="S0031.html" method="post">
         <c:if test="${not empty errorMsg}">
-    	<div class="alert alert-danger" style="margin-bottom: 1em;">
+    	<div class="alert alert-danger mb-3">
       		<ul>
         		<c:forEach var="msg" items="${errorMsg}">
           			<li>${msg}</li>
@@ -151,52 +67,67 @@
      		 </ul>
    		</div>
   		</c:if>
-		<div class="form-group">
-			<label>氏名 <span class="required">必須</span></label>
-			<div class="input-field"><%= name %></div>
-			<input type="hidden" name="name" value="<%= name %>">
-		</div>
-		<div class="form-group">
-			<label>メールアドレス <span class="required">必須</span></label>
-        	<div class="input-field"><%= mail %></div>
-            <input type="hidden" name="mail" value="<%= mail %>">
-		</div>
-		<div class="form-group">
-			 <label>パスワード <span class="required">必須</span></label>
-        	<div class="input-field">********</div>
-            <input type="hidden" name="password" value="<%= password %>">
-		</div>
-		<div class="form-group">
-			<label>パスワード（確認）<span class="required">必須</span></label>
-        	<div class="input-field">********</div>
-            <input type="hidden" name="password" value="<%= password %>">
-		</div>
-		<div class="form-group">
-			<label>権限 <span class="required">必須</span></label>
-			<div class="roles">
-        	 <label>
-            	<input type="checkbox" disabled <%= java.util.Arrays.asList(authorities).contains("0") ? "checked" : "" %>>
-				権限なし</label>
-        		<input type="hidden" name="authorities" value="<%= java.util.Arrays.asList(authorities).contains("0") ? "0" : "" %>">
+		<div class="row align-items-center mb-3">
+		<label class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center">
+			氏名 <span class="badge bg-secondary">必須</span></label>
+			<div class="col-12 col-md-9">
+			<div class="form-control bg-light"><%= name %></div>
+        		<input type="hidden" name="name" value="<%= name %>">
+      		</div>
+    	</div>
+		<div class="row align-items-center mb-3">
+		<label class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center" style="white-space: nowrap;">
+			メールアドレス <span class="badge bg-secondary">必須</span></label>
+        	<div class="col-12 col-md-9">
+        	<div class="form-control bg-light"><%= mail %></div>
+        		<input type="hidden" name="mail" value="<%= mail %>">
+      		</div>
+    	</div>
+		<div class="row align-items-center mb-3">
+			<label class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center">
+        	パスワード <span class="badge bg-secondary">必須</span></label>
+      		<div class="col-12 col-md-9">
+       		<div class="form-control bg-light">********</div>
+        		<input type="hidden" name="password" value="<%= password %>">
+      		</div>
+    	</div>
+		<div class="row align-items-center mb-3">
+			<label class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center">
+        	パスワード（確認） <span class="badge bg-secondary">必須</span></label>
+      		<div class="col-12 col-md-9">
+        	<div class="form-control bg-light">********</div>
+        		<input type="hidden" name="password" value="<%= password %>">
+      		</div>
+    	</div>
+		<div class="row align-items-center mb-3">
+			<label class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center">
+        	権限 <span class="badge bg-secondary">必須</span></label>
+      		<div class="col-12 col-md-9">
+        	<div class="form-check">
+          		<input class="form-check-input" type="checkbox" disabled <%= java.util.Arrays.asList(authorities).contains("0") ? "checked" : "" %>>
+          		<label class="form-check-label">権限なし</label>
+          		<input type="hidden" name="authorities" value="<%= java.util.Arrays.asList(authorities).contains("0") ? "0" : "" %>">
+        	</div>
+        	<div class="form-check">
+          		<input class="form-check-input" type="checkbox" disabled <%= java.util.Arrays.asList(authorities).contains("1") ? "checked" : "" %>>
+          		<label class="form-check-label">売上登録</label>
+         		<input type="hidden" name="authorities" value="<%= java.util.Arrays.asList(authorities).contains("1") ? "1" : "" %>">
+        	</div>
+        	<div class="form-check">
+          		<input class="form-check-input" type="checkbox" disabled <%= java.util.Arrays.asList(authorities).contains("2") ? "checked" : "" %>>
+          		<label class="form-check-label">アカウント登録</label>
+          		<input type="hidden" name="authorities" value="<%= java.util.Arrays.asList(authorities).contains("2") ? "2" : "" %>">
+        	</div>
+      		</div>
+    	</div>
+    	<div class="row">
 
-       		 <label>
-           	 	<input type="checkbox" disabled <%= java.util.Arrays.asList(authorities).contains("1") ? "checked" : "" %>>
-            	売上登録</label>
-        		<input type="hidden" name="authorities" value="<%= java.util.Arrays.asList(authorities).contains("1") ? "1" : "" %>">
-
-        	<label>
-            	<input type="checkbox" disabled <%= java.util.Arrays.asList(authorities).contains("2") ? "checked" : "" %>>
-            	アカウント登録</label>
-        	<input type="hidden" name="authorities" value="<%= java.util.Arrays.asList(authorities).contains("2") ? "2" : "" %>">
-		</div>
-		</div>
-
-		<div class="submit-btn">
-        	<button type="submit" class="ok-btn">O K</button>
-        	<button type="button" class="cancel-btn" onclick="location.href='S0030.jsp?reset=true'">キャンセル</button>
+		<div class="col-12 text-center">
+        	<button type="submit" class="btn btn-primary me-2">OK</button>
+        	<button type="button" class="btn btn-outline-secondary" onclick="location.href='S0030.jsp?reset=true'">キャンセル</button>
+      	</div>
     	</div>
 	</form>
-	</div>
 	</main>
 </body>
 </html>

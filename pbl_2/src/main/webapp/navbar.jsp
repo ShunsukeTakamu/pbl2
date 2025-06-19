@@ -24,7 +24,7 @@
     <li><a class="${fn:endsWith(uri, 'S0040.jsp') ? 'active' : ''}" href="S0040.html">アカウント検索</a></li>
 
     <li class="logout">
-      <a href="logout.jsp">ログアウト</a>
+      <a href="logout">ログアウト</a>
     </li>
   </ul>
 </nav>
