@@ -75,7 +75,7 @@ public class S0010Servlet extends HttpServlet {
         CategoryService cs = new CategoryService();
         int accountId = 0, categoryId = 0, unitPrice = -1, saleNumber = -1;
 
-        // 権限チェック 未ログイン、b'00'、b'10'の場合 メッセージだす
+        // 権限チェック 未ログイン、b'00'、b'10'の場合 メッセージ出す
         HttpSession session = request.getSession();
         Login loginAccount = (Login) session.getAttribute("account");
         if (loginAccount == null || loginAccount.getAuthority().equals("b''") || loginAccount.getAuthority().equals("b'10'")) {

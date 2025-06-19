@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,19 +77,17 @@ public class S0020Servlet extends HttpServlet {
         int categoryId = Integer.parseInt(categoryIdStr);
 
         // 販売日チェック 未入力でない場合
-        if (dateStart == null || dateStart.isBlank()) {
-        } else {
+        if (dateStart != null && !dateStart.isBlank()) {
         	try {
-        		java.time.LocalDate.parse(dateStart);
+        		LocalDate.parse(dateStart);
         	} catch (DateTimeParseException e) {
         		errors.add("販売日（検索開始日）を正しく入力してください。");
         	}
         }
         
-        if (dateEnd == null || dateEnd.isBlank()) {
-        } else {
+        if (dateEnd != null && !dateEnd.isBlank()) {
         	try {
-        		java.time.LocalDate.parse(dateStart);
+        		LocalDate.parse(dateStart);
         	} catch (DateTimeParseException e) {
         		errors.add("販売日（検索終了日）を正しく入力してください。");
         	}
