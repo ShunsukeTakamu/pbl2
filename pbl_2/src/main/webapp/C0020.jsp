@@ -146,11 +146,7 @@
 	%>
 	<script>
 
-// -----------------------------
-// カテゴリー別売上グラフのデータ作成
-// -----------------------------
-
-// カテゴリー名のラベル（例：食品、日用品...）
+// カテゴリー名のラベル
 const categoryLabels = [
   <%if (categoryNames != null) {
 	for (int i = 0; i < categoryNames.size(); i++) {%>
@@ -197,10 +193,6 @@ new Chart(ctxCategory, {
   }
 });
 
-// -----------------------------
-// 日別売上グラフのデータ作成
-// -----------------------------
-
 // 年別売上グラフのデータ作成
 const yearLabels = [
   <%if (saleDates != null) {
@@ -246,11 +238,6 @@ new Chart(ctxLine, {
     }
   }
 });
-
-
-// -----------------------------
-// 担当者別売上ランキンググラフ
-// -----------------------------
 
 // 担当者名のラベル
 const labels = [
@@ -301,8 +288,6 @@ new Chart(ctx, {
   }
 });
 </script>
-
-
 	<!-- Initialization script -->
 	<!--	<script-->
 	<!--		src="//themes.materializecss.com/cdn/shop/t/1/assets/dashboard.min.js?v=4816808830627109061528498722"></script>-->

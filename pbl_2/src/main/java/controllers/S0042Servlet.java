@@ -30,7 +30,7 @@ public class S0042Servlet extends HttpServlet {
 				request.setAttribute("account", account);
 
 				if (account.getAuthority() != null && account.getAuthority().length > 0) {
-					int authVal = account.getAuthority()[0] & 0xFF; // byte を unsigned int に変換
+					int authVal = account.getAuthority()[0] & 0xFF; // byteをunsigned int に変換
 					request.setAttribute("authVal", authVal);
 				}
 			} catch (NumberFormatException e) {

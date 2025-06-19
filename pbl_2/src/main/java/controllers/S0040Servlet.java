@@ -42,7 +42,7 @@ public class S0040Servlet extends HttpServlet {
 			return;
 		}
 		
-		// セッションに条件を保存、40の初期値として使用
+		// セッションに条件を保存、0040の初期値として使用
 		request.getSession().setAttribute("searchName", name);
 		request.getSession().setAttribute("searchEmail", email);
 		request.getSession().setAttribute("searchAuthorities", authorities);

@@ -51,7 +51,8 @@ public class S0043Servlet extends HttpServlet {
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			String oldPassword = request.getParameter("oldPassword");
-			if(password == null || password.isBlank()) {
+			
+			if (password == null || password.isBlank()) {
 				password = oldPassword;
 			}
 			String[] authorities = request.getParameterValues("authorities");
@@ -68,14 +69,13 @@ public class S0043Servlet extends HttpServlet {
 			updated.setAccountId(accountId);
 			updated.setName(name);
 			updated.setMail(email);
-			updated.setPassword(password); // 必要に応じてハッシュ化
+			updated.setPassword(password); // ハッシュ化する
 			updated.setAuthority(new byte[] { authorityByte });
 
 			AccountService service = new AccountService();
 			service.update(updated);
 
 			request.getSession().setAttribute("update", "アカウントが更新されました。");
-
 			response.sendRedirect("S0041.html");
 
 		} catch (Exception e) {
