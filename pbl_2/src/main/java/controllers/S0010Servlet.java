@@ -40,17 +40,13 @@ public class S0010Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LocalDate today = LocalDate.now();
-		ArrayList<Category> categories = (new CategoryService()).selectAll();
-		request.setAttribute("categories", categories);
+		Sale sale = new Sale(today, 0, 0, -1, -1);
 		ArrayList<Account> accounts = (new AccountService()).selectAll();
-		request.setAttribute("accounts", accounts);
-		Sale sale = new Sale();
-		sale.setSaleDate(today);
-		sale.setAccountId(0);
-		sale.setCategoryId(0);
-		sale.setUnitPrice(-1);
-		sale.setSaleNumber(-1);
+		ArrayList<Category> categories = (new CategoryService()).selectAll();
+		
 		request.setAttribute("sale", sale);
+		request.setAttribute("accounts", accounts);
+		request.setAttribute("categories", categories);
 		request.getRequestDispatcher("/S0010.jsp").forward(request, response);
 	}
 
@@ -162,17 +158,18 @@ public class S0010Servlet extends HttpServlet {
             errors.add("備考が長すぎます。");
         }
 
+        Sale sale = new Sale(
+        		0,
+        		LocalDate.parse(saleDate),
+        		accountId,
+        		categoryId,
+        		tradeName,
+        		unitPrice,
+        		saleNumber,
+        		note);
+        
         // エラーがあれば戻る
         if (!errors.isEmpty()) {
-            Sale sale = new Sale();
-            sale.setSaleDate(LocalDate.parse(saleDate));
-            sale.setAccountId(accountId);
-            sale.setCategoryId(categoryId);
-            sale.setTradeName(tradeName);
-            sale.setUnitPrice(unitPrice);
-            sale.setSaleNumber(saleNumber);
-            sale.setNote(note);
-
             request.setAttribute("errors", errors);
             request.setAttribute("sale", sale);
             request.setAttribute("accounts", as.selectAll());
@@ -182,15 +179,6 @@ public class S0010Servlet extends HttpServlet {
         }
 
         // 正常時 → 確認画面へ
-        Sale sale = new Sale();
-        sale.setSaleDate(LocalDate.parse(saleDate));
-        sale.setAccountId(accountId);
-        sale.setCategoryId(categoryId);
-        sale.setTradeName(tradeName);
-        sale.setUnitPrice(unitPrice);
-        sale.setSaleNumber(saleNumber);
-        sale.setNote(note);
-        
         session.setAttribute("sale", sale);
         response.sendRedirect("S0011.html");
 	}
