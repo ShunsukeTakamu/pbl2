@@ -2,9 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +13,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import utils.Db;
+
 /**
  * Servlet implementation class S0031Servlet
  */
@@ -22,18 +22,18 @@ import jakarta.servlet.http.HttpSession;
 public class S0031Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	private static final String DB_URL = "jdbc:mariadb://192.168.5.172:3306/PBL";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "root";
-    
-    @Override
-    public void init() throws ServletException {
-        try {
-            Class.forName("org.mariadb.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new ServletException("JDBCドライバの読み込みに失敗しました", e);
-        }
-    }
+//	private static final String DB_URL = "jdbc:mariadb://192.168.5.172:3306/PBL";
+//    private static final String DB_USER = "root";
+//    private static final String DB_PASSWORD = "root";
+//    
+//    @Override
+//    public void init() throws ServletException {
+//        try {
+//            Class.forName("org.mariadb.jdbc.Driver");
+//        } catch (ClassNotFoundException e) {
+//            throw new ServletException("JDBCドライバの読み込みに失敗しました", e);
+//        }
+//    }
     
     /**
      * @see HttpServlet#HttpServlet()
@@ -55,8 +55,9 @@ public class S0031Servlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// セッション取得（登録処理後にクリアする用）
 		HttpSession session = request.getSession();
+		//入力値取得
         String name = request.getParameter("name");
         String mail = request.getParameter("mail");
         String password = request.getParameter("password");
@@ -74,7 +75,8 @@ public class S0031Servlet extends HttpServlet {
             }
         }
         
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+        try (Connection conn = Db.open()) {
+        	//メール重複チェック
             String sql = "SELECT COUNT(*) FROM accounts WHERE mail = ?";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             	stmt.setString(1, mail);
@@ -88,6 +90,7 @@ public class S0031Servlet extends HttpServlet {
                  }
             }
             
+            // アカウント登録処理
             String insertSql = "INSERT INTO accounts (name, mail, password, authority) VALUES (?, ?, ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(insertSql)) {
                 stmt.setString(1, name);
@@ -97,9 +100,10 @@ public class S0031Servlet extends HttpServlet {
                 stmt.executeUpdate();
             }
             
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new ServletException("アカウント登録に失敗しました", e);
         }
+        // セッションの入力情報をクリア
         session.removeAttribute("name");
         session.removeAttribute("mail");
         session.removeAttribute("password");

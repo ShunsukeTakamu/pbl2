@@ -121,6 +121,7 @@
 </head>
 <body>
 <%
+	//セッションから入力内容を取得（POST前の一時保存用）
 	String name = (String) session.getAttribute("name");
 	String mail = (String) session.getAttribute("mail");
 	String password = (String) session.getAttribute("password");

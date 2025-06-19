@@ -27,11 +27,14 @@ public class S0030 extends HttpServlet {
     }
 
 	/**
+	 * GETリクエスト処理
+	 * 初回アクセス or 戻るボタン押下時に、セッションの入力データをクリアして入力フォームを表示
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// セッションを取得（既存のセッションがなければ null を返す）
 		HttpSession session = request.getSession(false);
+		// 入力内容をクリア
 		if (session != null) {
 	        session.removeAttribute("name");
 	        session.removeAttribute("mail");
@@ -43,18 +46,20 @@ public class S0030 extends HttpServlet {
 	}
 
 	/**
+	 * 入力内容の検証を行い、エラーがあれば入力画面へ戻す。成功時は確認画面に遷移
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		
+		// フォームからの入力値を取得
 		String name = request.getParameter("name");
 		String mail = request.getParameter("mail");
 		String password = request.getParameter("password");
 		String confirmPassword = request.getParameter("confirmPassword");
-		String[] authorities = request.getParameterValues("authorities");
+		String[] authorities = request.getParameterValues("authorities");// チェックボックスは複数選択される可能性あり
 
+		
 		List<String> errors = new ArrayList<>();
 		
 		if (name == null || name.isEmpty()) {
@@ -84,6 +89,7 @@ public class S0030 extends HttpServlet {
 			errors.add("権限を1つ以上選択してください。");
 		}
 
+		// 入力エラーがあった場合、入力値とエラーをリクエストにセットして画面に戻る
 		if (!errors.isEmpty()) {
 			request.setAttribute("errorMsg", errors);
 			request.setAttribute("name", name);
@@ -91,9 +97,11 @@ public class S0030 extends HttpServlet {
 		    request.setAttribute("password", password);
 		    request.setAttribute("confirmPassword", confirmPassword);
 		    request.setAttribute("authorities", authorities);
-			request.getRequestDispatcher("S0030.jsp").forward(request, response);
+			request.getRequestDispatcher("S0030.jsp").forward(request, response);// 入力画面に戻る
 			return;
 		}
+		
+		// バリデーション通過時：セッションに入力値を保存し、確認画面へリダイレクト
 		HttpSession session = request.getSession();
 		session.setAttribute("name", name);
 		session.setAttribute("mail", mail);

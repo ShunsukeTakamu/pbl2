@@ -54,7 +54,8 @@ public class C0010 extends HttpServlet {
 		} else if (password.getBytes("UTF-8").length >= 31) {
 			errors.add("パスワードが長すぎます");
 		}
-
+		
+		// 入力エラーがある場合はログイン画面に戻す
 		if (!errors.isEmpty()) {
 			request.setAttribute("errors", errors);
 			request.setAttribute("mail", mail);
@@ -64,10 +65,12 @@ public class C0010 extends HttpServlet {
 		}
 
 		try (Connection conn = Db.open()) {
+			// メールアドレスでアカウント検索
 			String sql = "SELECT account_id, name, authority, password FROM accounts WHERE mail = ?";
 			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
 				stmt.setString(1, mail);
 
+				// アカウントが見つからなかった場合
 				try (ResultSet rs = stmt.executeQuery()) {
 					if (!rs.next()) {
 						errors.add("メールアドレス、パスワードを正しく入力して下さい");
@@ -77,7 +80,7 @@ public class C0010 extends HttpServlet {
 						dispatcher.forward(request, response);
 						return;
 					}
-
+					// パスワード照合
 					String dbPassword = rs.getString("password");
 					if (!dbPassword.equals(password)) {
 						errors.add("メールアドレス、パスワードを正しく入力して下さい");
@@ -87,7 +90,7 @@ public class C0010 extends HttpServlet {
 						dispatcher.forward(request, response);
 						return;
 					}
-
+					// 認証成功 → セッションにログイン情報を保存
 					HttpSession session = request.getSession();
 					Login login = new Login(
 							rs.getInt("account_id"),
@@ -96,7 +99,8 @@ public class C0010 extends HttpServlet {
 							dbPassword,
 							rs.getString("authority"));
 					session.setAttribute("account", login);
-
+					/** 権限をbyte[] → int に変換し、
+					「loginAuthority」に格納（権限の判定などに使う用）*/
 					byte[] authorityBytes = rs.getBytes("authority");
 					int authorityInt = authorityBytes[0] & 0xFF;
 					session.setAttribute("loginAuthority", authorityInt);
@@ -104,8 +108,8 @@ public class C0010 extends HttpServlet {
 					response.sendRedirect("C0020.html");
 				}
 			}
-			//DB操作中に発生した例外（接続失敗、SQL文ミスなど）をキャッチして、
-			//Servletとして正しくハンドリングするためのもの
+			/**DB操作中に発生した例外（接続失敗、SQL文ミスなど）をキャッチして、
+			Servletとして正しくハンドリングするためのもの*/
 		} catch (Exception e) {
 			throw new ServletException("DBエラー", e);
 		}
