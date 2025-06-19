@@ -20,6 +20,7 @@ import beans.Login;
 import beans.Sale;
 import services.AccountService;
 import services.CategoryService;
+import services.SaleIdParamCheckService;
 import services.SaleService;
 
 @WebServlet("/S0023.html")
@@ -33,19 +34,10 @@ public class S0023Servlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // saleId の取得と検証
-        String saleIdStr = request.getParameter("saleId");
-        if (saleIdStr == null || saleIdStr.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId が指定されていません");
-            return;
-        }
-
-        int saleId;
-        try {
-            saleId = Integer.parseInt(saleIdStr);
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId は整数である必要があります");
-            return;
+        SaleIdParamCheckService paramService = new SaleIdParamCheckService();
+        Integer saleId = paramService.check(request, response);
+        if (saleId == null) {
+            return; 
         }
 
         // 売上データの取得

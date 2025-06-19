@@ -17,6 +17,7 @@ import beans.Login;
 import beans.Sale;
 import services.AccountService;
 import services.CategoryService;
+import services.SaleIdParamCheckService;
 import services.SaleService;
 import utils.DateUtil;
 
@@ -24,26 +25,15 @@ import utils.DateUtil;
 public class S0025Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
-
-		// saleId パラメータのチェック
-        String saleIdStr = request.getParameter("saleId");
-        if (saleIdStr == null || saleIdStr.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId が指定されていません");
-            return;
+        SaleIdParamCheckService paramService = new SaleIdParamCheckService();
+        Integer saleId = paramService.check(request, response);
+        if (saleId == null) {
+            return; 
         }
 
-        int saleId;
-        try {
-            saleId = Integer.parseInt(saleIdStr);
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId は整数である必要があります");
-            return;
-        }
-		
 		Sale sale = (new SaleService()).selectById(saleId);
 		Account account = (new AccountService()).selectById(sale.getAccountId());
 		Category category = (new CategoryService()).selectById(sale.getCategoryId());
