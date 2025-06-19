@@ -13,10 +13,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import services.AccountService;
 import services.SaleService;
 
-
-
-
-
 /**
  * Servlet implementation class C0020Servlet
  */
