@@ -43,7 +43,7 @@ public class S0041Servlet extends HttpServlet {
 //		System.out.println("セッションから取得: email=" + email);
 //		System.out.println("セッションから取得: authorities=" + java.util.Arrays.toString(authorities));
 
-		
+		// 複数取得
 	    AccountService service = new AccountService();
 	    List<Account> accounts = service.searchAccounts(name, email, authorities);
 

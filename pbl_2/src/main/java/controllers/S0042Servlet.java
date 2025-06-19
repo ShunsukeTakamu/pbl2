@@ -20,13 +20,16 @@ public class S0042Servlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		String idStr = request.getParameter("id");
+
 		if (idStr != null) {
 			try {
 				int id = Integer.parseInt(idStr);
+
 				AccountService service = new AccountService();
 				Account account = service.selectById(id);
-				System.out.println("取得したアカウント: " + account);
+				//				System.out.println("取得したアカウント: " + account);
 				request.setAttribute("account", account);
 
 				if (account.getAuthority() != null && account.getAuthority().length > 0) {
@@ -61,7 +64,7 @@ public class S0042Servlet extends HttpServlet {
 			request.getRequestDispatcher("S0042.jsp").forward(request, response);
 			return;
 		}
-
+		// エラー格納
 		Map<String, String> errors = new HashMap<>();
 
 		if (name == null || name.isBlank()) {

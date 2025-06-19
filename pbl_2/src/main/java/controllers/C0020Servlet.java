@@ -46,7 +46,7 @@ public class C0020Servlet extends HttpServlet {
 
 		// 今年の売上と前年の売上を取得して比較
 		int totalSales = saleService.getCurrentYearSales();
-		int previousSales = saleService.getPreviousYearSales(); // ← 新メソッドに変更
+		int previousSales = saleService.getPreviousYearSales();
 
 		int changeAmount = totalSales - previousSales;
 		double changeRate = previousSales == 0 ? 0 : (double) changeAmount / previousSales * 100;
@@ -57,7 +57,7 @@ public class C0020Servlet extends HttpServlet {
 		request.setAttribute("isIncrease", isIncrease);
 
 
-		// 全期間売上はそのまま
+		// 総売上
 		int allTimeSales = saleService.getTotalSales();
 		request.setAttribute("allTimeSales", allTimeSales);
 
