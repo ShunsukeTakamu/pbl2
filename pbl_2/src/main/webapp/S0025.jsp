@@ -9,20 +9,9 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
 	<style>
-		.form-group {
-			display: flex;
-			align-items: center;
-			margin-bottom: 1rem;
-		}
-		.form-group label {
-			width: 200px;
-			margin-right: 10px;
-			text-align: right;
-		}
-		form {
-			max-width: 700px;
-			margin: 0 auto;
-		}
+		.form-group { display: flex; align-items: center; margin-bottom: 1rem; }
+		.form-group label { width: 200px; margin-right: 10px; text-align: right; }
+		form { max-width: 700px; margin: 0 auto; }
 		.short-input { width: 150px; }
 		.wide-input  { width: 300px; }
 	</style>

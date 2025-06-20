@@ -9,42 +9,13 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="css/style.css">
 	<style>
-	.form-group {
-		display: flex;
-		align-items: center;
-		margin-bottom: 1rem;
-	}
-	
-	.form-group label {
-		width: 200px;
-		margin-right: 10px;
-		text-align: right;
-	}
-	
-	.form-group {
-		flex: 1;
-	}
-	
-	form {
-		max-width: 700px;
-		margin: 0 auto;
-	}
-	
-	.note-group {
-		align-items: flex-start;
-	}
-	
-	.note-group label {
-		margin-top: 6px;
-	}
-	
-	.short-input {
-		width: 150px;
-	}
-	
-	.wide-input {
-		width: 300px;
-	}
+	.form-group { display: flex; align-items: center; margin-bottom: 1rem; }
+	.form-group label { width: 200px; margin-right: 10px; text-align: right; }	
+	form { max-width: 700px; margin: 0 auto; }
+	.note-group { align-items: flex-start; }
+	.note-group label { margin-top: 6px; }
+	.short-input { width: 150px; }
+	.wide-input  { width: 300px; }
 	
 		/* ▼ エラー赤枠調整 */
 	.alert ul {

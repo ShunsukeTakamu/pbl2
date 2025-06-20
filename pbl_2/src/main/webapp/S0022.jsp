@@ -11,10 +11,7 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
-	.note-cell {
-		word-break: break-word;
-		max-width: 400px;
-	}
+	.note-cell { word-break: break-word; max-width: 400px; }
 	
 	/* ▼ エラー赤枠調整 */
 	.alert ul {
