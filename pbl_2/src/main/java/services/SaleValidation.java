@@ -104,7 +104,7 @@ public class SaleValidation {
             note = null;
         }
         // 備考チェック
-        if (note != null && note.getBytes("UTF-8").length >= 400) {
+        if (note != null && note.getBytes("UTF-8").length >= 401) {
             errors.put("note", "備考が長すぎます。");
         }
         
