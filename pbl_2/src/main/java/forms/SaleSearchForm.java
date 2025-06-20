@@ -2,13 +2,9 @@ package forms;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class SaleSearchForm {
 	private String dateStart;
 	private String dateEnd;

@@ -39,7 +39,7 @@
 			<div class="alert alert-danger">
 				<ul>
 					<c:forEach var="err" items="${errors}">
-						<li>${err}</li>
+						<li>${err.value}</li>
 					</c:forEach>
 				</ul>
 			</div>
