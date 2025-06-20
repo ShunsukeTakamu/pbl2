@@ -11,11 +11,37 @@ import beans.Account;
 import utils.Db;
 
 public class AccountService {
+	
+	// ログイン時
+	public Account findValidByMail(String mail) {
+	    String sql = "SELECT * FROM accounts WHERE mail = ?";
+	    try (Connection con = Db.open();
+	         PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setString(1, mail);
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            if (!rs.getBoolean("is_valid")) {
+	                return null; // 論理削除済みアカウントはログイン不可
+	            }
+	            return new Account(
+	                    rs.getInt("account_id"),
+	                    rs.getString("name"),
+	                    rs.getString("mail"),
+	                    rs.getString("password"),
+	                    rs.getBytes("authority")
+	            );
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
+
 
 	// アカウント条件検索
 	public List<Account> searchAccounts(String name, String email, String[] authorities) {
 		List<Account> list = new ArrayList<>();
-		StringBuilder sql = new StringBuilder("SELECT * FROM accounts WHERE 1=1");
+		StringBuilder sql = new StringBuilder("SELECT * FROM accounts WHERE is_valid = true");
 		List<Object> params = new ArrayList<>();
 
 		if (name != null && !name.isEmpty()) {
@@ -83,7 +109,7 @@ public class AccountService {
 
 	public ArrayList<Account> selectAll() {
 		ArrayList<Account> accounts = new ArrayList<>();
-		String sql = "SELECT * FROM accounts";
+		String sql = "SELECT * FROM accounts WHERE is_valid = TRUE;";
 
 		try (
 				Connection con = Db.open();
@@ -148,29 +174,18 @@ public class AccountService {
 		}
 	}
 
-	public void deleteAccountAndSales(int id) {
-	    String deleteSalesSql = "DELETE FROM sales WHERE account_id = ?";
-	    String deleteAccountSql = "DELETE FROM accounts WHERE account_id = ?";
-
-	    try (Connection con = Db.open()) {
-	        con.setAutoCommit(false); // トランザクション開始
-
-	        try (PreparedStatement ps1 = con.prepareStatement(deleteSalesSql)) {
-	            ps1.setInt(1, id);
-	            ps1.executeUpdate();
-	        }
-
-	        try (PreparedStatement ps2 = con.prepareStatement(deleteAccountSql)) {
-	            ps2.setInt(1, id);
-	            ps2.executeUpdate();
-	        }
-
-	        con.commit();
+	public void deleteAccount(int id) {
+	    String sql = "UPDATE accounts SET is_valid = false WHERE account_id = ?";
+	    try (Connection con = Db.open();
+	         PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setInt(1, id);
+	        ps.executeUpdate();
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        throw new RuntimeException("削除処理に失敗しました。");
+	        throw new RuntimeException("アカウントの論理削除に失敗しました。");
 	    }
 	}
+
 	// S0010ConfirmServlet.java用
 	public boolean existsById(int id) {
 		try (Connection conn = Db.open()) {
@@ -188,7 +203,7 @@ public class AccountService {
 	
 	
 	public int getAccountCount() {
-	    String sql = "SELECT COUNT(*) FROM accounts";
+	    String sql = "SELECT COUNT(*) FROM accounts WHERE is_valid = TRUE;";
 	    try (Connection con = Db.open();
 	         PreparedStatement ps = con.prepareStatement(sql);
 	         ResultSet rs = ps.executeQuery()) {

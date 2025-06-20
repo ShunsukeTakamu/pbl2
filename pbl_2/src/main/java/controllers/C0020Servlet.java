@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import services.AccountService;
 import services.SaleService;
@@ -34,6 +35,14 @@ public class C0020Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+
+		 // セッションの中身を確認するログ
+	    HttpSession session = request.getSession();
+	    System.out.println("===== セッションの中身確認 =====");
+	    System.out.println("account: " + session.getAttribute("account"));
+	    System.out.println("loginAuthority: " + session.getAttribute("loginAuthority"));
+	    System.out.println("searchAccountForm: " + session.getAttribute("searchAccountForm"));
+	    System.out.println("================================");
 		SaleService saleService = new SaleService();
 		// アカウント別
 		Map<String, Integer> salesMap = saleService.getSalesByAccount();
@@ -69,7 +78,11 @@ public class C0020Servlet extends HttpServlet {
 		AccountService accountService = new AccountService();
 		int accountCount = accountService.getAccountCount();
 		request.setAttribute("accountCount", accountCount);
-
+		
+		
+		System.out.println("[C0020] session id: " + session.getId());
+		
+		System.out.println("loginAuthority from session: " + session.getAttribute("loginAuthority"));
 		request.getRequestDispatcher("/C0020.jsp").forward(request, response);
 	}
 

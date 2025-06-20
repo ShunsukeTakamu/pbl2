@@ -1,9 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +12,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import beans.Account;
 import beans.Login;
-import utils.Db;
+import services.AccountService;
 
 @WebServlet("/C0010.html")
 public class C0010 extends HttpServlet {
@@ -41,6 +39,7 @@ public class C0010 extends HttpServlet {
 
 		List<String> errors = new ArrayList<>();
 
+		// バリデーション
 		if (mail == null || mail.trim().isEmpty()) {
 			errors.add("メールアドレスを入力してください。");
 		} else if (mail.getBytes("UTF-8").length >= 101) {
@@ -54,8 +53,8 @@ public class C0010 extends HttpServlet {
 		} else if (password.getBytes("UTF-8").length >= 31) {
 			errors.add("パスワードが長すぎます");
 		}
-		
-		// 入力エラーがある場合はログイン画面に戻す
+
+		// バリデーションエラー
 		if (!errors.isEmpty()) {
 			request.setAttribute("errors", errors);
 			request.setAttribute("mail", mail);
@@ -64,54 +63,35 @@ public class C0010 extends HttpServlet {
 			return;
 		}
 
-		try (Connection conn = Db.open()) {
-			// メールアドレスでアカウント検索
-			String sql = "SELECT account_id, name, authority, password FROM accounts WHERE mail = ?";
-			try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-				stmt.setString(1, mail);
+		// アカウント検索・認証
+		AccountService service = new AccountService();
+		Account account = service.findValidByMail(mail);
 
-				// アカウントが見つからなかった場合
-				try (ResultSet rs = stmt.executeQuery()) {
-					if (!rs.next()) {
-						errors.add("メールアドレス、パスワードを正しく入力して下さい");
-						request.setAttribute("errors", errors);
-						request.setAttribute("mail", mail);
-						RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
-						dispatcher.forward(request, response);
-						return;
-					}
-					// パスワード照合
-					String dbPassword = rs.getString("password");
-					if (!dbPassword.equals(password)) {
-						errors.add("メールアドレス、パスワードを正しく入力して下さい");
-						request.setAttribute("errors", errors);
-						request.setAttribute("mail", mail);
-						RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
-						dispatcher.forward(request, response);
-						return;
-					}
-					// 認証成功 → セッションにログイン情報を保存
-					HttpSession session = request.getSession();
-					Login login = new Login(
-							rs.getInt("account_id"),
-							rs.getString("name"),
-							mail,
-							dbPassword,
-							rs.getString("authority"));
-					session.setAttribute("account", login);
-					/** 権限をbyte[] → int に変換し、
-					「loginAuthority」に格納（権限の判定などに使う用）*/
-					byte[] authorityBytes = rs.getBytes("authority");
-					int authorityInt = authorityBytes[0] & 0xFF;
-					session.setAttribute("loginAuthority", authorityInt);
-
-					response.sendRedirect("C0020.html");
-				}
-			}
-			/**DB操作中に発生した例外（接続失敗、SQL文ミスなど）をキャッチして、
-			Servletとして正しくハンドリングするためのもの*/
-		} catch (Exception e) {
-			throw new ServletException("DBエラー", e);
+		if (account == null || !account.getPassword().equals(password)) {
+			errors.add("メールアドレス、パスワードを正しく入力して下さい");
+			request.setAttribute("errors", errors);
+			request.setAttribute("mail", mail);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
+			dispatcher.forward(request, response);
+			return;
 		}
+
+		// 認証成功
+		HttpSession session = request.getSession();
+		Login login = new Login(
+				account.getAccountId(),
+				account.getName(),
+				account.getMail(),
+				account.getPassword(),
+				new String(account.getAuthority())
+		);
+		session.setAttribute("account", login);
+
+		// 権限ビットをintとして格納
+		int authorityInt = account.getAuthority()[0] & 0xFF;
+		session.setAttribute("loginAuthority", authorityInt);
+
+		// ダッシュボードへ
+		response.sendRedirect("C0020.html");
 	}
 }
