@@ -2,6 +2,7 @@ package utils;
 
 import jakarta.servlet.http.HttpSession;
 
+import forms.AccountForm;
 import forms.AccountSearchForm;
 
 public class SessionUtil {
@@ -29,4 +30,36 @@ public class SessionUtil {
     public static void saveSearchAccount(HttpSession session, AccountSearchForm form) {
         saveSearchAccount(session, form.getName(), form.getEmail(), form.getAuthorities());
     }
+    
+    // 登録入力のクリア
+    public static void clearAccountForm(HttpSession session) {
+    	session.removeAttribute("name");
+    	session.removeAttribute("mail");
+    	session.removeAttribute("password");
+    	session.removeAttribute("confirmPassword");
+    	session.removeAttribute("authorities");
+    }
+
+    // 登録入力の保存（個別）
+    public static void saveAccountForm(HttpSession session, String name, String mail, String password, String confirmPassword, String[] authorities) {
+    	session.setAttribute("name", name);
+    	session.setAttribute("mail", mail);
+    	session.setAttribute("password", password);
+    	session.setAttribute("confirmPassword", confirmPassword);
+    	session.setAttribute("authorities", authorities);
+    }
+
+    // 登録入力の保存（フォーム型）
+    public static void saveAccountForm(HttpSession session, AccountForm form) {
+    	saveAccountForm(session, form.getName(), form.getMail(), form.getPassword(), form.getConfirmPassword(), form.getAuthorities());
+    }
+    
+    // アカウント登録用（フォーム入力一時保存）
+    public static final String ATTR_FORM_NAME = "name";
+    public static final String ATTR_FORM_MAIL = "mail";
+    public static final String ATTR_FORM_PASSWORD = "password";
+    public static final String ATTR_FORM_CONFIRM_PASSWORD = "confirmPassword";
+    public static final String ATTR_FORM_AUTHORITIES = "authorities";
+
+    
 }
