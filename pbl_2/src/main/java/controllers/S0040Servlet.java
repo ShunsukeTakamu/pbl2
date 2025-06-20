@@ -30,21 +30,25 @@ public class S0040Servlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-		// フォームオブジェクト生成
+		String action = request.getParameter("action");
+
+		if ("clear".equals(action)) {
+			SessionUtil.clearSearchAccount(request.getSession());
+			request.getRequestDispatcher("/S0040.jsp").forward(request, response);
+			return;
+		}
+
+		// 通常の検索処理
 		AccountSearchForm form = new AccountSearchForm(request);
 
-		// バリデーション
-		Map<String, String> errors = AccountValidation.validate(form.getName(), form.getEmail());
+		Map<String, String> errors = AccountValidation.validate(form);
 		if (!errors.isEmpty()) {
 			request.setAttribute("error", String.join("/", errors.values()));
 			request.getRequestDispatcher("/S0040.jsp").forward(request, response);
 			return;
 		}
 
-		// セッションに検索条件保存
 		SessionUtil.saveSearchAccount(request.getSession(), form);
-
-		// 検索処理へリダイレクト
 		response.sendRedirect("S0041.html");
 	}
 }

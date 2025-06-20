@@ -4,81 +4,90 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+import forms.AccountEditForm;
+import forms.AccountSearchForm;
+
 public class AccountValidation {
 
-	// 0040
-	 public static Map<String, String> validate(String name, String email) {
-	        Map<String, String> errors = new HashMap<>();
+    // 検索バリデーション（0040）
+    public static Map<String, String> validate(AccountSearchForm form) {
+        return validate(form.getName(), form.getEmail());
+    }
 
-	        if (name != null && name.getBytes(StandardCharsets.UTF_8).length >= 21) {
-	            errors.put("name", "氏名が長すぎます!");
-	        }
+    public static Map<String, String> validate(String name, String email) {
+        Map<String, String> errors = new HashMap<>();
+        if (name != null && name.getBytes(StandardCharsets.UTF_8).length > 20) {
+            errors.put("name", "氏名が長すぎます（20バイト以内）");
+        }
+        if (email != null && email.getBytes(StandardCharsets.UTF_8).length > 100) {
+            errors.put("email", "メールが長すぎます（100バイト以内）");
+        }
+        return errors;
+    }
 
-	        if (email != null && email.getBytes(StandardCharsets.UTF_8).length >= 100) {
-	            errors.put("email", "メールが長すぎます!");
-	        }
+    // 編集バリデーション（0042）
+    public static Map<String, String> validateForEdit(AccountEditForm form) {
+        return validateForEdit(
+            form.getName(),
+            form.getEmail(),
+            form.getPassword(),
+            form.getPasswordConfirm(),
+            form.getAuthorities()
+        );
+    }
 
-	        return errors;
-	    }
+    public static Map<String, String> validateForEdit(
+        String name,
+        String email,
+        String password,
+        String passwordConfirm,
+        String[] authorities
+    ) {
+        Map<String, String> errors = new HashMap<>();
 
-	    public static Map<String, String> validate(forms.AccountSearchForm form) {
-	        return validate(form.getName(), form.getEmail());
-	    }
+        if (name == null || name.isBlank()) {
+            errors.put("name", "氏名を入力してください。");
+        } else if (name.getBytes(StandardCharsets.UTF_8).length > 20) {
+            errors.put("name", "氏名が長すぎます（20バイト以内）。");
+        }
 
-	// 0042
-	public static Map<String, String> validateForEdit(
-			String name,
-			String email,
-			String password,
-			String passwordConfirm,
-			String[] authorities) {
+        if (email == null || email.isBlank()) {
+            errors.put("email", "メールアドレスを入力してください。");
+        } else if (email.getBytes(StandardCharsets.UTF_8).length > 100) {
+            errors.put("email", "メールアドレスが長すぎます（100バイト以内）。");
+        }
 
-		Map<String, String> errors = new HashMap<>();
+        if (password == null || password.isBlank()) {
+            errors.put("password", "パスワードを入力してください。");
+        } else if (password.getBytes(StandardCharsets.UTF_8).length > 30) {
+            errors.put("password", "パスワードが長すぎます（30バイト以内）。");
+        }
 
-		if (name == null || name.isBlank()) {
-			errors.put("name", "氏名を入力してください。");
-		} else if (name.getBytes(StandardCharsets.UTF_8).length >= 21) {
-			errors.put("name", "氏名が長すぎます（20バイト以内）。");
-		}
+        if (passwordConfirm == null || passwordConfirm.isBlank()) {
+            errors.put("passwordConfirm", "パスワード（確認）を入力してください。");
+        } else if (!password.equals(passwordConfirm)) {
+            errors.put("passwordConfirm", "パスワードが一致していません。");
+        }
 
-		if (email == null || email.isBlank()) {
-			errors.put("email", "メールアドレスを入力してください。");
-		} else if (email.getBytes(StandardCharsets.UTF_8).length >= 101) {
-			errors.put("email", "メールアドレスが長すぎます（100バイト以内）。");
-		}
+        if (authorities == null || authorities.length == 0) {
+            errors.put("authorities", "権限を選択してください。");
+        }
 
-		if (password == null || password.isBlank()) {
-			errors.put("password", "パスワードを入力してください。");
-		} else if (password.getBytes(StandardCharsets.UTF_8).length >= 31) {
-			errors.put("password", "パスワードが長すぎます（30バイト以内）。");
-		}
+        return errors;
+    }
 
-		if (passwordConfirm == null || passwordConfirm.isBlank()) {
-			errors.put("passwordConfirm", "パスワード（確認）を入力してください。");
-		} else if (!password.equals(passwordConfirm)) {
-			errors.put("passwordConfirm", "パスワードが一致していません。");
-		}
+    public static Map<String, Boolean> resolveAuthorityFlags(String[] authorities) {
+        Map<String, Boolean> flags = new HashMap<>();
+        flags.put("has0", false);
+        flags.put("has1", false);
+        flags.put("has2", false);
 
-		if (authorities == null || authorities.length == 0) {
-			errors.put("authorities", "権限を選択してください。");
-		}
+        if (authorities != null) {
+            for (String auth : authorities) {
+                flags.put("has" + auth, true);
+            }
+        }
 
-		return errors;
-	}
-
-	public static Map<String, Boolean> resolveAuthorityFlags(String[] authorities) {
-		Map<String, Boolean> flags = new HashMap<>();
-		flags.put("has0", false);
-		flags.put("has1", false);
-		flags.put("has2", false);
-
-		if (authorities != null) {
-			for (String auth : authorities) {
-				flags.put("has" + auth, true);
-			}
-		}
-
-		return flags;
-	}
-
+        return flags;
+    }
 }

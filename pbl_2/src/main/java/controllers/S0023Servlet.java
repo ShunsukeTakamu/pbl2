@@ -16,10 +16,10 @@ import jakarta.servlet.http.HttpSession;
 
 import beans.Account;
 import beans.Category;
-import beans.Login;
 import beans.Sale;
 import services.AccountService;
 import services.CategoryService;
+import services.SaleIdParamCheckService;
 import services.SaleService;
 
 @WebServlet("/S0023.html")
@@ -33,19 +33,10 @@ public class S0023Servlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // saleId の取得と検証
-        String saleIdStr = request.getParameter("saleId");
-        if (saleIdStr == null || saleIdStr.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId が指定されていません");
-            return;
-        }
-
-        int saleId;
-        try {
-            saleId = Integer.parseInt(saleIdStr);
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId は整数である必要があります");
-            return;
+        SaleIdParamCheckService paramService = new SaleIdParamCheckService();
+        Integer saleId = paramService.check(request, response);
+        if (saleId == null) {
+            return; 
         }
 
         // 売上データの取得
@@ -83,13 +74,6 @@ public class S0023Servlet extends HttpServlet {
 
         int saleId = 0, accountId = 0, categoryId = 0;
         int unitPrice = -1, saleNumber = -1;
-        
-        // 権限チェック 未ログイン、権限なし（b'00'、b'10'）の場合
-        HttpSession session = request.getSession();
-        Login loginAccount = (Login) session.getAttribute("account");
-        if (loginAccount == null || loginAccount.getAuthority().equals("b''") || loginAccount.getAuthority().equals("b'10'")) {
-        	errors.add("権限がありません。");
-        }
 
         try {
             saleId = Integer.parseInt(saleIdStr);
@@ -200,6 +184,7 @@ public class S0023Servlet extends HttpServlet {
         sale.setSaleNumber(saleNumber);
         sale.setNote(note);
 
+        HttpSession session = request.getSession();
         session.setAttribute("sale", sale);
         session.setAttribute("selectedAccount", as.selectById(accountId));
         session.setAttribute("selectedCategory", cs.selectById(categoryId));

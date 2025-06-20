@@ -11,11 +11,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import beans.Account;
 import beans.Category;
-import beans.Login;
 import beans.Sale;
 import services.AccountService;
 import services.CategoryService;
@@ -40,17 +38,13 @@ public class S0010Servlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		LocalDate today = LocalDate.now();
-		ArrayList<Category> categories = (new CategoryService()).selectAll();
-		request.setAttribute("categories", categories);
+		Sale sale = new Sale(today, 0, 0, -1, -1);
 		ArrayList<Account> accounts = (new AccountService()).selectAll();
-		request.setAttribute("accounts", accounts);
-		Sale sale = new Sale();
-		sale.setSaleDate(today);
-		sale.setAccountId(0);
-		sale.setCategoryId(0);
-		sale.setUnitPrice(-1);
-		sale.setSaleNumber(-1);
+		ArrayList<Category> categories = (new CategoryService()).selectAll();
+		
 		request.setAttribute("sale", sale);
+		request.setAttribute("accounts", accounts);
+		request.setAttribute("categories", categories);
 		request.getRequestDispatcher("/S0010.jsp").forward(request, response);
 	}
 
@@ -74,13 +68,6 @@ public class S0010Servlet extends HttpServlet {
         AccountService as = new AccountService();
         CategoryService cs = new CategoryService();
         int accountId = 0, categoryId = 0, unitPrice = -1, saleNumber = -1;
-
-        // 権限チェック 未ログイン、b'00'、b'10'の場合 メッセージ出す
-        HttpSession session = request.getSession();
-        Login loginAccount = (Login) session.getAttribute("account");
-        if (loginAccount == null || loginAccount.getAuthority().equals("b''") || loginAccount.getAuthority().equals("b'10'")) {
-        	errors.add("権限がありません。");
-        }
         
         // 販売日チェック
         if (saleDate == null || saleDate.isBlank()) {
@@ -162,17 +149,18 @@ public class S0010Servlet extends HttpServlet {
             errors.add("備考が長すぎます。");
         }
 
+        Sale sale = new Sale(
+        		0,
+        		LocalDate.parse(saleDate),
+        		accountId,
+        		categoryId,
+        		tradeName,
+        		unitPrice,
+        		saleNumber,
+        		note);
+        
         // エラーがあれば戻る
         if (!errors.isEmpty()) {
-            Sale sale = new Sale();
-            sale.setSaleDate(LocalDate.parse(saleDate));
-            sale.setAccountId(accountId);
-            sale.setCategoryId(categoryId);
-            sale.setTradeName(tradeName);
-            sale.setUnitPrice(unitPrice);
-            sale.setSaleNumber(saleNumber);
-            sale.setNote(note);
-
             request.setAttribute("errors", errors);
             request.setAttribute("sale", sale);
             request.setAttribute("accounts", as.selectAll());
@@ -182,15 +170,6 @@ public class S0010Servlet extends HttpServlet {
         }
 
         // 正常時 → 確認画面へ
-        Sale sale = new Sale();
-        sale.setSaleDate(LocalDate.parse(saleDate));
-        sale.setAccountId(accountId);
-        sale.setCategoryId(categoryId);
-        sale.setTradeName(tradeName);
-        sale.setUnitPrice(unitPrice);
-        sale.setSaleNumber(saleNumber);
-        sale.setNote(note);
-        
         session.setAttribute("sale", sale);
         response.sendRedirect("S0011.html");
 	}

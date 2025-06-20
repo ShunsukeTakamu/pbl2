@@ -9,12 +9,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
-import beans.Login;
 import beans.Sale;
 import services.AccountService;
 import services.CategoryService;
+import services.SaleIdParamCheckService;
 import services.SaleService;
 import utils.DateUtil;
 
@@ -27,24 +26,15 @@ public class S0022Servlet extends HttpServlet {
     }
 
     /**
-     *
+     *s
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // saleId パラメータのチェック
-        String saleIdStr = request.getParameter("saleId");
-        if (saleIdStr == null || saleIdStr.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId が指定されていません");
-            return;
-        }
-
-        int saleId;
-        try {
-            saleId = Integer.parseInt(saleIdStr);
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId は整数である必要があります");
-            return;
+        SaleIdParamCheckService paramService = new SaleIdParamCheckService();
+        Integer saleId = paramService.check(request, response);
+        if (saleId == null) {
+            return; 
         }
 
         Sale sale = (new SaleService()).selectById(saleId);
@@ -68,45 +58,29 @@ public class S0022Servlet extends HttpServlet {
     /**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		// saleId パラメータのチェック
-        String saleIdStr = request.getParameter("saleId");
-        if (saleIdStr == null || saleIdStr.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId が指定されていません");
-            return;
-        }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        int saleId;
-        try {
-            saleId = Integer.parseInt(saleIdStr);
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "saleId は整数である必要があります");
-            return;
+        SaleIdParamCheckService paramService = new SaleIdParamCheckService();
+        Integer saleId = paramService.check(request, response);
+        if (saleId == null) {
+            return; 
         }
         
         String button = request.getParameter("button");
-		
-		// 権限チェック ログイン済み、権限あり（b'01'、b'11'）の場合 画面遷移
-        HttpSession session = request.getSession();
-        Login loginAccount = (Login) session.getAttribute("account");
-        if (loginAccount != null && ( loginAccount.getAuthority().equals("b'1'") || loginAccount.getAuthority().equals("b'11'"))) {
-        	
-        	if (button != null && !button.isEmpty()) {
-        		// buttonパラメータがない（もしくは空）の場合の処理
-        		switch (button) {
-        		case "edit":
-        			// 編集ボタンが押された時の処理
-        			response.sendRedirect("S0023.html?saleId=" + saleId);
-                	return;
-        			
-        		case "delete":
-        			// 削除ボタンが押された時の処理
-        			response.sendRedirect("S0025.html?saleId=" + saleId);
-                	return;
-        		}
+        if (button != null && !button.isEmpty()) {
+        	// buttonパラメータがない（もしくは空）の場合の処理
+        	switch (button) {
+        	case "edit":
+        		// 編集ボタンが押された時の処理
+        		response.sendRedirect("S0023.html?saleId=" + saleId);
+        		return;
+        		
+        	case "delete":
+        		// 削除ボタンが押された時の処理
+        		response.sendRedirect("S0025.html?saleId=" + saleId);
+        		return;
         	}
-        	
         }
         
         List<String> errors = new ArrayList<>();

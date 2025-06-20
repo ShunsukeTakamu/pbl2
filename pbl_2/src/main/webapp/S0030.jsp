@@ -9,103 +9,32 @@
 <title>アカウント登録</title>
 <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 <link rel="stylesheet" href="css/style.css">
+<script src="js/bootstrap.bundle.min.js"></script>
 <style>
 	
-    .form-container {
-       max-width: 600px;
-        margin: 50px auto;
-        padding: 0 20px;
-    }
-	.form-group {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1.5rem;
-    }
-    .form-group > label {
-    	width: 200px;
-    	text-align: right;
-    	display: flex;
-    	align-items: center;
-    	justify-content: flex-end;
-    	margin-right: 15px;
-    	gap: 6px;
-	}
-	.input-field {
-    	flex: 1;
-    	padding: 8px;
-        font-size: 14px;
-        border-radius: 4px;
-        border: 1px solid #ced4da;
-        min-width: 200px;
-	}
-    .required {
-         background-color: #666;
-        color: #fff;
-        font-size: 12px;
-        padding: 2px 6px;
-        border-radius: 12px;
-        margin-left: 10px;
-    } 
-    .roles {
-        display: flex;
-        align-items: center;
-        gap: 10px; 
-    }
-    .roles label {
-        margin-right: 6px;
-    }
-    .submit-btn {
-        text-align: center;
-        margin-top: 20px;
-    }
-    .submit-btn button {
-        padding: 8px 20px;
-        font-size: 14px;
-        background-color: #337ab7;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    .submit-btn button:hover {
-       background-color: #286090;
-    }
-    .alert ul {
+   form {
+    max-width: 600px;
+    margin: 0 auto;
+  	}
+  .alert ul {
 		margin-bottom: 0;
 		padding-left: 1.2rem;
 	}
 	.alert li {
 		margin-bottom: 0;
 	}
-    @media screen and (max-width: 768px) {
-        h1 {
-            text-align: center;
-        }
-
-        .form-group {
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        .form-group > label {
-            width: 100%;
-            text-align: left;
-            justify-content: flex-start;
-            margin-bottom: 5px;
-        }
-
-        .input-field {
-            width: 100%;
-        }
-
-        .roles {
-            flex-direction: column;
-            align-items: flex-start;
-        }
+   @media (max-width: 768px) {
+        .col-md-3, .col-md-9 {
+      width: 100% !important;
     }
+    .col-md-3 {
+      text-align: left !important;
+      margin-bottom: 0.25rem;
+    }
+  }
 </style>
 </head>
-<body class="register-page">
+<body>
 	<header>
 		<!-- ナビバーのインクルード -->
     	<jsp:include page="/navbar.jsp" />
@@ -128,39 +57,61 @@
     </div>
 	</c:if>
 	
-		<div class="form-group">
-			<label>氏名 <span class="required">必須</span></label>
-			<input type="text" name="name" class="input-field" placeholder="氏名" value="${fn:escapeXml(name)}">
-		</div>
-		<div class="form-group">
-			<label>メールアドレス <span class="required">必須</span></label>
-        	<input type="mail" name="mail" class="input-field" placeholder="メールアドレス" value="${fn:escapeXml(mail)}">
-		</div>
-		<div class="form-group">
-			 <label>パスワード <span class="required">必須</span></label>
-        	<input type="password" name="password" class="input-field" placeholder="パスワード" value="${fn:escapeXml(password)}">
-		</div>
-		<div class="form-group">
-			<label>パスワード（確認）<span class="required">必須</span></label>
-        	<input type="password" name="confirmPassword" class="input-field" placeholder="パスワード（確認）" value="${fn:escapeXml(confirmPassword)}">
-		</div>
-		<div class="form-group">
-			<label>権限 <span class="required">必須</span></label>
-			<div class="roles">
+		<div class="row align-items-center mb-3">
+		<label for="name" class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center gap-1">
+			氏名 <span class="badge bg-secondary">必須</span></label>
+			 <div class="col-12 col-md-9">
+       		 	<input type="text" name="name" id="name" class="form-control" value="${fn:escapeXml(name)}" placeholder="氏名">
+      		</div>
+    	</div>
+		<div class="row align-items-center mb-3">
+		<label for="mail" class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center gap-1" style="white-space: nowrap;">
+			メールアドレス <span class="badge bg-secondary">必須</span></label>
+        	<div class="col-12 col-md-9">
+        		<input type="mail" name="mail" id="mail" class="form-control" value="${fn:escapeXml(mail)}" placeholder="メールアドレス">
+      		</div>
+   		</div>
+		<div class="row align-items-center mb-3">
+		<label for="password" class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center gap-1">
+			 パスワード <span class="badge bg-secondary">必須</span></label>
+        	<div class="col-12 col-md-9">
+        		<input type="password" name="password" id="password" class="form-control" value="${fn:escapeXml(password)}" placeholder="パスワード">
+      		</div>
+    	</div>
+		<div class="row align-items-center mb-3">
+		<label for="confirmPassword" class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center gap-1">
+			パスワード（確認）<span class="badge bg-secondary">必須</span></label>
+        	<div class="col-12 col-md-9">
+        		<input type="password" name="confirmPassword" id="confirmPassword" class="form-control" value="${fn:escapeXml(confirmPassword)}" placeholder="パスワード（確認）">
+      		</div>
+    	</div>
+    	<c:set var="joinedAuthorities" value="${fn:join(authorities, ',')}" />
+		<div class="row align-items-center mb-3">
+		<label class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center">
+			権限 <span class="badge bg-secondary">必須</span></label>
+			<div class="col-12 col-md-9">
 			
-        	<label><input type="checkbox" name="authorities" value="0" id="authNone" <c:if test="${fn:contains(joinedAuthorities, '0')}">checked</c:if>> 権限なし</label>
-	        <label><input type="checkbox" name="authorities" value="1" id="authSales" <c:if test="${fn:contains(joinedAuthorities, '1')}">checked</c:if>> 売上登録</label>
-	        <label><input type="checkbox" name="authorities" value="2" id="authAccount"<c:if test="${fn:contains(joinedAuthorities, '2')}">checked</c:if>> アカウント登録</label>
-		</div>
-		</div>
-		<div class="submit-btn">
-        	<button type="submit">✔ 登録</button>
+        	<div class="form-check form-check-inline">
+          		<input class="form-check-input" type="checkbox" name="authorities" value="0" id="authNone" <c:if test="${fn:contains(joinedAuthorities, '0')}">checked</c:if>>
+          		<label class="form-check-label" for="authNone">権限なし</label>
+        	</div>
+       		 <div class="form-check form-check-inline">
+          		<input class="form-check-input" type="checkbox" name="authorities" value="1" id="authSales" <c:if test="${fn:contains(joinedAuthorities, '1')}">checked</c:if>>
+          		<label class="form-check-label" for="authSales">売上登録</label>
+        	</div>
+        	<div class="form-check form-check-inline">
+          		<input class="form-check-input" type="checkbox" name="authorities" value="2" id="authAccount" <c:if test="${fn:contains(joinedAuthorities, '2')}">checked</c:if>>
+          		<label class="form-check-label" for="authAccount">アカウント登録</label>
+        	</div>
+      	</div>
+    	</div>
+    	<div class="row">
+      		<div class="col-12 text-center">
+        		<button type="submit" class="btn btn-primary">✔ 登録</button>
+      		</div>
     	</div>
 	</form>
-	</div>
 	</main>
-	
-	<script src="js/bootstrap.bundle.min.js"></script>
 	
 	<!-- 権限チェックボックスの相互制御 -->
 <script>
