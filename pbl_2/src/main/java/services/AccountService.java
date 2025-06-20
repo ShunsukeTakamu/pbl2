@@ -130,6 +130,29 @@ public class AccountService {
 
 		return accounts;
 	}
+	public ArrayList<Account> selectValid() {
+		ArrayList<Account> accounts = new ArrayList<>();
+		String sql = "SELECT * FROM accounts WHERE 1=1;";
+
+		try (
+				Connection con = Db.open();
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)) {
+			while (rs.next()) {
+				Account a = new Account(
+						rs.getInt("account_id"),
+						rs.getString("name"),
+						rs.getString("mail"),
+						rs.getString("password"),
+						rs.getBytes("authority"));
+				accounts.add(a);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return accounts;
+	}
 
 	public Account selectById(int id) {
 		Account a = null;

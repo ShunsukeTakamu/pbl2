@@ -45,7 +45,7 @@ public class S0020Servlet extends HttpServlet {
 		Sale sale = new Sale(0, 0);
 		request.setAttribute("sale", sale);
 		SaleSearchForm saleSearchForm = new SaleSearchForm(0, 0);
-		ArrayList<Account> accounts = (new AccountService()).selectAll();
+		ArrayList<Account> accounts = (new AccountService()).selectValid();
 		ArrayList<Category> categories = (new CategoryService()).selectAll();
 		
 		request.setAttribute("saleSearchForm", saleSearchForm);

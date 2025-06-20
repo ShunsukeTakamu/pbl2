@@ -7,82 +7,92 @@ import forms.AccountSearchForm;
 
 public class SessionUtil {
 
+    // ===============================
     // 検索画面（S0040/S0041）用
-    // 検索条件フォームを保存するセッション属性名
-    private static final String ATTR_SEARCH_FORM = "searchAccountForm";
+    // ===============================
+
+    // 検索条件フォームのセッションキー
+    private static final String SEARCH_FORM_KEY = "searchAccountForm";
 
     /**
-     * 検索条件をセッションから削除
-     * 使用例：検索条件クリアボタン押下時（S0040Servlet）
+     * 検索条件をセッションから削除（検索条件クリア時に使用）
      */
     public static void clearSearchAccount(HttpSession session) {
-        session.removeAttribute(ATTR_SEARCH_FORM);
+        session.removeAttribute(SEARCH_FORM_KEY);
     }
 
     /**
      * 検索条件フォームをセッションに保存
-     * 使用例：検索ボタン押下後（S0040Servlet）
      */
     public static void saveSearchAccount(HttpSession session, AccountSearchForm form) {
-        session.setAttribute(ATTR_SEARCH_FORM, form);
+        session.setAttribute(SEARCH_FORM_KEY, form);
     }
 
     /**
-     * 検索条件フォームをセッションから取得
-     * 使用例：検索結果画面（S0041Servlet）
-     * セッション切れや初回アクセス時は空のフォームを返却
+     * セッションから検索条件フォームを取得
+     * セッションに存在しない場合は空のフォームを返す
      */
     public static AccountSearchForm getSearchAccount(HttpSession session) {
-        Object obj = session.getAttribute(ATTR_SEARCH_FORM);
+        Object obj = session.getAttribute(SEARCH_FORM_KEY);
 
         if (obj instanceof AccountSearchForm form) {
             System.out.println("[SessionUtil] 保存直前: name=" + form.getName() + ", email=" + form.getEmail());
-            session.setAttribute("searchAccountForm", form);
-            System.out.println("[SessionUtil] 保存完了: " + session.getAttribute("searchAccountForm"));
+            session.setAttribute(SEARCH_FORM_KEY, form);
+            System.out.println("[SessionUtil] 保存完了: " + session.getAttribute(SEARCH_FORM_KEY));
             return form;
         }
 
-        return new AccountSearchForm(); // 初回アクセスやセッション切れ時のデフォルト
+        return new AccountSearchForm(); // 初回アクセスやセッション切れ時
     }
 
-    // 登録画面（S0030）用（入力保持)
+    // ===============================
+    // 登録画面（S0030）用：入力保持
+    // ===============================
 
     /**
-     * 登録フォームの入力値を個別にクリア
-     * 使用例：登録完了後などの初期化
+     * 登録フォームの各項目を個別にセッションから削除（登録完了後などに使用）
      */
     public static void clearAccountForm(HttpSession session) {
-        session.removeAttribute("name");
-        session.removeAttribute("mail");
-        session.removeAttribute("password");
-        session.removeAttribute("confirmPassword");
-        session.removeAttribute("authorities");
+        session.removeAttribute(FORM_NAME);
+        session.removeAttribute(FORM_MAIL);
+        session.removeAttribute(FORM_PASSWORD);
+        session.removeAttribute(FORM_CONFIRM_PASSWORD);
+        session.removeAttribute(FORM_AUTHORITIES);
     }
 
     /**
-     * 登録フォームの入力値を個別に保存
-     * - 使用例：バリデーションエラー後に入力内容を再表示（S0030Servlet）
+     * 登録フォームの各項目をセッションに保存（バリデーションエラー時など）
      */
-    public static void saveAccountForm(HttpSession session, String name, String mail, String password, String confirmPassword, String[] authorities) {
-        session.setAttribute("name", name);
-        session.setAttribute("mail", mail);
-        session.setAttribute("password", password);
-        session.setAttribute("confirmPassword", confirmPassword);
-        session.setAttribute("authorities", authorities);
+    public static void saveAccountForm(HttpSession session,
+                                       String name,
+                                       String mail,
+                                       String password,
+                                       String confirmPassword,
+                                       String[] authorities) {
+        session.setAttribute(FORM_NAME, name);
+        session.setAttribute(FORM_MAIL, mail);
+        session.setAttribute(FORM_PASSWORD, password);
+        session.setAttribute(FORM_CONFIRM_PASSWORD, confirmPassword);
+        session.setAttribute(FORM_AUTHORITIES, authorities);
     }
 
     /**
-     * 登録フォーム（AccountForm）の内容を保存（オーバーロード）
-     * - 使用例：フォームクラスを直接扱うケース
+     * AccountForm を使ってセッションに保存（オーバーロード）
      */
     public static void saveAccountForm(HttpSession session, AccountForm form) {
-        saveAccountForm(session, form.getName(), form.getMail(), form.getPassword(), form.getConfirmPassword(), form.getAuthorities());
+        saveAccountForm(session, form.getName(),
+                              form.getMail(),
+                              form.getPassword(),
+                              form.getConfirmPassword(),
+                              form.getAuthorities());
     }
 
-    // 定数定義（HTMLでの sessionScope アクセス時に使用)
-    public static final String ATTR_FORM_NAME = "name";
-    public static final String ATTR_FORM_MAIL = "mail";
-    public static final String ATTR_FORM_PASSWORD = "password";
-    public static final String ATTR_FORM_CONFIRM_PASSWORD = "confirmPassword";
-    public static final String ATTR_FORM_AUTHORITIES = "authorities";
+    // ===============================
+    // JSP で使用される属性名（定数）
+    // ===============================
+    public static final String FORM_NAME = "name";
+    public static final String FORM_MAIL = "mail";
+    public static final String FORM_PASSWORD = "password";
+    public static final String FORM_CONFIRM_PASSWORD = "confirmPassword";
+    public static final String FORM_AUTHORITIES = "authorities";
 }

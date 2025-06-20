@@ -47,7 +47,7 @@ public class S0041Servlet extends HttpServlet {
 
 		// セット
 		FormUtil.setAccountSearchAttributes(request, form, accounts);
-		
+
 		request.getRequestDispatcher("/S0041.jsp").forward(request, response);
 	}
 

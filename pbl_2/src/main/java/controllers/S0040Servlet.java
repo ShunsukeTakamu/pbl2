@@ -1,4 +1,5 @@
 package controllers;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -14,38 +15,38 @@ import utils.SessionUtil;
 
 @WebServlet("/S0040.html")
 public class S0040Servlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    	
-        SessionUtil.clearSearchAccount(request.getSession());
-        request.getRequestDispatcher("/S0040.jsp").forward(request, response);
-    }
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
+		SessionUtil.clearSearchAccount(request.getSession());
+		request.getRequestDispatcher("/S0040.jsp").forward(request, response);
+	}
 
-        String action = request.getParameter("action");
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 
-        if ("clear".equals(action)) {
-            SessionUtil.clearSearchAccount(request.getSession());
-            request.getRequestDispatcher("/S0040.jsp").forward(request, response);
-            return;
-        }
+		String action = request.getParameter("action");
 
-        AccountSearchForm form = new AccountSearchForm(request);
-        Map<String, String> errors = AccountValidation.validate(form);
+		if ("clear".equals(action)) {
+			SessionUtil.clearSearchAccount(request.getSession());
+			request.getRequestDispatcher("/S0040.jsp").forward(request, response);
+			return;
+		}
 
-        if (!errors.isEmpty()) {
-            request.setAttribute("error", String.join("/", errors.values()));
-            request.getRequestDispatcher("/S0040.jsp").forward(request, response);
-            return;
-        }
+		AccountSearchForm form = new AccountSearchForm(request);
+		Map<String, String> errors = AccountValidation.validate(form);
 
-        // フォーム全体をセッションに保存
-        SessionUtil.saveSearchAccount(request.getSession(), form);
-        response.sendRedirect("S0041.html");
-    }
+		if (!errors.isEmpty()) {
+			request.setAttribute("error", String.join("/", errors.values()));
+			request.getRequestDispatcher("/S0040.jsp").forward(request, response);
+			return;
+		}
+
+		// フォーム全体をセッションに保存
+		SessionUtil.saveSearchAccount(request.getSession(), form);
+		response.sendRedirect("S0041.html");
+	}
 }
