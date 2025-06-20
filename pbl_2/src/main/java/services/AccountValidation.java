@@ -34,6 +34,7 @@ public class AccountValidation {
             form.getPasswordConfirm(),
             form.getAuthorities()
         );
+        
     }
 
     public static Map<String, String> validateForEdit(
