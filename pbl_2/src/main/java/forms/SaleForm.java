@@ -9,6 +9,7 @@ import utils.CommonUtil;
 
 @Data
 public class SaleForm {
+	private String saleIdStr;
 	private String saleDate;
 	private String accountIdStr;
 	private String categoryIdStr;
@@ -26,6 +27,7 @@ public class SaleForm {
 	}
 
 	public SaleForm(HttpServletRequest request) {
+		this.saleIdStr = request.getParameter("saleId");
 		this.saleDate = request.getParameter("saleDate");
         this.accountIdStr = request.getParameter("accountId");
         this.categoryIdStr = request.getParameter("categoryId");

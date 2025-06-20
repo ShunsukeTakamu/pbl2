@@ -1,11 +1,8 @@
 package controllers;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,10 +14,13 @@ import jakarta.servlet.http.HttpSession;
 import beans.Account;
 import beans.Category;
 import beans.Sale;
+import forms.SaleForm;
 import services.AccountService;
 import services.CategoryService;
 import services.SaleIdParamCheckService;
 import services.SaleService;
+import services.SaleValidation;
+import utils.ReturnPair;
 
 @WebServlet("/S0023.html")
 public class S0023Servlet extends HttpServlet {
@@ -59,112 +59,17 @@ public class S0023Servlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         // パラメータ取得
-        String saleIdStr = request.getParameter("saleId");
-        String saleDate = request.getParameter("saleDate");
-        String accountIdStr = request.getParameter("accountId");
-        String categoryIdStr = request.getParameter("categoryId");
-        String tradeName = request.getParameter("tradeName");
-        String unitPriceStr = request.getParameter("unitPrice");
-        String saleNumberStr = request.getParameter("saleNumber");
-        String note = request.getParameter("note");
+        SaleForm saleForm = new SaleForm(request);
 
-        List<String> errors = new ArrayList<>();
         AccountService as = new AccountService();
         CategoryService cs = new CategoryService();
 
-        int saleId = 0, accountId = 0, categoryId = 0;
-        int unitPrice = -1, saleNumber = -1;
-
-        try {
-            saleId = Integer.parseInt(saleIdStr);
-        } catch (NumberFormatException e) {
-            errors.add("不正なsaleIdです。");
-        }
-
-        if (saleDate == null || saleDate.isBlank()) {
-            errors.add("販売日を入力してください。");
-        } else {
-            try {
-                LocalDate.parse(saleDate); // 形式がISO_LOCAL_DATEであるか確認（例：2025-06-12）
-            } catch (DateTimeParseException e) {
-                errors.add("販売日を正しく入力して下さい。");
-            }
-        }
-
-
-        try {
-            accountId = Integer.parseInt(accountIdStr);
-            if (!as.existsById(accountId)) {
-                errors.add("アカウントテーブルに存在しません。");
-            }
-        } catch (NumberFormatException e) {
-            errors.add("担当が未選択です。");
-        }
-
-
-        try {
-            categoryId = Integer.parseInt(categoryIdStr);
-            if (!cs.existsById(categoryId)) {
-                errors.add("商品カテゴリーテーブルに存在しません。");
-            }
-        } catch (NumberFormatException e) {
-            errors.add("商品カテゴリーが未選択です。");
-        }
-
-        if (tradeName == null || tradeName.isBlank()) {
-            errors.add("商品名を入力してください。");
-        } else {
-            try {
-                if (tradeName.getBytes("UTF-8").length >= 101) {
-                    errors.add("商品名が長すぎます。");
-                }
-            } catch (Exception e) {
-                e.printStackTrace(); // 念のため
-            }
-        }
-        
-        // 単価チェック
-        if (unitPriceStr == null || unitPriceStr.trim().isEmpty()) {
-            errors.add("単価を入力してください。");
-        } else {
-
-        try {
-            unitPrice = Integer.parseInt(unitPriceStr);
-            if (unitPrice <= 0) errors.add("単価を入力してください。");
-        } catch (NumberFormatException e) {
-            errors.add("単価を正しく入力してください。");
-        }
-        }
-        
-        // 個数チェック
-        if (saleNumberStr == null || saleNumberStr.trim().isEmpty()) {
-            errors.add("個数を入力してください。");
-        } else {
-
-        try {
-            saleNumber = Integer.parseInt(saleNumberStr);
-            if (saleNumber <= 0) errors.add("個数を入力してください。");
-        } catch (NumberFormatException e) {
-            errors.add("個数を正しく入力してください。");
-        }
-        }
-
-        if (note != null && note.getBytes(StandardCharsets.UTF_8).length >= 401) {
-            errors.add("備考が長すぎます。");
-        }
+        ReturnPair returnPair = SaleValidation.validate(saleForm);
+        Sale sale = returnPair.getSale();
+        Map<String, String> errors = returnPair.getErrors();
 
         // エラーがあれば編集画面に戻す
         if (!errors.isEmpty()) {
-            Sale sale = new Sale();
-            sale.setSaleId(saleId);
-            sale.setSaleDate(LocalDate.parse(saleDate));
-            sale.setAccountId(accountId);
-            sale.setCategoryId(categoryId);
-            sale.setTradeName(tradeName);
-            sale.setUnitPrice(unitPrice);
-            sale.setSaleNumber(saleNumber);
-            sale.setNote(note);
-
             request.setAttribute("errors", errors);
             request.setAttribute("sale", sale);
             request.setAttribute("accounts", as.selectAll());
@@ -174,20 +79,10 @@ public class S0023Servlet extends HttpServlet {
         }
 
         // 確認画面へ進む：IDから名前を取得してセット
-        Sale sale = new Sale();
-        sale.setSaleId(saleId);
-        sale.setSaleDate(LocalDate.parse(saleDate));
-        sale.setAccountId(accountId);
-        sale.setCategoryId(categoryId);
-        sale.setTradeName(tradeName);
-        sale.setUnitPrice(unitPrice);
-        sale.setSaleNumber(saleNumber);
-        sale.setNote(note);
-
         HttpSession session = request.getSession();
         session.setAttribute("sale", sale);
-        session.setAttribute("selectedAccount", as.selectById(accountId));
-        session.setAttribute("selectedCategory", cs.selectById(categoryId));
+        session.setAttribute("selectedAccount", as.selectById(sale.getAccountId()));
+        session.setAttribute("selectedCategory", cs.selectById(sale.getCategoryId()));
         response.sendRedirect("S0024.html");
     }
 }

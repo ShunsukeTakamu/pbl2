@@ -15,6 +15,7 @@ public class SaleValidation {
 
 	// 0010
     public static ReturnPair validate(SaleForm form) throws IOException {
+    	String saleIdStr = form.getSaleIdStr();
     	String saleDateStr = form.getSaleDate();
         String accountIdStr = form.getAccountIdStr();
         String categoryIdStr = form.getCategoryIdStr();
@@ -24,7 +25,7 @@ public class SaleValidation {
         String note = form.getNote();
 
     	Map<String, String> errors = new HashMap<>();
-        int accountId = 0, categoryId = 0, unitPrice = -1, saleNumber = -1;
+        int accountId = 0, categoryId = 0, unitPrice = -1, saleNumber = -1, saleId = 0;
         LocalDate saleDate = null;
         
         // 販売日チェック
@@ -106,9 +107,18 @@ public class SaleValidation {
         if (note != null && note.getBytes("UTF-8").length >= 400) {
             errors.put("note", "備考が長すぎます。");
         }
+        
+        // saleIdチェック
+        if (saleIdStr != null && !saleIdStr.isBlank()) {
+        	try {
+	            saleId = Integer.parseInt(saleIdStr);
+	        } catch (NumberFormatException e) {
+	        	saleId = 0;
+	        }
+        }
 
         Sale sale = new Sale(
-                0,
+                saleId,
                 saleDate,
                 accountId,
                 categoryId,
