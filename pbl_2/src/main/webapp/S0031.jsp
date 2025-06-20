@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="utils.SessionUtil" %>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -39,10 +41,10 @@
 <body>
 <%
 	//セッションから入力内容を取得（POST前の一時保存用）
-	String name = (String) session.getAttribute("name");
-	String mail = (String) session.getAttribute("mail");
-	String password = (String) session.getAttribute("password");
-	String[] authorities = (String[]) session.getAttribute("authorities");
+	String name = (String) session.getAttribute(SessionUtil.ATTR_FORM_NAME);
+	String mail = (String) session.getAttribute(SessionUtil.ATTR_FORM_MAIL);
+	String password = (String) session.getAttribute(SessionUtil.ATTR_FORM_PASSWORD);
+	String[] authorities = (String[]) session.getAttribute(SessionUtil.ATTR_FORM_AUTHORITIES);
 %>
 	<header>
 		<!-- ナビバーのインクルード -->
@@ -103,6 +105,7 @@
 			<label class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center">
         	権限 <span class="badge bg-secondary">必須</span></label>
       		<div class="col-12 col-md-9">
+      		<div class="d-flex flex-wrap gap-3">
         	<div class="form-check">
           		<input class="form-check-input" type="checkbox" disabled <%= java.util.Arrays.asList(authorities).contains("0") ? "checked" : "" %>>
           		<label class="form-check-label">権限なし</label>

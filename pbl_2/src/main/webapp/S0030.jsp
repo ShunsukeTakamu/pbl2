@@ -61,28 +61,28 @@
 		<label for="name" class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center gap-1">
 			氏名 <span class="badge bg-secondary">必須</span></label>
 			 <div class="col-12 col-md-9">
-       		 	<input type="text" name="name" id="name" class="form-control" value="${fn:escapeXml(name)}" placeholder="氏名">
+       		 	<input type="text" name="name" id="name" class="form-control" value="${fn:escapeXml(name) != null ? fn:escapeXml(name) : ''}" placeholder="氏名">
       		</div>
     	</div>
 		<div class="row align-items-center mb-3">
 		<label for="mail" class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center gap-1" style="white-space: nowrap;">
 			メールアドレス <span class="badge bg-secondary">必須</span></label>
         	<div class="col-12 col-md-9">
-        		<input type="mail" name="mail" id="mail" class="form-control" value="${fn:escapeXml(mail)}" placeholder="メールアドレス">
+        		<input type="mail" name="mail" id="mail" class="form-control" value="${fn:escapeXml(mail) != null ? fn:escapeXml(mail) : ''}" placeholder="メールアドレス">
       		</div>
    		</div>
 		<div class="row align-items-center mb-3">
 		<label for="password" class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center gap-1">
 			 パスワード <span class="badge bg-secondary">必須</span></label>
         	<div class="col-12 col-md-9">
-        		<input type="password" name="password" id="password" class="form-control" value="${fn:escapeXml(password)}" placeholder="パスワード">
+        		<input type="password" name="password" id="password" class="form-control" value="${fn:escapeXml(password) != null ? fn:escapeXml(password) : ''}" placeholder="パスワード">
       		</div>
     	</div>
 		<div class="row align-items-center mb-3">
 		<label for="confirmPassword" class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center gap-1">
 			パスワード（確認）<span class="badge bg-secondary">必須</span></label>
         	<div class="col-12 col-md-9">
-        		<input type="password" name="confirmPassword" id="confirmPassword" class="form-control" value="${fn:escapeXml(confirmPassword)}" placeholder="パスワード（確認）">
+        		<input type="password" name="confirmPassword" id="confirmPassword" class="form-control" value="${fn:escapeXml(confirmPassword) != null ? fn:escapeXml(confirmPassword) : ''}" placeholder="パスワード（確認）">
       		</div>
     	</div>
     	<c:set var="joinedAuthorities" value="${fn:join(authorities, ',')}" />
