@@ -90,4 +90,35 @@ public class AccountValidation {
 
         return flags;
     }
+    
+ // 検索結果表示用の軽量バリデーション（0041）
+    public static Map<String, String> validateForResult(AccountSearchForm form) {
+        return validateForResult(form.getName(), form.getEmail(), form.getAuthorities());
+    }
+
+    public static Map<String, String> validateForResult(String name, String email, String[] authorities) {
+        Map<String, String> errors = new HashMap<>();
+
+        if (name != null && name.getBytes(StandardCharsets.UTF_8).length > 20) {
+            errors.put("name", "氏名が長すぎます（20バイト以内）");
+        }
+
+        if (email != null && email.getBytes(StandardCharsets.UTF_8).length > 100) {
+            errors.put("email", "メールアドレスが長すぎます（100バイト以内）");
+        }
+
+        // 権限値の妥当性チェック（0, 1, 2 以外が含まれていたらエラー）
+        if (authorities != null) {
+            for (String auth : authorities) {
+                if (!auth.matches("[0-2]")) {
+                    errors.put("authorities", "不正な権限値が含まれています。");
+                    break;
+                }
+            }
+        }
+
+        return errors;
+    }
+
+    
 }

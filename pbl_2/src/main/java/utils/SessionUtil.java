@@ -7,35 +7,24 @@ import forms.AccountSearchForm;
 public class SessionUtil {
 
     // 属性名定数
-    public static final String ATTR_SEARCH_NAME = "searchName";
-    public static final String ATTR_SEARCH_EMAIL = "searchEmail";
-    public static final String ATTR_SEARCH_AUTHORITIES = "searchAuthorities";
+    private static final String ATTR_SEARCH_FORM = "searchAccountForm";
 
     // 検索条件のクリア
     public static void clearSearchAccount(HttpSession session) {
-        session.removeAttribute(ATTR_SEARCH_NAME);
-        session.removeAttribute(ATTR_SEARCH_EMAIL);
-        session.removeAttribute(ATTR_SEARCH_AUTHORITIES);
+        session.removeAttribute(ATTR_SEARCH_FORM);
     }
 
-    // 検索条件の保存（個別値）
-    public static void saveSearchAccount(HttpSession session, String name, String email, String[] authorities) {
-        session.setAttribute(ATTR_SEARCH_NAME, name);
-        session.setAttribute(ATTR_SEARCH_EMAIL, email);
-        session.setAttribute(ATTR_SEARCH_AUTHORITIES, authorities);
-    }
-
-    // 検索条件の保存（フォーム型）
+    // 検索条件の保存（フォームごと保存）
     public static void saveSearchAccount(HttpSession session, AccountSearchForm form) {
-        saveSearchAccount(session, form.getName(), form.getEmail(), form.getAuthorities());
-    }
-    
-    public static AccountSearchForm getSearchAccount(HttpSession session) {
-    	Object obj = session.getAttribute("searchAccountForm");
-    	if (obj instanceof AccountSearchForm form) {
-    		return form;
-    	}
-    	return new AccountSearchForm(); // 空でも可（念のためnull回避）
+        session.setAttribute(ATTR_SEARCH_FORM, form);
     }
 
+    // 検索条件の取得
+    public static AccountSearchForm getSearchAccount(HttpSession session) {
+        Object obj = session.getAttribute(ATTR_SEARCH_FORM);
+        if (obj instanceof AccountSearchForm form) {
+            return form;
+        }
+        return new AccountSearchForm(); // セッション切れや初回アクセスにも対応
+    }
 }
