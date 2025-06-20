@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import beans.Account;
 import beans.Category;
 import beans.Sale;
-import beans.SaleSearchCond;
+import forms.SaleSearchForm;
 import services.AccountService;
 import services.CategoryService;
 import services.SaleService;
@@ -42,8 +42,8 @@ public class S0021Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		SaleSearchCond saleCond = (SaleSearchCond) session.getAttribute("saleCond");
-		List<Sale> sales = (new SaleService()).searchSales(saleCond);
+		SaleSearchForm saleSearchForm = (SaleSearchForm) session.getAttribute("saleSearchForm");
+		List<Sale> sales = (new SaleService()).searchSales(saleSearchForm);
 		
 		ArrayList<Account> accounts = (new AccountService()).selectAll();
 		ArrayList<Category> categories = (new CategoryService()).selectAll();

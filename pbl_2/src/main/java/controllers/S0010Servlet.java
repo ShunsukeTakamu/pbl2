@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import beans.Account;
 import beans.Category;
@@ -170,6 +171,7 @@ public class S0010Servlet extends HttpServlet {
         }
 
         // 正常時 → 確認画面へ
+        HttpSession session = request.getSession();
         session.setAttribute("sale", sale);
         response.sendRedirect("S0011.html");
 	}

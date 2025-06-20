@@ -15,7 +15,7 @@ import services.AccountService;
 import services.CategoryService;
 import services.SaleIdParamCheckService;
 import services.SaleService;
-import utils.DateUtil;
+import utils.CommonUtil;
 
 @WebServlet("/S0025.html")
 public class S0025Servlet extends HttpServlet {
@@ -36,7 +36,7 @@ public class S0025Servlet extends HttpServlet {
 		request.setAttribute("sale", sale);
 		request.setAttribute("selectedAccount", account);
 		request.setAttribute("selectedCategory", category);
-		request.setAttribute("formattedSaleDate", DateUtil.formatLocDateToStr(sale.getSaleDate()));
+		request.setAttribute("formattedSaleDate", CommonUtil.formatLocDateToStr(sale.getSaleDate()));
 		request.getRequestDispatcher("/S0025.jsp").forward(request, response);
 	}
 

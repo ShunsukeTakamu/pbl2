@@ -15,7 +15,7 @@ import services.AccountService;
 import services.CategoryService;
 import services.SaleIdParamCheckService;
 import services.SaleService;
-import utils.DateUtil;
+import utils.CommonUtil;
 
 @WebServlet("/S0022.html")
 public class S0022Servlet extends HttpServlet {
@@ -45,7 +45,7 @@ public class S0022Servlet extends HttpServlet {
         	accountName = (new AccountService()).selectById(sale.getAccountId()).getName();
         	categoryName = (new CategoryService()).selectById(sale.getCategoryId()).getCategoryName();
         	// 日付のフォーマットを整える
-            formattedDate = DateUtil.formatLocDateToStr(sale.getSaleDate());
+            formattedDate = CommonUtil.formatLocDateToStr(sale.getSaleDate());
         }
 
         request.setAttribute("sale", sale);
@@ -95,7 +95,7 @@ public class S0022Servlet extends HttpServlet {
         	accountName = (new AccountService()).selectById(sale.getAccountId()).getName();
         	categoryName = (new CategoryService()).selectById(sale.getCategoryId()).getCategoryName();
         	// 日付のフォーマットを整える
-            formattedDate = DateUtil.formatLocDateToStr(sale.getSaleDate());
+            formattedDate = CommonUtil.formatLocDateToStr(sale.getSaleDate());
         }
 
         request.setAttribute("sale", sale);
