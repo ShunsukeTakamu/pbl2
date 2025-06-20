@@ -47,14 +47,14 @@
 	<%-- チェックボックスの選択状態を JSTL で処理するためのセットアップ --%>
 	<c:set var="joinedAuthorities" value="${fn:join(authorities, ',')}" />
 	<form action="S0030.html" method="post">
-	<c:if test="${not empty errorMsg}">
-    <div class="alert alert-danger" style="margin-bottom: 1em;">
-        <ul>
-            <c:forEach var="msg" items="${errorMsg}">
-                <li>${msg}</li>
-            </c:forEach>
-        </ul>
-    </div>
+	<c:if test="${not empty errors}">
+  	<div class="alert alert-danger" style="margin-bottom: 1em;">
+    	<ul>
+     		<c:forEach var="msg" items="${errors.values()}">
+        		<li>${msg}</li>
+      		</c:forEach>
+    	</ul>
+  	</div>
 	</c:if>
 	
 		<div class="row align-items-center mb-3">

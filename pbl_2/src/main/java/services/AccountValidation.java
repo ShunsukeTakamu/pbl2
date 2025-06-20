@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import forms.AccountEditForm;
+import forms.AccountForm;
 import forms.AccountSearchForm;
 
 public class AccountValidation {
@@ -95,6 +96,8 @@ public class AccountValidation {
             errors.put("email", "メールアドレスを入力してください。");
         } else if (email != null && email.getBytes(StandardCharsets.UTF_8).length > 100) {
             errors.put("email", "メールアドレスが長すぎます（100バイト以内）。");
+        } else if (email != null && !email.matches("^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{1,}$")) {
+        	errors.put("email", "メールアドレスを正しく入力してください。");
         }
     }
 
@@ -126,4 +129,16 @@ public class AccountValidation {
             }
         }
     }
+    
+ // ========== 登録バリデーション（S0030用） ==========
+    public static Map<String, String> validateForRegister(AccountForm form) {
+        return validateForEdit(  
+            form.getName(),
+            form.getMail(),
+            form.getPassword(),
+            form.getConfirmPassword(),
+            form.getAuthorities()
+        );
+    }
+
 }
