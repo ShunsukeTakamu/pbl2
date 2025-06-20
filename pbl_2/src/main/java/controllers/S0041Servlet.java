@@ -14,6 +14,7 @@ import beans.Account;
 import forms.AccountSearchForm;
 import services.AccountService;
 import services.AccountValidation;
+import utils.FormUtil;
 import utils.SessionUtil;
 
 @WebServlet("/S0041.html")
@@ -44,11 +45,9 @@ public class S0041Servlet extends HttpServlet {
 			return;
 		}
 
-		request.setAttribute("accounts", accounts);
-		request.setAttribute("name", form.getName());
-		request.setAttribute("email", form.getEmail());
-		request.setAttribute("authorities", form.getAuthorities());
-
+		// セット
+		FormUtil.setAccountSearchAttributes(request, form, accounts);
+		
 		request.getRequestDispatcher("/S0041.jsp").forward(request, response);
 	}
 

@@ -47,7 +47,12 @@ public class S0042Servlet extends HttpServlet {
 
         // バリデーション処理
         Map<String, String> errors = AccountValidation.validateForEdit(form);
-        
+        if (!errors.isEmpty()) {
+            request.setAttribute("errors", errors);
+            FormUtil.setAccountFormAttributes(request, form, accountId);
+            request.getRequestDispatcher("S0042.jsp").forward(request, response);
+            return;
+        }
 
         // 権限フラグのセット
         Map<String, Boolean> flags = AccountValidation.resolveAuthorityFlags(form.getAuthorities());
@@ -63,4 +68,5 @@ public class S0042Servlet extends HttpServlet {
             request.getRequestDispatcher("S0043.jsp").forward(request, response);
         }
     }
+
 }
