@@ -2,7 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import beans.Account;
 import beans.Login;
 import services.AccountService;
+import services.AccountValidation;
 
 @WebServlet("/C0010.html")
 public class C0010 extends HttpServlet {
@@ -37,39 +38,24 @@ public class C0010 extends HttpServlet {
 		String mail = request.getParameter("mail");
 		String password = request.getParameter("password");
 
-		List<String> errors = new ArrayList<>();
+		// バリデーション共通化
+	    Map<String, String> errors = AccountValidation.validateForLogin(mail, password);
 
-		// バリデーション
-		if (mail == null || mail.trim().isEmpty()) {
-			errors.add("メールアドレスを入力してください。");
-		} else if (mail.getBytes("UTF-8").length >= 101) {
-			errors.add("メールアドレスが長すぎます。");
-		} else if (!mail.matches("^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{1,}$")) {
-			errors.add("メールアドレスを正しく入力してください。");
-		}
-
-		if (password == null || password.trim().isEmpty()) {
-			errors.add("パスワードが未入力です");
-		} else if (password.getBytes("UTF-8").length >= 31) {
-			errors.add("パスワードが長すぎます");
-		}
-
-		// バリデーションエラー
-		if (!errors.isEmpty()) {
-			request.setAttribute("errors", errors);
-			request.setAttribute("mail", mail);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
-			dispatcher.forward(request, response);
-			return;
-		}
+	    if (!errors.isEmpty()) {
+	        request.setAttribute("errors", new ArrayList<>(errors.values()));
+	        request.setAttribute("mail", mail);
+	        request.getRequestDispatcher("C0010.jsp").forward(request, response);
+	        return;
+	    }
 
 		// アカウント検索・認証
 		AccountService service = new AccountService();
 		Account account = service.findValidByMail(mail);
 
 		if (account == null || !account.getPassword().equals(password)) {
-			errors.add("メールアドレス、パスワードを正しく入力して下さい");
-			request.setAttribute("errors", errors);
+			var errorList = new ArrayList<String>();
+			errorList.add("メールアドレス、パスワードを正しく入力して下さい");
+			request.setAttribute("errors", errorList);
 			request.setAttribute("mail", mail);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("C0010.jsp");
 			dispatcher.forward(request, response);

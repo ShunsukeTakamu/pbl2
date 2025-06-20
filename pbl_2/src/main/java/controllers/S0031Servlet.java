@@ -22,18 +22,6 @@ import utils.Db;
 public class S0031Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-//	private static final String DB_URL = "jdbc:mariadb://192.168.5.172:3306/PBL";
-//    private static final String DB_USER = "root";
-//    private static final String DB_PASSWORD = "root";
-//    
-//    @Override
-//    public void init() throws ServletException {
-//        try {
-//            Class.forName("org.mariadb.jdbc.Driver");
-//        } catch (ClassNotFoundException e) {
-//            throw new ServletException("JDBCドライバの読み込みに失敗しました", e);
-//        }
-//    }
     
     /**
      * @see HttpServlet#HttpServlet()

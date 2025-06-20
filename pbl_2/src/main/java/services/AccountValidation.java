@@ -140,5 +140,25 @@ public class AccountValidation {
             form.getAuthorities()
         );
     }
+    
+ // ========== ログインバリデーション（C0010用） ==========
+    public static Map<String, String> validateForLogin(String email, String password) {
+        Map<String, String> errors = new HashMap<>();
 
+        if (email == null || email.isBlank()) {
+            errors.put("email", "メールアドレスを入力してください。");
+        } else if (email.getBytes(StandardCharsets.UTF_8).length > 100) {
+            errors.put("email", "メールアドレスが長すぎます（100バイト以内）。");
+        } else if (!email.matches("^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{1,}$")) {
+            errors.put("email", "メールアドレスを正しく入力してください。");
+        }
+
+        if (password == null || password.isBlank()) {
+            errors.put("password", "パスワードが未入力です");
+        } else if (password.getBytes(StandardCharsets.UTF_8).length > 30) {
+            errors.put("password", "パスワードが長すぎます（30バイト以内）。");
+        }
+
+        return errors;
+    }
 }
