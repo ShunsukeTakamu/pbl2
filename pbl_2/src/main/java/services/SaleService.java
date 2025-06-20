@@ -24,8 +24,8 @@ public class SaleService {
 	public List<Sale> searchSales(SaleSearchForm saleSearchForm) {
 		String dateStart = saleSearchForm.getDateStart();
 		String dateEnd = saleSearchForm.getDateEnd();
-		String accountId = String.valueOf(saleSearchForm.getAccountId());
-		String categoryId = String.valueOf(saleSearchForm.getCategoryId());
+		String accountId = saleSearchForm.getAccountIdStr();
+		String categoryId = saleSearchForm.getCategoryIdStr();
 		String tradeName = saleSearchForm.getTradeName();
 		String note = saleSearchForm.getNote();
 		

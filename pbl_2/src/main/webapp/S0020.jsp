@@ -66,8 +66,15 @@
 			<div class="alert alert-danger">
 				<ul>
 					<c:forEach var="err" items="${errors}">
-						<li>${err}</li>
+						<li>${err.value}</li>
 					</c:forEach>
+				</ul>
+			</div>
+		</c:if>
+		<c:if test="${not empty noResult}">
+			<div class="alert alert-danger">
+				<ul>
+					<li>${noResult}</li>
 				</ul>
 			</div>
 		</c:if>
@@ -83,18 +90,18 @@
 			<div class="form-group">
 				<label for="inputAccount_id">担当</label>
 				<select class="form-select wide-input" id="inputAccount_id" name="accountId">
-					<option value="0" <c:if test="${ saleSearchForm.accountId == 0 }">selected</c:if>>選択してください</option>
+					<option value="0" <c:if test="${ saleSearchForm.accountIdStr == 0 }">selected</c:if>>選択してください</option>
 					<c:forEach var="item" items="${ accounts }">
-						<option value="${ item.accountId }" <c:if test="${ saleSearchForm.accountId == item.accountId }">selected</c:if>><c:out value="${ item.name }" /></option>
+						<option value="${ item.accountId }" <c:if test="${ saleSearchForm.accountIdStr == item.accountId }">selected</c:if>><c:out value="${ item.name }" /></option>
 					</c:forEach>
 				</select>
 			</div>
 			<div class="form-group">
 				<label for="inputCategory_id">商品カテゴリー</label>
 				<select class="form-select wide-input" id="inputCategory_id" name="categoryId">
-					<option value="0" <c:if test="${ saleSearchForm.categoryId == 0 }">selected</c:if>>選択してください</option>
+					<option value="0" <c:if test="${ saleSearchForm.categoryIdStr == 0 }">selected</c:if>>選択してください</option>
 					<c:forEach var="item" items="${ categories }">
-						<option value="${ item.categoryId }" <c:if test="${ saleSearchForm.categoryId == item.categoryId }">selected</c:if>><c:out value="${ item.categoryName }" /></option>
+						<option value="${ item.categoryId }" <c:if test="${ saleSearchForm.categoryIdStr == item.categoryId }">selected</c:if>><c:out value="${ item.categoryName }" /></option>
 					</c:forEach>
 				</select>
 			</div>

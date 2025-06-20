@@ -20,6 +20,7 @@ import forms.SaleSearchForm;
 import services.AccountService;
 import services.CategoryService;
 import services.SaleService;
+import utils.CommonUtil;
 
 /**
  * Servlet implementation class S0021Servlet
@@ -43,8 +44,16 @@ public class S0021Servlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		SaleSearchForm saleSearchForm = (SaleSearchForm) session.getAttribute("saleSearchForm");
-		List<Sale> sales = (new SaleService()).searchSales(saleSearchForm);
+		List<Sale> sales = new ArrayList<>();
+		if(saleSearchForm != null) {
+			sales = (new SaleService()).searchSales(saleSearchForm);
+		}
 		
+		// 販売日 2015-01-15 を 2015/01/15 に変更
+	    List<String> formattedDates = sales.stream()
+	    		.map(s -> CommonUtil.formatLocDateToStr(s.getSaleDate()))
+	    		.collect(Collectors.toList());
+	    
 		ArrayList<Account> accounts = (new AccountService()).selectAll();
 		ArrayList<Category> categories = (new CategoryService()).selectAll();
 		// idとnameのMapに変換
@@ -58,6 +67,7 @@ public class S0021Servlet extends HttpServlet {
 						c -> c.getCategoryName()));
 		
 		request.setAttribute("saleList", sales);
+		request.setAttribute("formattedDates", formattedDates);
 		request.setAttribute("accountMap", accountMap);
 		request.setAttribute("categoryMap", categoryMap);
 		request.getRequestDispatcher("/S0021.jsp").forward(request, response);
