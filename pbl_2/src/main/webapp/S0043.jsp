@@ -82,6 +82,7 @@
 			<input type="hidden" name="name" value="${fn:escapeXml(name)}" />
 			<input type="hidden" name="email" value="${fn:escapeXml(email)}" />
 			<input type="hidden" name="password" value="${fn:escapeXml(password)}" />
+			<input type="hidden" name="passwordConfirm" value="${fn:escapeXml(password)}" />
 			<c:forEach var="auth" items="${authorities}">
 				<input type="hidden" name="authorities" value="${auth}" />
 			</c:forEach>

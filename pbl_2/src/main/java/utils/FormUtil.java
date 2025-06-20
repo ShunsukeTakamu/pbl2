@@ -28,4 +28,21 @@ public class FormUtil {
 		request.setAttribute("passwordConfirm", form.getPasswordConfirm());
 		request.setAttribute("authorities", form.getAuthorities());
 	}
+	// S0042 / S0044 権限ビットからチェックボックス表示状態を設定
+	public static void setAuthorityFlags(HttpServletRequest request, int authVal) {
+	    request.setAttribute("has0", authVal == 0);
+	    request.setAttribute("has1", (authVal & 1) != 0);
+	    request.setAttribute("has2", (authVal & 2) != 0);
+	}
+
+	public static void setAccountAttributesFromAccount(HttpServletRequest request, Account account, int authVal) {
+	    request.setAttribute("accountId", account.getAccountId());
+	    request.setAttribute("name", account.getName());
+	    request.setAttribute("email", account.getMail());
+	    request.setAttribute("password", account.getPassword());
+	    request.setAttribute("authorities", new String[]{String.valueOf(authVal)});
+	}
+
+
+	
 }

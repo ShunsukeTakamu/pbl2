@@ -8,45 +8,39 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import beans.Account;
 import services.AccountService;
+import utils.CommonUtil;
+import utils.FormUtil;
 
 @WebServlet("/S0044.html")
 public class S0044Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-//	private static final int id = 0;
 
-
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String idStr = request.getParameter("id");
-		if (idStr != null) {
-			try {
-				int id = Integer.parseInt(idStr);
-				AccountService service = new AccountService();
-				var account = service.selectById(id);
+		int id = CommonUtil.parseIntSafe(request.getParameter("id"), -1);
 
-				if (account != null) {
-					byte[] auth = account.getAuthority();
-					int authValue = auth[0] & 0xFF;
+		if (id != -1) {
+			AccountService service = new AccountService();
+			Account account = service.selectById(id);
 
-					request.setAttribute("accountId", account.getAccountId());
-					request.setAttribute("name", account.getName());
-					request.setAttribute("email", account.getMail());
-					request.setAttribute("password", account.getPassword());
-					request.setAttribute("authorities", new String[]{String.valueOf(authValue)});
-					request.setAttribute("has0", authValue == 0);
-					request.setAttribute("has1", (authValue & 1) != 0);
-					request.setAttribute("has2", (authValue & 2) != 0);
-				}
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
+			if (account != null) {
+				int authVal = CommonUtil.byteToUnsignedInt(account.getAuthority()[0]);
+				FormUtil.setAccountAttributesFromAccount(request, account, authVal);
+				FormUtil.setAuthorityFlags(request, authVal);
+
 			}
+		} else {
+			request.setAttribute("error", "無効なアカウントIDです。");
 		}
+
 		request.getRequestDispatcher("S0044.jsp").forward(request, response);
 	}
 
-
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -54,14 +48,13 @@ public class S0044Servlet extends HttpServlet {
 
 		try {
 			int id = Integer.parseInt(accountId);
-			
-			
+
 			AccountService service = new AccountService();
 			service.deleteAccount(id);
-			
+
 			request.getSession().setAttribute("delete", "アカウントが削除されました。");
 			response.sendRedirect("S0041.html");
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", "アカウント削除に失敗しました。");
