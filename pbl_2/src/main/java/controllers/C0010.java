@@ -83,7 +83,7 @@ public class C0010 extends HttpServlet {
 				account.getName(),
 				account.getMail(),
 				account.getPassword(),
-				new String(account.getAuthority()) // or 適切な形式で
+				new String(account.getAuthority())
 		);
 		session.setAttribute("account", login);
 
