@@ -11,6 +11,32 @@ import beans.Account;
 import utils.Db;
 
 public class AccountService {
+	
+	// ログイン時
+	public Account findValidByMail(String mail) {
+	    String sql = "SELECT * FROM accounts WHERE mail = ?";
+	    try (Connection con = Db.open();
+	         PreparedStatement ps = con.prepareStatement(sql)) {
+	        ps.setString(1, mail);
+	        ResultSet rs = ps.executeQuery();
+	        if (rs.next()) {
+	            if (!rs.getBoolean("is_valid")) {
+	                return null; // 論理削除済みアカウントはログイン不可
+	            }
+	            return new Account(
+	                    rs.getInt("account_id"),
+	                    rs.getString("name"),
+	                    rs.getString("mail"),
+	                    rs.getString("password"),
+	                    rs.getBytes("authority")
+	            );
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
+
 
 	// アカウント条件検索
 	public List<Account> searchAccounts(String name, String email, String[] authorities) {
@@ -177,7 +203,7 @@ public class AccountService {
 	
 	
 	public int getAccountCount() {
-	    String sql = "SELECT COUNT(*) FROM accounts";
+	    String sql = "SELECT COUNT(*) FROM accounts WHERE is_valid = TRUE;";
 	    try (Connection con = Db.open();
 	         PreparedStatement ps = con.prepareStatement(sql);
 	         ResultSet rs = ps.executeQuery()) {
