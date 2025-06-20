@@ -88,8 +88,7 @@ form {
 				<div class="input-group">
 					<input type="password" name="password" id="password"
 						class="form-control">
-					<button class="btn btn-outline-secondary" type="button"
-						onclick="togglePassword('password', this)">👁</button>
+					
 				</div>
 				<c:if test="${not empty errors.password}">
 					<div class="text-danger">${errors.password}</div>
@@ -102,8 +101,7 @@ form {
 				<div class="input-group">
 					<input type="password" name="passwordConfirm" id="passwordConfirm"
 						class="form-control">
-					<button class="btn btn-outline-secondary" type="button"
-						onclick="togglePassword('passwordConfirm', this)">👁</button>
+					
 				</div>
 				<c:if test="${not empty errors.passwordConfirm}">
 					<div class="text-danger">${errors.passwordConfirm}</div>
@@ -158,12 +156,7 @@ form {
 	</main>
 
 <script>
-function togglePassword(fieldId, btn) {
-  const field = document.getElementById(fieldId);
-  const isHidden = field.type === "password";
-  field.type = isHidden ? "text" : "password";
-  btn.textContent = isHidden ? "🙈" : "👁";
-}
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const checkNone = document.getElementById("authNone");

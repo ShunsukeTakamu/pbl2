@@ -96,10 +96,12 @@ public class AccountValidation {
             errors.put("email", "メールアドレスを入力してください。");
         } else if (email != null && email.getBytes(StandardCharsets.UTF_8).length > 100) {
             errors.put("email", "メールアドレスが長すぎます（100バイト以内）。");
-        } else if (email != null && !email.matches("^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{1,}$")) {
-        	errors.put("email", "メールアドレスを正しく入力してください。");
+        } else if (required && email != null && !email.matches("^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{1,}$")) {
+            // 正規表現チェックは「requiredのときだけ」に限定
+            errors.put("email", "メールアドレスを正しく入力してください。");
         }
     }
+
 
     private static void validatePassword(String password, String passwordConfirm, Map<String, String> errors) {
         if (password == null || password.isBlank()) {
