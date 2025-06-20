@@ -7,13 +7,20 @@ import lombok.Getter;
 
 @Getter
 public class AccountEditForm {
+
+	// S0042, S0043 で使用：アカウント更新時に hidden で渡される ID
 	private final String accountId;
+
+	// S0042, S0043 で使用：フォームから取得する各項目
     private final String name;
     private final String email;
     private final String password;
     private final String passwordConfirm;
     private final String[] authorities;
 
+    /**
+     * フォームの各値をリクエストから取得（S0042, S0043 の POST 処理で使用）
+     */
     public AccountEditForm(HttpServletRequest request) {
     	this.accountId = request.getParameter("accountId");
         this.name = request.getParameter("name");
@@ -23,7 +30,9 @@ public class AccountEditForm {
         this.authorities = request.getParameterValues("authorities");
     }
     
-    // S0043
+    /**
+     * フォーム内容を Account エンティティに変換（S0043Servlet にて DB更新用に使用）
+     */
     public Account toAccount() {
         byte authorityByte = 0;
         if (authorities != null) {
@@ -41,5 +50,4 @@ public class AccountEditForm {
 
         return account;
     }
-
 }
