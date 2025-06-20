@@ -10,63 +10,42 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import beans.Account;
+import forms.AccountSearchForm;
 import services.AccountService;
+import utils.SessionUtil;
 
-/**
- * Servlet implementation class C0041Servlet
- */
 @WebServlet("/S0041.html")
 public class S0041Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public S0041Servlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
 		request.setCharacterEncoding("UTF-8");
-		
-		String name = (String) request.getSession().getAttribute("searchName");
-		String email = (String) request.getSession().getAttribute("searchEmail");
-		String[] authorities = (String[]) request.getSession().getAttribute("searchAuthorities");
 
-//		System.out.println("セッションから取得: name=" + name);
-//		System.out.println("セッションから取得: email=" + email);
-//		System.out.println("セッションから取得: authorities=" + java.util.Arrays.toString(authorities));
+		// セッションからフォームデータを取得
+		AccountSearchForm form = SessionUtil.getSearchAccount(request.getSession());
 
-		// 複数取得
-	    AccountService service = new AccountService();
-	    List<Account> accounts = service.searchAccounts(name, email, authorities);
+		// サービス呼び出し
+		List<Account> accounts = new AccountService().searchAccounts(form.getName(), form.getEmail(), form.getAuthorities());
 
-	    if (accounts == null || accounts.isEmpty()) {
-	        request.setAttribute("noResult", "該当するアカウントがありませんでした。");
-	        request.getRequestDispatcher("S0040.jsp").forward(request, response);  // 検索画面に戻る
-	        return;
-	    }
-	    
-	    request.setAttribute("accounts", accounts);
-	    request.setAttribute("name", name);
-	    request.setAttribute("email", email);
-	    request.setAttribute("authorities", authorities);
-	    
-	    request.getRequestDispatcher("S0041.jsp").forward(request, response);
+		// 結果なしチェック
+		if (accounts == null || accounts.isEmpty()) {
+			request.setAttribute("noResult", "該当するアカウントがありませんでした。");
+			request.getRequestDispatcher("/S0040.jsp").forward(request, response);
+			return;
+		}
+
+		// 結果・検索条件をリクエストにセット
+		request.setAttribute("accounts", accounts);
+		request.setAttribute("name", form.getName());
+		request.setAttribute("email", form.getEmail());
+		request.setAttribute("authorities", form.getAuthorities());
+
+		request.getRequestDispatcher("/S0041.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

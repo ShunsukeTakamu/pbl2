@@ -29,4 +29,13 @@ public class SessionUtil {
     public static void saveSearchAccount(HttpSession session, AccountSearchForm form) {
         saveSearchAccount(session, form.getName(), form.getEmail(), form.getAuthorities());
     }
+    
+    public static AccountSearchForm getSearchAccount(HttpSession session) {
+    	Object obj = session.getAttribute("searchAccountForm");
+    	if (obj instanceof AccountSearchForm form) {
+    		return form;
+    	}
+    	return new AccountSearchForm(); // 空でも可（念のためnull回避）
+    }
+
 }
