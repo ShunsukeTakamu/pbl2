@@ -22,8 +22,13 @@ public class SessionUtil {
     // 検索条件の取得
     public static AccountSearchForm getSearchAccount(HttpSession session) {
         Object obj = session.getAttribute(ATTR_SEARCH_FORM);
+        
         if (obj instanceof AccountSearchForm form) {
+        	 System.out.println("[SessionUtil] 保存直前: name=" + form.getName() + ", email=" + form.getEmail());
+        	    session.setAttribute("searchAccountForm", form);
+        	    System.out.println("[SessionUtil] 保存完了: " + session.getAttribute("searchAccountForm"));
             return form;
+            
         }
         return new AccountSearchForm(); // セッション切れや初回アクセスにも対応
     }

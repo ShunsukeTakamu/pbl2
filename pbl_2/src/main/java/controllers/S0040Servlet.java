@@ -17,6 +17,7 @@ public class S0040Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+    	
         SessionUtil.clearSearchAccount(request.getSession());
         request.getRequestDispatcher("/S0040.jsp").forward(request, response);
     }
