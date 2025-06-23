@@ -8,6 +8,7 @@
 	<title>売上検索条件入力|物品売上管理システム</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="css/style.css">
+	<script src="js/bootstrap.bundle.min.js"></script>
 	<style>
 		.form-group { display: flex; align-items: center; margin-bottom: 1rem; }
 		.form-group label { width: 200px; margin-right: 10px; text-align: right; }	
