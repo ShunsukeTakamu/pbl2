@@ -32,6 +32,28 @@ public class CategoryService {
 		return categories;
 	}
 	
+	public ArrayList<Category> selectWithActive() {
+		ArrayList<Category> categories = new ArrayList<>();
+		String sql = "SELECT * FROM categories WHERE active_flg = 1";
+
+		try (
+				Connection con = Db.open();
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)) {
+			while (rs.next()) {
+				Category c = new Category(
+						rs.getInt("category_id"),
+						rs.getString("category_name"),
+						rs.getInt("active_flg"));
+				categories.add(c);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return categories;
+	}
+	
 	public Category selectById(int id) {
 		Category c = null;
 		String sql = "SELECT * FROM categories WHERE category_id = ?";

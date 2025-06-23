@@ -44,8 +44,8 @@ public class S0010Servlet extends HttpServlet {
 		session.removeAttribute("sale");
 		LocalDate today = LocalDate.now();
 		SaleForm saleForm = new SaleForm(today, 0, 0, -1, -1);
-		ArrayList<Account> accounts = (new AccountService()).selectAll();
-		ArrayList<Category> categories = (new CategoryService()).selectAll();
+		ArrayList<Account> accounts = (new AccountService()).selectValid();
+		ArrayList<Category> categories = (new CategoryService()).selectWithActive();
 		
 		request.setAttribute("saleForm", saleForm);
 		request.setAttribute("accounts", accounts);
@@ -71,8 +71,8 @@ public class S0010Servlet extends HttpServlet {
         if (!errors.isEmpty()) {
             request.setAttribute("errors", errors);
             request.setAttribute("sale", sale);
-            request.setAttribute("accounts", (new AccountService()).selectAll());
-            request.setAttribute("categories", (new CategoryService()).selectAll());
+            request.setAttribute("accounts", (new AccountService()).selectValid());
+            request.setAttribute("categories", (new CategoryService()).selectWithActive());
             request.getRequestDispatcher("/S0010.jsp").forward(request, response);
             return;
         }

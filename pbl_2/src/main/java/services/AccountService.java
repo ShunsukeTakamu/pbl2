@@ -107,7 +107,7 @@ public class AccountService {
 		return list;
 	}
 
-	public ArrayList<Account> selectAll() {
+	public ArrayList<Account> selectValid() {
 		ArrayList<Account> accounts = new ArrayList<>();
 		String sql = "SELECT * FROM accounts WHERE is_valid = TRUE;";
 
@@ -130,7 +130,7 @@ public class AccountService {
 
 		return accounts;
 	}
-	public ArrayList<Account> selectValid() {
+	public ArrayList<Account> selectAll() {
 		ArrayList<Account> accounts = new ArrayList<>();
 		String sql = "SELECT * FROM accounts WHERE 1=1;";
 
