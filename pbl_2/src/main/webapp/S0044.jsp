@@ -71,7 +71,7 @@
 			<!-- ボタン -->
 			<div class="d-flex justify-content-center mt-4">
 				<button type="submit" class="btn btn-danger me-2">✔ 削除</button>
-				<a href="S0041.html" class="btn btn-secondary">キャンセル</a>
+				<a href="S0041.html" class="btn btn-outline-secondary">キャンセル</a>
 			</div>
 		</form>
 
