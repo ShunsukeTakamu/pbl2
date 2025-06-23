@@ -66,14 +66,12 @@
 				<label>単価</label>
 				<fmt:formatNumber value="${ sale.unitPrice }" type="number" groupingUsed="true" var="formattedPrice" />
 				<input type="text" class="form-control short-input" value="${ formattedPrice }" disabled>
-				<input type="hidden" name="unitPrice" value="${ sale.unitPrice }" />
 			</div>
 
 			<div class="form-group">
 				<label>個数</label>
 				<fmt:formatNumber value="${ sale.saleNumber }" type="number" groupingUsed="true" var="formattedNumber" />
 				<input type="text" class="form-control short-input" value="${ formattedNumber }" disabled>
-				<input type="hidden" name="saleNumber" value="${ sale.saleNumber }" />
 			</div>
 
 			<div class="form-group note-group">
