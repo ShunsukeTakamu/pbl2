@@ -29,15 +29,23 @@ public class FormUtil {
 		request.setAttribute("authorities", form.getAuthorities());
 
 		// 入力ミスやキャンセルの際の権限を設定
-		int authVal = 0;
-		for (String auth : form.getAuthorities()) {
-			if ("0".equals(auth)) {
-				authVal = 0;
-				break;
+		String[] authorities = form.getAuthorities();
+
+		if (authorities != null && authorities.length > 0) {
+			int authVal = 0;
+			for (String auth : authorities) {
+				if ("0".equals(auth)) {
+					authVal = 0;
+					break;
+				}
+				try {
+					authVal |= Integer.parseInt(auth);
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				}
 			}
-			authVal |= Integer.parseInt(auth);
+			request.setAttribute("authVal", authVal);
 		}
-		request.setAttribute("authVal", authVal);
 	}
 
 	// S0042Servlet / S0044Servlet: 権限ビットを個別の表示用フラグへ変換（JSP側チェックボックス制御用）

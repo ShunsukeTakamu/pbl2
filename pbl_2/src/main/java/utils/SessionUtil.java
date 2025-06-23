@@ -7,10 +7,7 @@ import forms.AccountSearchForm;
 
 public class SessionUtil {
 
-    // ===============================
     // 検索画面（S0040/S0041）用
-    // ===============================
-
     // 検索条件フォームのセッションキー
     private static final String SEARCH_FORM_KEY = "searchAccountForm";
 
@@ -36,22 +33,16 @@ public class SessionUtil {
         Object obj = session.getAttribute(SEARCH_FORM_KEY);
 
         if (obj instanceof AccountSearchForm form) {
-            System.out.println("[SessionUtil] 保存直前: name=" + form.getName() + ", email=" + form.getEmail());
             session.setAttribute(SEARCH_FORM_KEY, form);
-            System.out.println("[SessionUtil] 保存完了: " + session.getAttribute(SEARCH_FORM_KEY));
             return form;
         }
 
         return new AccountSearchForm(); // 初回アクセスやセッション切れ時
     }
 
-    // ===============================
     // 登録画面（S0030）用：入力保持
-    // ===============================
-
-    /**
-     * 登録フォームの各項目を個別にセッションから削除（登録完了後などに使用）
-     */
+    // 登録フォームの各項目を個別にセッションから削除（登録完了後などに使用）
+     
     public static void clearAccountForm(HttpSession session) {
         session.removeAttribute(FORM_NAME);
         session.removeAttribute(FORM_MAIL);
@@ -60,9 +51,7 @@ public class SessionUtil {
         session.removeAttribute(FORM_AUTHORITIES);
     }
 
-    /**
-     * 登録フォームの各項目をセッションに保存（バリデーションエラー時など）
-     */
+    // 登録フォームの各項目をセッションに保存（バリデーションエラー時など） 
     public static void saveAccountForm(HttpSession session,
                                        String name,
                                        String mail,
@@ -76,9 +65,7 @@ public class SessionUtil {
         session.setAttribute(FORM_AUTHORITIES, authorities);
     }
 
-    /**
-     * AccountForm を使ってセッションに保存（オーバーロード）
-     */
+     // AccountForm を使ってセッションに保存（オーバーロード）     
     public static void saveAccountForm(HttpSession session, AccountForm form) {
         saveAccountForm(session, form.getName(),
                               form.getMail(),
@@ -87,9 +74,7 @@ public class SessionUtil {
                               form.getAuthorities());
     }
 
-    // ===============================
     // JSP で使用される属性名（定数）
-    // ===============================
     public static final String FORM_NAME = "name";
     public static final String FORM_MAIL = "mail";
     public static final String FORM_PASSWORD = "password";
