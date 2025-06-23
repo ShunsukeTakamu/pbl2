@@ -20,7 +20,7 @@
 </head>
 <body>
 	<header>
-		<!-- ナビバーのインクルード -->
+
     	<jsp:include page="/navbar.jsp" />
 	</header>
 	<main>
@@ -126,11 +126,6 @@
 			</div>
 		</div>
 	</main>
-
-	<!-- Chart.js scripts remain unchanged -->
-	<!-- Chart.js config will be injected by JSP scriptlet as in original -->
-
-
 	<!--新規追加 担当者売上ランキング-->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -185,7 +180,7 @@ new Chart(ctxCategory, {
         beginAtZero: true,
         ticks: {
           callback: function(value) {
-            return '¥' + value.toLocaleString(); // カンマ付き円表示
+            return '¥' + value.toLocaleString();
           }
         }
       }
@@ -288,9 +283,5 @@ new Chart(ctx, {
   }
 });
 </script>
-	<!-- Initialization script -->
-	<!--	<script-->
-	<!--		src="//themes.materializecss.com/cdn/shop/t/1/assets/dashboard.min.js?v=4816808830627109061528498722"></script>-->
-
 </body>
 </html>
