@@ -63,7 +63,7 @@ public class S0010Servlet extends HttpServlet {
         // パラメータ取得
         SaleForm saleForm = new SaleForm(request);
         
-        ReturnPair returnPair = SaleValidation.validate(saleForm);
+        ReturnPair returnPair = SaleValidation.validateRegistration(saleForm);
         Sale sale = returnPair.getSale();
         Map<String, String> errors = returnPair.getErrors();
         

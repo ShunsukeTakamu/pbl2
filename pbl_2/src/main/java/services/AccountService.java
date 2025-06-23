@@ -209,7 +209,6 @@ public class AccountService {
 	    }
 	}
 
-	// S0010ConfirmServlet.java用
 	public boolean existsById(int id) {
 		try (Connection conn = Db.open()) {
 			String sql = "SELECT 1 FROM accounts WHERE account_id = ?";
@@ -221,10 +220,21 @@ public class AccountService {
 			e.printStackTrace();
 			return false;
 		}
-	// S0010ConfirmServlet.java用
 	}
-	
-	
+
+	public boolean isValidById(int id) {
+		try (Connection conn = Db.open()) {
+			String sql = "SELECT 1 FROM accounts WHERE account_id = ? AND is_valid = TRUE";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			return rs.next();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 	public int getAccountCount() {
 	    String sql = "SELECT COUNT(*) FROM accounts WHERE is_valid = TRUE;";
 	    try (Connection con = Db.open();
