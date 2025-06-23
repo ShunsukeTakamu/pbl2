@@ -43,11 +43,11 @@ public class S0010Servlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.removeAttribute("sale");
 		LocalDate today = LocalDate.now();
-		SaleForm saleForm = new SaleForm(today, 0, 0, -1, -1);
+		Sale sale = new Sale(today, 0, 0, -1, -1);
 		ArrayList<Account> accounts = (new AccountService()).selectValid();
 		ArrayList<Category> categories = (new CategoryService()).selectWithActive();
 		
-		request.setAttribute("saleForm", saleForm);
+		request.setAttribute("sale", sale);
 		request.setAttribute("accounts", accounts);
 		request.setAttribute("categories", categories);
 		request.getRequestDispatcher("/S0010.jsp").forward(request, response);
