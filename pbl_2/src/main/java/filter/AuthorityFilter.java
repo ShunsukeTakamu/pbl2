@@ -74,15 +74,13 @@ public class AuthorityFilter implements Filter {
 			return;
 		}
 
-		int required = protectedUrls.get(path); // ページに必要な権限を取得
+		int required = protectedUrls.get(path);
 
 		if ((userAuth & required) == 0) {
-			System.out.println("[AuthorityFilter] 権限が不足しています。");
 			response.sendRedirect(contextPath + "/accessDenied.jsp");
 			return;
 		}
 
-		// 通過OK
 		chain.doFilter(request, response);
 	}
 }

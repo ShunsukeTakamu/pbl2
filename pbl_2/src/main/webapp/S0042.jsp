@@ -1,11 +1,12 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>物品売上管理システム</title>
+<title>アカウント詳細編集 | 物品売上管理システム</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <script src="js/bootstrap.bundle.min.js"></script>
@@ -49,9 +50,9 @@ form {
 </style>
 </head>
 <body>
-<header>
+	<header>
 		<!-- ナビバーのインクルード -->
-    	<jsp:include page="/navbar.jsp" />
+		<jsp:include page="/navbar.jsp" />
 	</header>
 	<main class="container mt-5">
 		<h1>アカウント詳細編集</h1>
@@ -88,7 +89,7 @@ form {
 				<div class="input-group">
 					<input type="password" name="password" id="password"
 						class="form-control">
-					
+
 				</div>
 				<c:if test="${not empty errors.password}">
 					<div class="text-danger">${errors.password}</div>
@@ -101,7 +102,7 @@ form {
 				<div class="input-group">
 					<input type="password" name="passwordConfirm" id="passwordConfirm"
 						class="form-control">
-					
+
 				</div>
 				<c:if test="${not empty errors.passwordConfirm}">
 					<div class="text-danger">${errors.passwordConfirm}</div>
@@ -155,7 +156,7 @@ form {
 		</form>
 	</main>
 
-<script>
+	<script>
 
 
 document.addEventListener("DOMContentLoaded", () => {

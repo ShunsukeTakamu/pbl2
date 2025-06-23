@@ -29,7 +29,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold" href="#">物品売上管理システム</a>
+    <a class="navbar-brand fw-bold" href="C0020.html">物品売上管理システム</a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="メニュー切替">

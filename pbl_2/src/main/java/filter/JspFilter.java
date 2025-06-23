@@ -12,34 +12,31 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebFilter(
-	    urlPatterns = {"*.jsp"},
-	    dispatcherTypes = {DispatcherType.REQUEST}
-	)
-	public class JspFilter implements Filter {
+@WebFilter(urlPatterns = { "*.jsp" }, dispatcherTypes = { DispatcherType.REQUEST })
+public class JspFilter implements Filter {
 
-	    @Override
-	    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-	            throws IOException, ServletException {
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 
-	        HttpServletRequest req = (HttpServletRequest) request;
-	        HttpServletResponse res = (HttpServletResponse) response;
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse res = (HttpServletResponse) response;
 
-	        if (req.getDispatcherType() == DispatcherType.REQUEST) {
-	            String uri = req.getRequestURI();
+		if (req.getDispatcherType() == DispatcherType.REQUEST) {
+			String uri = req.getRequestURI();
 
-	            // リダイレクト先の accessDenied.jsp は除外
-	            if (uri.endsWith("accessDenied.jsp")) {
-	                chain.doFilter(request, response);
-	                return;
-	            }
+			// リダイレクト先の accessDenied.jsp は除外
+			if (uri.endsWith("accessDenied.jsp")) {
+				chain.doFilter(request, response);
+				return;
+			}
 
-	            String contextPath = req.getContextPath();
-	            res.sendRedirect(contextPath + "/accessDenied.jsp");
-	            return;
-	        }
+			String contextPath = req.getContextPath();
+			res.sendRedirect(contextPath + "/accessDenied.jsp");
+			return;
+		}
 
-	        // FORWARDなどは通す
-	        chain.doFilter(request, response);
-	    }
+		// FORWARDなどは通す
+		chain.doFilter(request, response);
 	}
+}

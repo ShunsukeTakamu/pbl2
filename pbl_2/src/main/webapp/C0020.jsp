@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ page import="java.util.List" %>
-<%@ page import="java.time.LocalDate" %>
+<%@ page import="java.util.List"%>
+<%@ page import="java.time.LocalDate"%>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -21,7 +21,7 @@
 <body>
 	<header>
 
-    	<jsp:include page="/navbar.jsp" />
+		<jsp:include page="/navbar.jsp" />
 	</header>
 	<main>
 		<div class="container mt-4">
@@ -187,7 +187,7 @@ new Chart(ctxCategory, {
     }
   }
 });
-
+// 総売り上げグラフ
 // 年別売上グラフのデータ作成
 const yearLabels = [
   <%if (saleDates != null) {

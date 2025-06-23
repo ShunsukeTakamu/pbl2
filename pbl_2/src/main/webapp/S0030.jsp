@@ -88,7 +88,7 @@
     	<c:set var="joinedAuthorities" value="${fn:join(authorities, ',')}" />
 		<div class="row align-items-center mb-3">
 		<label class="col-12 col-md-3 col-form-label text-start text-md-end d-flex justify-content-md-end align-items-center">
-			権限 <span class="badge bg-secondary">必須</span></label>
+			権限<span class="badge bg-secondary">必須</span></label>
 			<div class="col-12 col-md-9">
 			
         	<div class="form-check form-check-inline">

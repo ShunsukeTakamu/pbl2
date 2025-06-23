@@ -9,54 +9,32 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import services.AccountService;
 import services.SaleService;
 
-/**
- * Servlet implementation class C0020Servlet
- */
 @WebServlet("/C0020.html")
 public class C0020Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public C0020Servlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-
-		 // セッションの中身を確認するログ
-	    HttpSession session = request.getSession();
-	    System.out.println("===== セッションの中身確認 =====");
-	    System.out.println("account: " + session.getAttribute("account"));
-	    System.out.println("loginAuthority: " + session.getAttribute("loginAuthority"));
-	    System.out.println("searchAccountForm: " + session.getAttribute("searchAccountForm"));
-	    System.out.println("================================");
 		SaleService saleService = new SaleService();
-		// アカウント別
+
+		// アカウント別売上
 		Map<String, Integer> salesMap = saleService.getSalesByAccount();
 		request.setAttribute("accountNames", new ArrayList<>(salesMap.keySet()));
 		request.setAttribute("salesTotals", new ArrayList<>(salesMap.values()));
-		// 年別推移
+
+		// 年別売上推移
 		Map<String, Integer> yearMap = saleService.getSalesByYear();
 		request.setAttribute("saleYears", new ArrayList<>(yearMap.keySet()));
 		request.setAttribute("yearlyTotals", new ArrayList<>(yearMap.values()));
 
-		// 今年の売上と前年の売上を取得して比較
+		// 今年 vs 昨年 売上比較
 		int totalSales = saleService.getCurrentYearSales();
 		int previousSales = saleService.getPreviousYearSales();
-
 		int changeAmount = totalSales - previousSales;
 		double changeRate = previousSales == 0 ? 0 : (double) changeAmount / previousSales * 100;
 		boolean isIncrease = changeAmount >= 0;
@@ -65,34 +43,24 @@ public class C0020Servlet extends HttpServlet {
 		request.setAttribute("changeRate", Math.abs(changeRate));
 		request.setAttribute("isIncrease", isIncrease);
 
-
 		// 総売上
 		int allTimeSales = saleService.getTotalSales();
 		request.setAttribute("allTimeSales", allTimeSales);
 
-		// カテゴリー別
+		// カテゴリー別売上
 		Map<String, Integer> categoryMap = saleService.getSalesByCategory();
 		request.setAttribute("categoryNames", new ArrayList<>(categoryMap.keySet()));
 		request.setAttribute("categoryTotals", new ArrayList<>(categoryMap.values()));
 
-		AccountService accountService = new AccountService();
-		int accountCount = accountService.getAccountCount();
+		// 登録アカウント数
+		int accountCount = new AccountService().getAccountCount();
 		request.setAttribute("accountCount", accountCount);
-		
-		
-		System.out.println("[C0020] session id: " + session.getId());
-		
-		System.out.println("loginAuthority from session: " + session.getAttribute("loginAuthority"));
+
 		request.getRequestDispatcher("/C0020.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }
