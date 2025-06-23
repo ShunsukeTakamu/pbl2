@@ -57,7 +57,7 @@
                 <tr><th class="fw-bold ps-4">備考</th><td class="note-cell">${ sale.note }</td></tr>
             </table>
 
-            <div class="text-center mt-4">
+            <div class="text-center mt-4" style="margin-bottom: 50px;">
 
                 <form action="S0022.html" method="post" style="display: inline-block;">
                     <input type="hidden" name="saleId" value="${ sale.saleId }">

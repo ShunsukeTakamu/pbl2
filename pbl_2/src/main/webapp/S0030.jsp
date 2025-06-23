@@ -105,7 +105,7 @@
         	</div>
       	</div>
     	</div>
-    	<div class="row">
+    	<div class="row" style="margin-bottom: 50px;">
       		<div class="col-12 text-center">
         		<button type="submit" class="btn btn-primary">✔ 登録</button>
       		</div>

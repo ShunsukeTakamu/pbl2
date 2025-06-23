@@ -110,7 +110,7 @@ form {
 			</div>
 
 			<!-- ボタン -->
-			<div class="row">
+			<div class="row" style="margin-bottom: 50px;">
 				<div class="col-12 text-center">
 					<!-- 検索ボタン -->
 					<button type="submit" name="action" value="search"

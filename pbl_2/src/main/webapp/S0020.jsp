@@ -87,7 +87,7 @@
 				<label for="inputNote" class="pt-10">備考 <span class="badge bg-secondary">部分一致</span> </label>
 				<input type="text" class="form-control wide-input" id="inputNote" name="note" placeholder="備考" value="${ saleSearchForm.note }">
 			</div>
-			<div class="text-center mt-4">
+			<div class="text-center mt-4" style="margin-bottom: 50px;">
 				<button type="submit" class="btn btn-primary me-2">検索</button>
 				<button type="reset" class="btn btn-outline-secondary">クリア</button>
 			</div>
