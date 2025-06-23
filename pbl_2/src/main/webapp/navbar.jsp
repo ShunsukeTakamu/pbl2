@@ -14,13 +14,19 @@
   request.setAttribute("hasAccount", hasAccount);
 %>
 <style>
+.navbar-nav .nav-link {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
 .nav-link.active {
   background-color: #e9ecef;
   font-weight: bold;
+  margin-top:5px;
   border-radius: 0.375rem;
 }
+
 </style>
-<!-- ナビバー（Bootstrap対応） -->
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
   <div class="container-fluid">
     <a class="navbar-brand fw-bold" href="#">物品売上管理システム</a>
