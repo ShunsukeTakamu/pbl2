@@ -23,20 +23,14 @@
 <!-- ナビバー（Bootstrap対応） -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
   <div class="container-fluid">
-
-    <!-- 左：ロゴ -->
     <a class="navbar-brand fw-bold" href="#">物品売上管理システム</a>
 
-    <!-- ハンバーガーボタン -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="メニュー切替">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- 折りたたみ部分 -->
     <div class="collapse navbar-collapse" id="navbarNav">
-
-      <!-- 中央：リンク -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link ${fn:endsWith(uri, 'C0020.jsp') ? 'active' : ''}" href="C0020.html">ダッシュボード</a>
@@ -59,7 +53,6 @@
         </li>
       </ul>
 
-      <!-- 右：ログアウト -->
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link text-danger" href="logout">ログアウト</a>
