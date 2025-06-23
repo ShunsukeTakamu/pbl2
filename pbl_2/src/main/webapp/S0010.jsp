@@ -85,7 +85,7 @@
 				<label for="inputNote" class="pt-10">備考</label>
 				<textarea type="text" class="form-control wide-input" rows="5" id="inputNote" name="note" placeholder="備考"><c:out value="${ sale.note }" /></textarea>
 			</div>
-			<div class="text-center mt-4">
+			<div class="text-center mt-4 mb-5" style="margin-bottom: 50px;">
 				<input type="submit" class="btn btn-primary" value="✔ 登録" />
 			</div>
 		</form>

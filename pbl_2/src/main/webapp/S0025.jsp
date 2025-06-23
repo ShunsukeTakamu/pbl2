@@ -65,7 +65,7 @@
 				<textarea class="form-control wide-input" rows="3" disabled><c:out value="${ sale.note }" /></textarea>
 			</div>
 
-			<div class="text-center mt-4">
+			<div class="text-center mt-4" style="margin-bottom: 50px;">
 				<button type="submit" class="btn btn-danger me-2">✘ OK（削除）</button>
 				<button type="button" class="btn btn-outline-secondary" onclick="history.back()">キャンセル</button>
 			</div>

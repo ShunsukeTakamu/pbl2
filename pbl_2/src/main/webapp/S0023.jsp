@@ -104,7 +104,7 @@
 				<textarea class="form-control wide-input" rows="5" id="inputNote" name="note" placeholder="備考">${ sale.note }</textarea>
 			</div>
 
-			<div class="text-center mt-4">
+			<div class="text-center mt-4" style="margin-bottom: 50px;">
 				<button type="submit" class="btn btn-primary me-2">✔ 更新</button>
 				<a href="S0022.html?saleId=${ sale.saleId }" class="btn btn-outline-secondary">キャンセル</a>
 			</div>
