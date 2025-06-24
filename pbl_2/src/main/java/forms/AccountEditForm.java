@@ -44,7 +44,7 @@ public class AccountEditForm {
         Account account = new Account();
         account.setAccountId(Integer.parseInt(accountId));
         account.setName(name);
-        account.setMail(email);
+        account.setEmail(email);
         account.setPassword(password);
         account.setAuthority(new byte[]{authorityByte});
 

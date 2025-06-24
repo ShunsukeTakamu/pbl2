@@ -185,7 +185,7 @@ public class AccountService {
 				Connection con = Db.open();
 				PreparedStatement ps = con.prepareStatement(sql)) {
 			ps.setString(1, updated.getName());
-			ps.setString(2, updated.getMail());
+			ps.setString(2, updated.getEmail());
 			ps.setString(3, updated.getPassword()); // ハッシュ化しますか？
 			ps.setBytes(4, updated.getAuthority());
 			ps.setInt(5, updated.getAccountId());

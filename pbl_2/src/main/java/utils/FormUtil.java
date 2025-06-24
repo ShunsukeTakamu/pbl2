@@ -59,7 +59,7 @@ public class FormUtil {
 	public static void setAccountAttributesFromAccount(HttpServletRequest request, Account account, int authVal) {
 		request.setAttribute("accountId", account.getAccountId());
 		request.setAttribute("name", account.getName());
-		request.setAttribute("email", account.getMail());
+		request.setAttribute("email", account.getEmail());
 		request.setAttribute("password", account.getPassword());
 		request.setAttribute("authorities", new String[] { String.valueOf(authVal) });
 	}
