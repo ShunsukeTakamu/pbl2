@@ -77,7 +77,7 @@ public class AuthorityFilter implements Filter {
 		int required = protectedUrls.get(path);
 
 		if ((userAuth & required) == 0) {
-			response.sendRedirect(contextPath + "/accessDenied.jsp");
+			response.sendRedirect(contextPath + "/AccessDenied.html");
 			return;
 		}
 

@@ -23,16 +23,9 @@ public class JspFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 
 		if (req.getDispatcherType() == DispatcherType.REQUEST) {
-			String uri = req.getRequestURI();
-
-			// リダイレクト先の accessDenied.jsp は除外
-			if (uri.endsWith("accessDenied.jsp")) {
-				chain.doFilter(request, response);
-				return;
-			}
 
 			String contextPath = req.getContextPath();
-			res.sendRedirect(contextPath + "/accessDenied.jsp");
+			res.sendRedirect(contextPath + "/AccessDenied.html");
 			return;
 		}
 
