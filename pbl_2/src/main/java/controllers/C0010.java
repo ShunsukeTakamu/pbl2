@@ -67,7 +67,7 @@ public class C0010 extends HttpServlet {
 		Login login = new Login(
 				account.getAccountId(),
 				account.getName(),
-				account.getMail(),
+				account.getEmail(),
 				account.getPassword(),
 				new String(account.getAuthority())
 		);
