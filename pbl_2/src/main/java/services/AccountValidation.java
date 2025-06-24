@@ -50,7 +50,7 @@ public class AccountValidation {
         return errors;
     }
 
-    // ========== 検索結果表示用の軽量バリデーション（0041） ==========
+    // ========== 検索結果表示用のバリデーション（0041） ==========
     public static Map<String, String> validateForResult(AccountSearchForm form) {
         return validateForResult(form.getName(), form.getEmail(), form.getAuthorities());
     }

@@ -77,7 +77,6 @@ public class C0010 extends HttpServlet {
 		int authorityInt = account.getAuthority()[0] & 0xFF;
 		session.setAttribute("loginAuthority", authorityInt);
 
-		// ダッシュボードへ
 		response.sendRedirect("C0020.html");
 	}
 }

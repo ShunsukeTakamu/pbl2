@@ -24,10 +24,7 @@ public class S0042Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// アカウント情報の取得とリクエスト属性への設定
 		CommonUtil.setAccountAttributes(request);
-
-		// 編集画面にフォワード
 		request.getRequestDispatcher("S0042.jsp").forward(request, response);
 	}
 
@@ -40,37 +37,27 @@ public class S0042Servlet extends HttpServlet {
 		String accountId = request.getParameter("accountId");
 		AccountEditForm form = new AccountEditForm(request);
 
-		// 戻るボタン（バリデーション不要）
 		if ("back".equals(action)) {
 			FormUtil.setAccountFormAttributes(request, form, accountId);
 			request.getRequestDispatcher("S0042.jsp").forward(request, response);
 			return;
 		}
 
-		// バリデーション処理
 		Map<String, String> errors = AccountValidation.validateForEdit(form);
 		if (!errors.isEmpty()) {
-			// ▼ まとめ表示用のリストを生成
 			List<String> errorList = new ArrayList<>(errors.values());
 
-			// ▼ フィールド用・まとめ用それぞれセット
 			request.setAttribute("errors", errors);
 			request.setAttribute("errorsList", errorList);
 
-			// 入力内容を再表示
 			FormUtil.setAccountFormAttributes(request, form, accountId);
 			request.getRequestDispatcher("S0042.jsp").forward(request, response);
 			return;
 		}
-
-		// 権限フラグのセット（確認画面でチェック表示用）
 		Map<String, Boolean> flags = AccountValidation.resolveAuthorityFlags(form.getAuthorities());
 		flags.forEach(request::setAttribute);
 
-		// 確認画面への引き継ぎ
 		FormUtil.setAccountFormAttributes(request, form, accountId);
-
-		// 分岐して遷移
 		if ("delete".equals(action)) {
 			request.getRequestDispatcher("S0044.jsp").forward(request, response);
 		} else {
