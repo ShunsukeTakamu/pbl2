@@ -41,10 +41,10 @@
 <body>
 <%
 	//セッションから入力内容を取得（POST前の一時保存用）
-	String name = (String) session.getAttribute(SessionUtil.ATTR_FORM_NAME);
-	String mail = (String) session.getAttribute(SessionUtil.ATTR_FORM_MAIL);
-	String password = (String) session.getAttribute(SessionUtil.ATTR_FORM_PASSWORD);
-	String[] authorities = (String[]) session.getAttribute(SessionUtil.ATTR_FORM_AUTHORITIES);
+	String name = (String) session.getAttribute(SessionUtil.FORM_NAME);
+	String mail = (String) session.getAttribute(SessionUtil.FORM_MAIL);
+	String password = (String) session.getAttribute(SessionUtil.FORM_PASSWORD);
+	String[] authorities = (String[]) session.getAttribute(SessionUtil.FORM_AUTHORITIES);
 %>
 	<header>
 		<!-- ナビバーのインクルード -->
@@ -127,7 +127,7 @@
 
 		<div class="col-12 text-center">
         	<button type="submit" class="btn btn-primary me-2">OK</button>
-        	<button type="button" class="btn btn-outline-secondary" onclick="location.href='S0030.jsp?reset=true'">キャンセル</button>
+        	<button type="button" class="btn btn-outline-secondary" onclick="location.href='S0030.html?reset=true'">キャンセル</button>
       	</div>
     	</div>
 	</form>
