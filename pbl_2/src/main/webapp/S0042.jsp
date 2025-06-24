@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
@@ -49,6 +49,15 @@ form {
 }
 </style>
 </head>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    <c:if test="${not empty errorsList}">
+      const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+      errorModal.show();
+    </c:if>
+  });
+</script>
+
 <body>
 	<header>
 		<!-- ナビバーのインクルード -->
@@ -59,6 +68,15 @@ form {
 
 		<c:if test="${not empty successMessage }">
 			<div class="alert alert-success" role="alert">${successMessage }</div>
+		</c:if>
+		<c:if test="${not empty errorsList}">
+			<div class="alert alert-danger" role="alert">
+				<ul class="mb-0">
+					<c:forEach var="err" items="${errorsList}">
+						<li>${fn:escapeXml(err)}</li>
+					</c:forEach>
+				</ul>
+			</div>
 		</c:if>
 		<form action="S0042.html" method="post">
 			<input type="hidden" name="accountId" value="${account.accountId}" />
@@ -154,6 +172,7 @@ form {
 			</div>
 
 		</form>
+
 	</main>
 
 	<script>

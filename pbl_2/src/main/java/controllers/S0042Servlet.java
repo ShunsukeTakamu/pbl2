@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import jakarta.servlet.ServletException;
@@ -48,13 +50,20 @@ public class S0042Servlet extends HttpServlet {
 		// バリデーション処理
 		Map<String, String> errors = AccountValidation.validateForEdit(form);
 		if (!errors.isEmpty()) {
+			// ▼ まとめ表示用のリストを生成
+			List<String> errorList = new ArrayList<>(errors.values());
+
+			// ▼ フィールド用・まとめ用それぞれセット
 			request.setAttribute("errors", errors);
+			request.setAttribute("errorsList", errorList);
+
+			// 入力内容を再表示
 			FormUtil.setAccountFormAttributes(request, form, accountId);
 			request.getRequestDispatcher("S0042.jsp").forward(request, response);
 			return;
 		}
 
-		// 権限フラグのセット
+		// 権限フラグのセット（確認画面でチェック表示用）
 		Map<String, Boolean> flags = AccountValidation.resolveAuthorityFlags(form.getAuthorities());
 		flags.forEach(request::setAttribute);
 
@@ -68,5 +77,4 @@ public class S0042Servlet extends HttpServlet {
 			request.getRequestDispatcher("S0043.jsp").forward(request, response);
 		}
 	}
-
 }
