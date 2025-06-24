@@ -35,8 +35,7 @@ public class S0031Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher("S0031.jsp").forward(request, response);
 	}
 
 	/**
@@ -97,7 +96,7 @@ public class S0031Servlet extends HttpServlet {
         session.removeAttribute("password");
         session.removeAttribute("authorities");
         
-        response.sendRedirect("S0030.jsp");
+        response.sendRedirect("S0030.html");
 	}
 
 }

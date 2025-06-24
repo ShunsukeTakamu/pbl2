@@ -83,7 +83,7 @@ body {
 								</td>
 								<td>${user.accountId}</td>
 								<td>${user.name}</td>
-								<td>${user.mail}</td>
+								<td>${user.email}</td>
 								<td>${user.authorityLabel}</td>
 							</tr>
 						</c:forEach>

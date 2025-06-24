@@ -69,7 +69,7 @@ public class S0030 extends HttpServlet {
 		HttpSession session = request.getSession();
 		SessionUtil.saveAccountForm(session, form);
  
-		response.sendRedirect("S0031.jsp");
+		response.sendRedirect("S0031.html");
 	}
  
 }
