@@ -14,7 +14,7 @@ public class Account {
 
 	private int accountId;
 	private String name;
-	private String email;
+	private String mail;
 	private String password;
 	private byte[] authority;
 

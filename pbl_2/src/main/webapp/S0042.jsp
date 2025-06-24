@@ -77,7 +77,7 @@ form {
 				<label class="form-label">メールアドレス <span
 					class="badge bg-secondary">必須</span></label> <input type="email"
 					name="email" class="form-control"
-					value="${not empty param.email ? param.email : account.email}">
+					value="${not empty param.email ? param.email : account.mail}">
 				<c:if test="${not empty errors.email}">
 					<div class="text-danger">${errors.email}</div>
 				</c:if>

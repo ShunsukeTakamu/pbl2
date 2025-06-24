@@ -16,9 +16,11 @@
 <link rel="stylesheet" href="css/style.css">
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
 	<header>
+
 		<jsp:include page="/navbar.jsp" />
 	</header>
 	<main>
