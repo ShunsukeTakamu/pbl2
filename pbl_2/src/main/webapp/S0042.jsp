@@ -80,61 +80,40 @@ form {
 		</c:if>
 		<form action="S0042.html" method="post">
 			<input type="hidden" name="accountId" value="${account.accountId}" />
-
 			<div class="mb-3">
 				<label class="form-label">氏名 <span
 					class="badge bg-secondary">必須</span></label> <input type="text" name="name"
 					class="form-control"
 					value="${not empty param.name ? param.name : account.name}">
-				<c:if test="${not empty errors.name}">
-					<div class="text-danger">${errors.name}</div>
-				</c:if>
 			</div>
-
 			<div class="mb-3">
 				<label class="form-label">メールアドレス <span
 					class="badge bg-secondary">必須</span></label> <input type="email"
 					name="email" class="form-control"
 					value="${not empty param.email ? param.email : account.email}">
-				<c:if test="${not empty errors.email}">
-					<div class="text-danger">${errors.email}</div>
-				</c:if>
 			</div>
-
 			<div class="mb-3">
 				<label class="form-label">パスワード <span
 					class="badge bg-secondary">必須</span></label>
 				<div class="input-group">
 					<input type="password" name="password" id="password"
 						class="form-control">
-
 				</div>
-				<c:if test="${not empty errors.password}">
-					<div class="text-danger">${errors.password}</div>
-				</c:if>
 			</div>
-
 			<div class="mb-3">
 				<label class="form-label">パスワード（確認） <span
 					class="badge bg-secondary">必須</span></label>
 				<div class="input-group">
 					<input type="password" name="passwordConfirm" id="passwordConfirm"
 						class="form-control">
-
 				</div>
-				<c:if test="${not empty errors.passwordConfirm}">
-					<div class="text-danger">${errors.passwordConfirm}</div>
-				</c:if>
 			</div>
-
 			<c:set var="joinedAuthorities"
 				value="${fn:join(paramAuthorities, ',')}" />
 			<c:set var="hasParam" value="${not empty paramAuthorities}" />
-
 			<div class="mb-3">
+			
 				<label class="form-label">権限 </label>
-
-				<!-- 権限なし -->
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" type="checkbox" name="authorities"
 						value="0" id="authNone"
@@ -142,8 +121,6 @@ form {
 						<c:if test="${not hasParam and authVal == 0}">checked</c:if>>
 					<label class="form-check-label" for="authNone">権限なし</label>
 				</div>
-
-				<!-- 売上登録 -->
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" type="checkbox" name="authorities"
 						value="1" id="authSales"
@@ -151,8 +128,6 @@ form {
 						<c:if test="${not hasParam and (authVal == 1 or authVal == 3)}">checked</c:if>>
 					<label class="form-check-label" for="authSales">売上登録</label>
 				</div>
-
-				<!-- アカウント登録 -->
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" type="checkbox" name="authorities"
 						value="2" id="authAccount"
@@ -160,24 +135,14 @@ form {
 						<c:if test="${not hasParam and (authVal == 2 or authVal == 3)}">checked</c:if>>
 					<label class="form-check-label" for="authAccount">アカウント登録</label>
 				</div>
-
-				<c:if test="${not empty errors.authorities}">
-					<div class="text-danger">${errors.authorities}</div>
-				</c:if>
 			</div>
-
 			<div class="form-group d-flex" style="margin-left: 210px;">
 				<button type="submit" class="btn btn-primary me-2">更新</button>
 				<a href="S0041.html" class="btn btn-outline-secondary">キャンセル</a>
 			</div>
-
 		</form>
-
 	</main>
-
 	<script>
-
-
 document.addEventListener("DOMContentLoaded", () => {
   const checkNone = document.getElementById("authNone");
   const checkSales = document.getElementById("authSales");
@@ -221,8 +186,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 3000);
 });
 </script>
-
-
-
 </body>
 </html>

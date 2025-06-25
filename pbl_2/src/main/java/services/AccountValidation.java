@@ -2,6 +2,7 @@ package services;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import forms.AccountEditForm;
@@ -40,12 +41,12 @@ public class AccountValidation {
         String passwordConfirm,
         String[] authorities
     ) {
-        Map<String, String> errors = new HashMap<>();
+        Map<String, String> errors = new LinkedHashMap<>();
 
         validateName(name, errors, true);
         validateEmail(email, errors, true);
         validatePassword(password, passwordConfirm, errors);
-        validateAuthorities(authorities, errors, true, false);  // requireあり, 値検証なし
+        validateAuthorities(authorities, errors, true, false);
 
         return errors;
     }

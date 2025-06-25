@@ -216,22 +216,25 @@ new Chart(ctxLine, {
       fill: true,
       borderColor: 'rgba(54, 162, 235, 1)',
       backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      tension: 0.4
+      tension: 0.2
     }]
   },
   options: {
-    responsive: true,
-    scales: {
-      y: {
-        beginAtZero: true,
-        ticks: {
-          callback: function(value) {
-            return '¥' + value.toLocaleString();
-          }
-        }
-      }
-    }
-  }
+	  responsive: true,
+	  scales: {
+	    x: {
+	      type: 'category'
+	    },
+	    y: {
+	      beginAtZero: true,
+	      ticks: {
+	        callback: function(value) {
+	          return '¥' + value.toLocaleString();
+	        }
+	      }
+	    }
+	  }
+	}
 });
 
 // 担当者名のラベル
