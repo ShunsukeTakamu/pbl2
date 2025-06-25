@@ -48,7 +48,6 @@ public class C0010 extends HttpServlet {
 	        return;
 	    }
 
-		// アカウント検索・認証
 		AccountService service = new AccountService();
 		Account account = service.findValidByMail(mail);
 
@@ -62,7 +61,6 @@ public class C0010 extends HttpServlet {
 			return;
 		}
 
-		// 認証成功
 		HttpSession session = request.getSession();
 		Login login = new Login(
 				account.getAccountId(),
@@ -73,7 +71,6 @@ public class C0010 extends HttpServlet {
 		);
 		session.setAttribute("account", login);
 
-		// 権限ビットをintとして格納
 		int authorityInt = account.getAuthority()[0] & 0xFF;
 		session.setAttribute("loginAuthority", authorityInt);
 

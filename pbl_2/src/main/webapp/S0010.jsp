@@ -18,7 +18,6 @@
 	.short-input { width: 150px; }
 	.wide-input  { width: 300px; }
 	
-		/* ▼ エラー赤枠調整 */
 	.alert ul {
 		margin-bottom: 0;
 		padding-left: 1.2rem;
@@ -26,7 +25,6 @@
 	.alert li {
 		margin-bottom: 0;
 	}
-	/* エラー赤枠調整 */
 	</style>
 </head>
 <body>

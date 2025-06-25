@@ -22,13 +22,11 @@ public class LogoutServlet extends HttpServlet {
         response.setHeader("Pragma", "no-cache");
         response.setDateHeader("Expires", 0);
 
-        // セッション破棄
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
         }
 
-        // ログインページへリダイレクト
         response.sendRedirect("C0010.jsp");
     }
 }

@@ -44,7 +44,6 @@
 	<h1>アカウント登録</h1>
 	<div class="form-container">
 	
-	<%-- チェックボックスの選択状態を JSTL で処理するためのセットアップ --%>
 	<c:set var="joinedAuthorities" value="${fn:join(authorities, ',')}" />
 	<form action="S0030.html" method="post">
 	<c:if test="${not empty errors}">
@@ -113,21 +112,18 @@
 	</form>
 	</main>
 	
-	<!-- 権限チェックボックスの相互制御 -->
 <script>
 	document.addEventListener("DOMContentLoaded", () => {
     const checkNone = document.getElementById("authNone");
     const checkSales = document.getElementById("authSales");
     const checkAccount = document.getElementById("authAccount");
 
- 	// 状態に応じてチェックボックスの有効/無効を切り替える
     function updateUI() {
         const isNone = checkNone.checked;
         checkSales.disabled = isNone;
         checkAccount.disabled = isNone;
     }
 
- 	// 「権限なし」が選択されたとき、他のチェックを外す
     checkNone.addEventListener("change", () => {
         if (checkNone.checked) {
             checkSales.checked = false;
@@ -136,7 +132,6 @@
         updateUI();
     });
 
- 	// 他の権限が選択されたとき、「権限なし」のチェックを外す
     [checkSales, checkAccount].forEach(cb => {
         cb.addEventListener("change", () => {
             if (checkSales.checked || checkAccount.checked) {
@@ -146,7 +141,6 @@
         });
     });
 
- 	// 初期状態の調整
     updateUI();
 	});
 </script>

@@ -40,7 +40,6 @@
 </head>
 <body>
 <%
-	//セッションから入力内容を取得（POST前の一時保存用）
 	String name = (String) session.getAttribute(SessionUtil.FORM_NAME);
 	String mail = (String) session.getAttribute(SessionUtil.FORM_MAIL);
 	String password = (String) session.getAttribute(SessionUtil.FORM_PASSWORD);
